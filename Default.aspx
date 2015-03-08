@@ -10,9 +10,12 @@
 </asp:Content>
 <%-- Body Content --%>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <!-- set up the data source linked to the list of departments that will appear in the drop down
+         present the department name but get the userId as the value
+         -->
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:myConnectionString %>" 
-        SelectCommand="SELECT [deptCode] FROM [User]"></asp:SqlDataSource>
+        SelectCommand="SELECT [deptCode], [userId] FROM [User] order by [deptCode]"></asp:SqlDataSource>
     
     <div class="canister">
         <div class="canistertitle blue">
@@ -24,9 +27,10 @@
                     <label>Username</label>
                 </div>
                 <div class="col-md-12">
+                    <!-- bind the drop down of user names to the department data source -- display the department names, but return the userId -->
                     <asp:DropDownList ID="DropDownListDept" runat="server" 
                         DataSourceID="SqlDataSource1" DataTextField="deptCode" 
-                        DataValueField="deptCode" class="form-control text-center select">
+                        DataValueField="userId" class="form-control text-center select">
                     </asp:DropDownList>
                 </div>
                 <div class="text-center col-md-12">

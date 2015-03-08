@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Include references to all the system libraries being used
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,72 +14,81 @@ namespace Team11
 {
     public partial class _Default : System.Web.UI.Page
     {
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
            
         }
 
+        /// <summary>
+        /// Handles the Click event of the ButtonLogin control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ButtonLogin_Click(object sender, EventArgs e)
         {
-            /* Connect to database*/
-            SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["myConnectionString"].ToString());
-            conn.Open();
-            /* SQL Statement */
-            string checkuser = "select count(*) from [User] where deptCode='" + DropDownListDept.Text + "'";
-            SqlCommand com = new SqlCommand(checkuser, conn);
-            int temp = Convert.ToInt32(com.ExecuteScalar().ToString());
-            conn.Close();
-            if (temp == 1)
+            // Connect to database - put it in a using so that it gets cleaned up properly
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["myConnectionString"].ToString()))
             {
-                string page = "";
+                int userID = Convert.ToInt32(DropDownListDept.SelectedValue);
+
                 conn.Open();
-                string checkpassword = "Select password from [User] where deptCode='" + DropDownListDept.Text + "'";
-                SqlCommand passcom = new SqlCommand(checkpassword, conn);
-                /* Gets rid of the space if there is one e.g. by habit putting a space at the end*/
-                string password = passcom.ExecuteScalar().ToString().Replace(" ", "");
+                // Count how many users match - there should be only one. Lookup by ID not name
+                string checkuser = String.Format("select count(*) from [User] where userId={0}", userID);
+                SqlCommand countCmd = new SqlCommand(checkuser, conn);
+                int matchCount = Convert.ToInt32(countCmd.ExecuteScalar());
                 conn.Close();
-                if (password == TextBoxPassword.Text)
+
+                if (matchCount == 1)
                 {
-                    int userthing = DropDownListDept.SelectedIndex + 1;
-                    /* Error checking, will delete later */
+                    string page = "";
+                    conn.Open();
+                    // look up the users password so it can be compared to the entered value
+                    string checkpassword = String.Format("Select password from [User] where userId={0}", userID);
+                    SqlCommand passwordCmd = new SqlCommand(checkpassword, conn);
+                    // Gets rid of the space if there is one e.g. by habit putting a space at the end
+                    string password = passwordCmd.ExecuteScalar().ToString().Replace(" ", "");
+                    conn.Close();
 
-                    /* Connect to database*/
-                    SqlConnection conn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["myConnectionString"].ToString());
-                    conn2.Open();
-                    /* SQL Statement */
-                    string checkpref = "select defaultPage from [Preferences] where userID=1";
-                    SqlCommand com2 = new SqlCommand(checkpref, conn2);
-                    SqlDataReader read2 = com2.ExecuteReader();
-                    if (read2.Read())
+                    if (password == TextBoxPassword.Text)
                     {
-                        page = read2.GetString(0).ToString();
+                        // if the password is correct
+                        conn.Open();
+                        // see if the user has a preference page
+                        string checkpref = String.Format("select defaultPage from [Preferences] where userId={0}", userID);
+                        SqlCommand defaultCmd = new SqlCommand(checkpref, conn);
+                        SqlDataReader defaultReader = defaultCmd.ExecuteReader();
+
+                        if (defaultReader.Read())
+                            // If the user has a preference then read it, otherwise it will just default
+                            page = defaultReader.GetString(0);
+
+                        // determine what page to redirect to
+                        string redirectPage = "Availibility.aspx";
+                        switch (page)
+                        {
+                            case "Create":
+                                redirectPage = "CreateRequest.aspx";
+                                break;
+                            case "View":
+                                redirectPage = "ViewRequest.aspx";
+                                break;
+                        }
+
+                        conn.Close();
+                        // redirect after the databse connection has been closed
+                        Response.Redirect(String.Format("{0}?userID={1}", redirectPage, userID));
 
                     }
-                    if (page == "Create")
-                    {
-                        Response.Redirect("CreateRequest.aspx");
-                    };
-                    if (page == "View")
-                    {
-                        Response.Redirect("ViewRequest.aspx");
-                    };
-                    if (page == "Adhoc")
-                    {
-                        Response.Redirect("Availibility.aspx");
-                    }
-                    
-                    conn2.Close();
-                    
-                    
+                    else
+                        incorrect.Text = "Password is incorrect";
                 }
                 else
-                {
-                    incorrect.Text=("Password is incorrect");
-                }
-            }
-            else
-            {
-                incorrect.Text=("Username is incorrect");
+                    incorrect.Text = "Username is incorrect";
             }
         }
     }

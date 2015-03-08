@@ -13,17 +13,27 @@ namespace Team11
 {
     public partial class Preference : System.Web.UI.Page
     {
+        int userID = 0;
         int periodval;
         int hr24val;
         string locationval;
         string loadingval;
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            // read the userid from the querystring
+            userID = Convert.ToInt32(Request.QueryString["userID"]);
+
             if (!IsPostBack)
             {
                 SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                 conn.Open();
-                string preferencesquery = "SELECT period, hr24Format, defaultLocation, defaultPage, header1, header2, header3 FROM [Preferences] WHERE userID='1'";
+                string preferencesquery = String.Format("SELECT period, hr24Format, defaultLocation, defaultPage, header1, header2, header3 FROM [Preferences] WHERE userID = {0}", userID);
                 SqlCommand preferencessql = new SqlCommand(preferencesquery, conn);
                 SqlDataReader preferences = preferencessql.ExecuteReader();
                 if (preferences.Read())
@@ -69,6 +79,12 @@ namespace Team11
                 conn.Close();
             }
         }
+
+        /// <summary>
+        /// Handles the Click event of the Button1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Button1_Click(object sender, EventArgs e)
         {
             if (create.Checked)
@@ -98,7 +114,48 @@ namespace Team11
                 periodval = 0;
 
             SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-            string preferencesquerynew = "Update [Preferences] SET period=" + periodval + ", hr24Format=" + hr24val + ", defaultLocation='" + locationval + "', defaultPage='" + loadingval + "', header1='" + header1.SelectedValue + "', header2='" + header2.SelectedValue + "', header3='" + header3.SelectedValue + "' WHERE userID=1";
+            string preferencesExistsSql = String.Format("SELECT COUNT(*) FROM Preferences WHERE userID={0}", userID);
+            SqlCommand preferencessqlCmd = new SqlCommand(preferencesExistsSql, conn);
+            conn.Open();
+            int exists = Convert.ToInt32(preferencessqlCmd.ExecuteScalar());
+            conn.Close();
+
+            string preferencesquerynew = "";
+            if (exists == 1)
+            {
+                preferencesquerynew = String.Format(@"
+Update [Preferences] 
+SET period={0}, 
+    hr24Format={1}, 
+    defaultLocation='{2}', 
+    defaultPage='{3}', 
+    header1='{4}', 
+    header2='{5}', 
+    header3='{6}' 
+WHERE userID={7}",
+                                                        periodval,
+                                                        hr24val,
+                                                        locationval,
+                                                        loadingval,
+                                                        header1.SelectedValue,
+                                                        header2.SelectedValue,
+                                                        header3.SelectedValue,
+                                                        userID);
+            }
+            else
+            {
+                preferencesquerynew = String.Format(@"
+INSERT INTO [Preferences] (period, hr24Format, defaultLocation, defaultPage, header1, header2, header3, userID) 
+values ({0}, {1}, '{2}', '{3}', '{4}', '{5}', '{6}', {7})",
+                                                        periodval,
+                                                        hr24val,
+                                                        locationval,
+                                                        loadingval,
+                                                        header1.SelectedValue,
+                                                        header2.SelectedValue,
+                                                        header3.SelectedValue,
+                                                        userID);
+            }
             SqlCommand preferencessql = new SqlCommand(preferencesquerynew, conn);
             conn.Open();
             preferencessql.ExecuteNonQuery();

@@ -15,54 +15,67 @@ namespace Team11
     public partial class CreateRequest : System.Web.UI.Page
     {
 
-        int userID = 1;
+        int userID = 0;
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
+            // read the userid from the querystring
+            userID = Convert.ToInt32(Request.QueryString["userID"]);
 
+            if (!IsPostBack)
+            {   // if this is the initial page load, then ...
+
+                // populate the list of module codes as "code : name"
                 SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                 connect.Open();
 
-                string modulesql = "Select moduleCode, moduleTitle from [Module] where userID=" + userID;
+                string modulesql = String.Format("Select moduleCode, moduleTitle from [Module] where userID={0}", userID);
                 SqlCommand modulecommand = new SqlCommand(modulesql, connect);
                 SqlDataReader modules = modulecommand.ExecuteReader();
                 while (modules.Read())
                 {
                     string modulecode = modules.GetString(0);
                     string modulename = modules.GetString(1);
-                    string module = modulecode + " : " + modulename;
-                    DropDownList1.Items.Add(module);
+                    string module = String.Format("{0} : {1}", modulecode, modulename);
+                    DropDownListModules.Items.Add(module);
 
                 }
                 connect.Close();
-                connect.Open();
 
-                /* SQL to retrieve database data */
-                string preferencesquery = "SELECT period, hr24Format, defaultLocation FROM [Preferences] WHERE userID=" + userID;
-                SqlCommand preferencessql = new SqlCommand(preferencesquery, connect);
-                SqlDataReader preferences = preferencessql.ExecuteReader();
+                // read the user's preferences and then set up the display accordingly 
+                connect.Open();
+                string preferencesquery     = String.Format("SELECT period, hr24Format, defaultLocation FROM [Preferences] WHERE userID={0}", userID);
+                SqlCommand preferencessql   = new SqlCommand(preferencesquery, connect);
+                SqlDataReader preferences   = preferencessql.ExecuteReader();
                 if (preferences.Read())
                 {
                     /* Sets variables to retrieved data */
-                    int periodText;
-                    int hr24FormatText;
-                    string defaultLocationText;
-                    periodText = preferences.GetInt32(0);
-                    hr24FormatText = preferences.GetInt32(1);
-                    defaultLocationText = preferences.GetString(2);
+                    int periodText              = preferences.GetInt32(0);
+                    int hr24FormatText          = preferences.GetInt32(1);
+                    string defaultLocationText  = preferences.GetString(2);
 
                     //Sets default location
-                    if (defaultLocationText == "Central")
-                        RadioButtonList1.SelectedIndex = 0;
-                    else if (defaultLocationText == "East")
-                        RadioButtonList1.SelectedIndex = 1;
-                    else if (defaultLocationText == "West")
-                        RadioButtonList1.SelectedIndex = 2;
+                    switch (defaultLocationText)
+                    {
+                        case "Central":
+                            RadioButtonListParks.SelectedIndex = 0;
+                            break;
+                        case "East":
+                            RadioButtonListParks.SelectedIndex = 1;
+                            break;
+                        case "West":
+                            RadioButtonListParks.SelectedIndex = 2;
+                            break;
+                    }
 
                     //Set table column headers for periods
                     if (periodText == 1)
-                    {
+                    {   // if periods should be labelled by name ..
                         ButtonPeriod1.Text = "Period 1";
                         ButtonPeriod2.Text = "Period 2";
                         ButtonPeriod3.Text = "Period 3";
@@ -73,29 +86,23 @@ namespace Team11
                         ButtonPeriod8.Text = "Period 8";
                         ButtonPeriod9.Text = "Period 9";
                     }
-                    //Set column headers for times
-                    else if (periodText == 0)
-                    {
-                        //24 hour format
+                    else
+                    {   // else they will be labelled by time ..
+                        ButtonPeriod1.Text = "09:00 - 09:50";
+                        ButtonPeriod2.Text = "10:00 - 10:50";
+                        ButtonPeriod3.Text = "11:00 - 11:50";
+                        ButtonPeriod4.Text = "12:00 - 12:50";
+
                         if (hr24FormatText == 1)
-                        {
-                            ButtonPeriod1.Text = "09:00 - 09:50";
-                            ButtonPeriod2.Text = "10:00 - 10:50";
-                            ButtonPeriod3.Text = "11:00 - 11:50";
-                            ButtonPeriod4.Text = "12:00 - 12:50";
+                        {   // if 24 hour format ...
                             ButtonPeriod5.Text = "13:00 - 13:50";
                             ButtonPeriod6.Text = "14:00 - 14:50";
                             ButtonPeriod7.Text = "15:00 - 15:50";
                             ButtonPeriod8.Text = "16:00 - 16:50";
                             ButtonPeriod9.Text = "17:00 - 17:50";
                         }
-                        //12 hour format
-                        else if (hr24FormatText == 0)
+                        else
                         {
-                            ButtonPeriod1.Text = "09:00 - 09:50";
-                            ButtonPeriod2.Text = "10:00 - 10:50";
-                            ButtonPeriod3.Text = "11:00 - 11:50";
-                            ButtonPeriod4.Text = "12:00 - 12:50";
                             ButtonPeriod5.Text = "01:00 - 01:50";
                             ButtonPeriod6.Text = "02:00 - 02:50";
                             ButtonPeriod7.Text = "03:00 - 03:50";
@@ -105,27 +112,16 @@ namespace Team11
                     }
                 }
                 connect.Close();
-                connect.Open();
-                //Find all rooms
-                string findrooms = "Select roomName from [Room]";
-                SqlCommand roomscommand = new SqlCommand(findrooms, connect);
-                SqlDataReader rooms = roomscommand.ExecuteReader();
 
-                DropDownListRoomsAlt.Items.Add("Please Select");
-                DropDownListRooms.Items.Add("Please Select");
-                //Add the results to the dropdownlist
-                while (rooms.Read())
-                {
-                    DropDownListRooms.Items.Add(rooms.GetString(0).ToString());
-                    DropDownListRoomsAlt.Items.Add(rooms.GetString(0).ToString());
-                }
-                connect.Close();
+                // clear the room list button
+                RadioButtonListParks_SelectedIndexChanged(null, null);
             }
-            if (!IsPostBack)
-                RadioButtonList1_SelectedIndexChanged(null, null);
         }
 
-        public void SearchRooms()
+        /// <summary>
+        /// Searches the rooms.
+        /// </summary>
+        public void RebuildListOfRooms()
         {
             SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             conn.Open();
@@ -135,58 +131,43 @@ namespace Team11
             DropDownListRoomsAlt.Items.Clear();
             DropDownListRooms.Items.Add("Please select");
             DropDownListRoomsAlt.Items.Add("Please select");
-            /* Get the information from the page content */
-            string board = "";
-            string boardtwo = "";
-            string roomtype = RadioButtonListRoomType.Text;
 
+            // Get the information from the page content
             int buildingID = 0;
             string building = DropDownListBuildings.Text;
 
             if (building != "")
             {
-                string buildingidquery = "Select buildingID from [Building] where buildingName='" + building + "'";
+                string buildingidquery = String.Format("Select buildingID from [Building] where buildingName='{0}'", building);
                 SqlCommand buildingcommand = new SqlCommand(buildingidquery, conn);
-                buildingID = Convert.ToInt32(buildingcommand.ExecuteScalar().ToString());
+                buildingID = Convert.ToInt32(buildingcommand.ExecuteScalar());
             }
-            if (roomtype == "Lecture")
-            { roomtype = "1"; }
-            else if (roomtype == "Seminar")
-            { roomtype = "2"; }
-            string arrangement = RadioButtonListArrangement.Text;
-            if (arrangement == "Tiered")
-            { arrangement = "3"; }
-            else if (arrangement == "Flat")
-            { arrangement = "4"; }
-            string projector = RadioButtonListProjector.Text;
-            if (projector == "Data Projector")
-            { projector = "5"; }
-            else if (projector == "Double Projector")
-            { projector = "6"; }
-            if (CheckBoxCB.Checked == true)
-            { board = "7"; }
-            if (CheckBoxWB.Checked == true)
-            { boardtwo = "8"; }
-            int wheeli = RadioButtonListWheelchair.SelectedIndex;
-            int visualiseri = RadioButtonListVisualiser.SelectedIndex;
-            int computeri = RadioButtonListComputer.SelectedIndex;
-            string wheel;
-            string visualiser;
-            string computer;
-            if (wheeli == 0)
-                wheel = "9";
-            else
-                wheel = "";
-            if (visualiseri == 0)
-                visualiser = "10";
-            else
-                visualiser = "";
-            if (computeri == 0)
-                computer = "11";
-            else
-                computer = "";
 
-            /* Make SQL addition for if any facilities have been selected */
+            string roomtype = "";
+            if (RadioButtonListRoomType.Text == "Lecture") 
+                roomtype = "1";
+            else if (RadioButtonListRoomType.Text == "Seminar") 
+                roomtype = "2";
+
+            string arrangement = "";
+            if (RadioButtonListArrangement.Text == "Tiered")
+                arrangement = "3";
+            else if (RadioButtonListArrangement.Text == "Flat") 
+                arrangement ="4";
+
+            string projector = "";
+            if (RadioButtonListProjector.Text == "Data Projector")
+                projector = "5";
+            else if (RadioButtonListProjector.Text == "Double Projector")
+                projector = "6";
+
+            string board        = (CheckBoxCB.Checked == true) ? "7" : "";
+            string boardtwo     = (CheckBoxWB.Checked == true) ? "8" : "";
+            string wheel        = (RadioButtonListWheelchair.SelectedIndex == 0) ? "9" : "";
+            string visualiser   = (RadioButtonListVisualiser.SelectedIndex == 0) ? "10" : "";
+            string computer     = (RadioButtonListComputer.SelectedIndex == 0) ? "11" : "";
+
+            // Make SQL addition for if any facilities have been selected
             string facilitysql = "";
             if (roomtype != "")
                 facilitysql += " AND RoomID IN (SELECT DISTINCT RoomID FROM [RoomFacilities] WHERE facilityID = " + roomtype + ")";
@@ -208,25 +189,26 @@ namespace Team11
                 facilitysql += " AND [Building].buildingID=" + buildingID;
 
             string roomquery = "";
-            /* SQL to find rooms */
+            
             if (TextBoxCapacity.Text != "")
-            {
+            {   // adjust if there are capacity restructions
                 int number = 0;
                 bool isNumeric = int.TryParse(TextBoxCapacity.Text, out number);
                 if (isNumeric)
                 {
-                    roomquery = "SELECT roomName FROM [Room] LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID LEFT JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Room].capacity >='" + TextBoxCapacity.Text + "' AND [Park].parkName ='" + RadioButtonList1.Text + "'";
+                    roomquery = "SELECT roomName FROM [Room] LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID LEFT JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Room].capacity >='" + TextBoxCapacity.Text + "' AND [Park].parkName ='" + RadioButtonListParks.Text + "'";
                 }
                 else
-                    roomquery = "SELECT roomName FROM [Room] LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID LEFT JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Park].parkName ='" + RadioButtonList1.Text + "'";
+                    roomquery = "SELECT roomName FROM [Room] LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID LEFT JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Park].parkName ='" + RadioButtonListParks.Text + "'";
             }
             else
-                roomquery = "SELECT roomName FROM [Room] LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID LEFT JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Park].parkName ='" + RadioButtonList1.Text + "'";
-            /* Add facilities information if any were selected */
+                roomquery = "SELECT roomName FROM [Room] LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID LEFT JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Park].parkName ='" + RadioButtonListParks.Text + "'";
+
+            // Add facilities information if any were selected
             if (facilitysql != "")
                 roomquery += facilitysql;
 
-
+            // build the list of rooms into both the room and alt reoom drop down lists
             SqlCommand roomsql = new SqlCommand(roomquery, conn);
             SqlDataReader rooms = roomsql.ExecuteReader();
             while (rooms.Read())
@@ -237,7 +219,11 @@ namespace Team11
             conn.Close();
         }
 
-        //Submit Request button
+        /// <summary>
+        /// Handles the Click event of the Button1 control to submit the request
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Button1_Click(object sender, EventArgs e)
         {
             //VALIDATION
@@ -250,13 +236,18 @@ namespace Team11
                 {
                     if (!((LabelRoom3.Text == "None") && (LabelRoom2.Text == "None") && (LabelRoom1.Text == "None")))
                     {
-                        if (!((Week1.Checked == false) && (Week2.Checked == false) && (Week3.Checked == false) && (Week4.Checked == false) && (Week5.Checked == false) && (Week6.Checked == false) && (Week7.Checked == false) && (Week8.Checked == false) && (Week9.Checked == false) && (Week10.Checked == false) && (Week11.Checked == false) && (Week12.Checked == false) && (Week13.Checked == false) && (Week14.Checked == false) && (Week15.Checked == false)))
-                        {
-                            if (!((CheckBoxM1.Checked == false) && (CheckBoxM2.Checked == false) && (CheckBoxM3.Checked == false) && (CheckBoxM4.Checked == false) && (CheckBoxM5.Checked == false) && (CheckBoxM6.Checked == false) && (CheckBoxM7.Checked == false) && (CheckBoxM8.Checked == false) && (CheckBoxM9.Checked == false) && (CheckBoxT1.Checked == false) && (CheckBoxT2.Checked == false) && (CheckBoxT3.Checked == false) && (CheckBoxT4.Checked == false) && (CheckBoxT5.Checked == false) && (CheckBoxT6.Checked == false) && (CheckBoxT7.Checked == false) && (CheckBoxT8.Checked == false) && (CheckBoxT9.Checked == false) && (CheckBoxW1.Checked == false) && (CheckBoxW2.Checked == false) && (CheckBoxW3.Checked == false) && (CheckBoxW4.Checked == false) && (CheckBoxW5.Checked == false) && (CheckBoxW6.Checked == false) && (CheckBoxW7.Checked == false) && (CheckBoxW8.Checked == false) && (CheckBoxW9.Checked == false) && (CheckBoxJ1.Checked == false) && (CheckBoxJ2.Checked == false) && (CheckBoxJ3.Checked == false) && (CheckBoxJ4.Checked == false) && (CheckBoxJ5.Checked == false) && (CheckBoxJ6.Checked == false) && (CheckBoxJ7.Checked == false) && (CheckBoxJ8.Checked == false) && (CheckBoxJ9.Checked == false) && (CheckBoxF1.Checked == false) && (CheckBoxF2.Checked == false) && (CheckBoxF3.Checked == false) && (CheckBoxF4.Checked == false) && (CheckBoxF5.Checked == false) && (CheckBoxF6.Checked == false) && (CheckBoxF7.Checked == false) && (CheckBoxF8.Checked == false) && (CheckBoxF9.Checked == false)))
-                            {
+                        if (Week1.Checked || Week2.Checked || Week3.Checked || Week4.Checked || Week5.Checked || Week6.Checked || Week7.Checked || Week8.Checked || Week9.Checked || Week10.Checked || Week11.Checked || Week12.Checked || Week13.Checked || Week14.Checked || Week15.Checked)
+                        {   // if any week is checked (ticked) ...
+                            if (CheckBoxM1.Checked || CheckBoxM2.Checked || CheckBoxM3.Checked || CheckBoxM4.Checked || CheckBoxM5.Checked || CheckBoxM6.Checked || CheckBoxM7.Checked || CheckBoxM8.Checked || CheckBoxM9.Checked ||
+                                CheckBoxT1.Checked || CheckBoxT2.Checked || CheckBoxT3.Checked || CheckBoxT4.Checked || CheckBoxT5.Checked || CheckBoxT6.Checked || CheckBoxT7.Checked || CheckBoxT8.Checked || CheckBoxT9.Checked ||
+                                CheckBoxW1.Checked || CheckBoxW2.Checked || CheckBoxW3.Checked || CheckBoxW4.Checked || CheckBoxW5.Checked || CheckBoxW6.Checked || CheckBoxW7.Checked || CheckBoxW8.Checked || CheckBoxW9.Checked ||
+                                CheckBoxJ1.Checked || CheckBoxJ2.Checked || CheckBoxJ3.Checked || CheckBoxJ4.Checked || CheckBoxJ5.Checked || CheckBoxJ6.Checked || CheckBoxJ7.Checked || CheckBoxJ8.Checked || CheckBoxJ9.Checked ||
+                                CheckBoxF1.Checked || CheckBoxF2.Checked || CheckBoxF3.Checked || CheckBoxF4.Checked || CheckBoxF5.Checked || CheckBoxF6.Checked || CheckBoxF7.Checked || CheckBoxF8.Checked || CheckBoxF9.Checked
+                                )
+                            {   // if any weekday period is checked
 
                                 /* Get the module code from the selected module title */
-                                string moduleTitleText = DropDownList1.SelectedValue;
+                                string moduleTitleText = DropDownListModules.SelectedValue;
                                 string moduleCodeText = "";
                                 int charindex = moduleTitleText.IndexOf(":") - 1;
                                 if (charindex > 0)
@@ -268,86 +259,43 @@ namespace Team11
                                 int semesterText = 2;
 
                                 /*Initialise week variables*/
-                                int week1;
-                                int week2;
-                                int week3;
-                                int week4;
-                                int week5;
-                                int week6;
-                                int week7;
-                                int week8;
-                                int week9;
-                                int week10;
-                                int week11;
-                                int week12;
-                                int week13;
-                                int week14;
-                                int week15;
-                                /*Set week variable to 1 or 0 based on selection*/
-                                if (Week1.Checked == true)
-                                    week1 = 1;
-                                else
-                                    week1 = 0;
-                                if (Week2.Checked == true)
-                                    week2 = 1;
-                                else
-                                    week2 = 0;
-                                if (Week3.Checked == true)
-                                    week3 = 1;
-                                else
-                                    week3 = 0;
-                                if (Week4.Checked == true)
-                                    week4 = 1;
-                                else
-                                    week4 = 0;
-                                if (Week5.Checked == true)
-                                    week5 = 1;
-                                else
-                                    week5 = 0;
-                                if (Week6.Checked == true)
-                                    week6 = 1;
-                                else
-                                    week6 = 0;
-                                if (Week7.Checked == true)
-                                    week7 = 1;
-                                else
-                                    week7 = 0;
-                                if (Week8.Checked == true)
-                                    week8 = 1;
-                                else
-                                    week8 = 0;
-                                if (Week9.Checked == true)
-                                    week9 = 1;
-                                else
-                                    week9 = 0;
-                                if (Week10.Checked == true)
-                                    week10 = 1;
-                                else
-                                    week10 = 0;
-                                if (Week11.Checked == true)
-                                    week11 = 1;
-                                else
-                                    week11 = 0;
-                                if (Week12.Checked == true)
-                                    week12 = 1;
-                                else
-                                    week12 = 0;
-                                if (Week13.Checked == true)
-                                    week13 = 1;
-                                else
-                                    week13 = 0;
-                                if (Week14.Checked == true)
-                                    week14 = 1;
-                                else
-                                    week14 = 0;
-                                if (Week15.Checked == true)
-                                    week15 = 1;
-                                else
-                                    week15 = 0;
+                                int week1 = (Week1.Checked == true) ? 1 : 0;
+                                int week2 = (Week2.Checked == true) ? 1 : 0;
+                                int week3 = (Week3.Checked == true) ? 1 : 0;
+                                int week4 = (Week4.Checked == true) ? 1 : 0;
+                                int week5 = (Week5.Checked == true) ? 1 : 0;
+                                int week6 = (Week6.Checked == true) ? 1 : 0;
+                                int week7 = (Week7.Checked == true) ? 1 : 0;
+                                int week8 = (Week8.Checked == true) ? 1 : 0;
+                                int week9 = (Week9.Checked == true) ? 1 : 0;
+                                int week10 = (Week10.Checked == true) ? 1 : 0;
+                                int week11 = (Week11.Checked == true) ? 1 : 0;
+                                int week12 = (Week12.Checked == true) ? 1 : 0;
+                                int week13 = (Week13.Checked == true) ? 1 : 0;
+                                int week14 = (Week14.Checked == true) ? 1 : 0;
+                                int week15 = (Week15.Checked == true) ? 1 : 0;
 
                                 /* Find a weekID relating to week selection */
                                 int weekIDText;
-                                string weekquery = "SELECT COUNT(weekID) FROM [Week] WHERE week1= " + week1 + " AND week2= " + week2 + " AND week3= " + week3 + " AND week4= " + week4 + " AND week5= " + week5 + " AND week6= " + week6 + " AND week7= " + week7 + " AND week8= " + week8 + " AND week9= " + week9 + " AND week10= " + week10 + " AND week11= " + week11 + " AND week12= " + week12 + " AND week13= " + week13 + " AND week14= " + week14 + " AND week15= " + week15;
+                                string weekquery = String.Format(@"
+SELECT COUNT(weekID) 
+FROM [Week] 
+WHERE week1= {0}
+AND week2= {1} 
+AND week3= {2} 
+AND week4= {3} 
+AND week5= {4} 
+AND week6= {5} 
+AND week7= {6} 
+AND week8= {7} 
+AND week9= {8} 
+AND week10= {9} 
+AND week11= {10} 
+AND week12= {11} 
+AND week13= {12} 
+AND week14= {13} 
+AND week15= {14}",
+                      week1,week2,week3,week4,week5,week6,week7,week8,week9,week10,week11,week12,week13,week14,week15);
                                 SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                 connection.Open();
                                 SqlCommand weeksql = new SqlCommand(weekquery, connection);
@@ -1069,6 +1017,11 @@ namespace Team11
         }
 
 
+        /// <summary>
+        /// Handles the Click event of the All control to set all values to true
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void All_Click(object sender, EventArgs e)
         {
             Week1.Checked = true;
@@ -1527,7 +1480,9 @@ namespace Team11
             }
         }
 
-        /* Deselect any selected periods */
+        /// <summary>
+        /// Deselect any selected periods
+        /// </summary>
         public void ClearPeriods()
         {
             CheckBoxM1.Checked = false;
@@ -1576,60 +1531,109 @@ namespace Team11
             CheckBoxF8.Checked = false;
             CheckBoxF9.Checked = false;
         }
+
+        /// <summary>
+        /// Handles the Click event of the ButtonClearPeriods control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ButtonClearPeriods_Click(object sender, EventArgs e)
         {
             ClearPeriods();
         }
 
 
+        /// <summary>
+        /// Handles the TextChanged event of the TextBoxCapacity control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TextBoxCapacity_TextChanged(object sender, EventArgs e)
         {
-            SearchRooms();
+            RebuildListOfRooms();
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the RadioButtonListRoomType control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RadioButtonListRoomType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SearchRooms();
+            RebuildListOfRooms();
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the RadioButtonListArrangement control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RadioButtonListArrangement_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SearchRooms();
+            RebuildListOfRooms();
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the RadioButtonListProjector control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RadioButtonListProjector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SearchRooms();
+            RebuildListOfRooms();
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the RadioButtonListWheelchair control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RadioButtonListWheelchair_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SearchRooms();
+            RebuildListOfRooms();
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the RadioButtonListVisualiser control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RadioButtonListVisualiser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SearchRooms();
+            RebuildListOfRooms();
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the RadioButtonListComputer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RadioButtonListComputer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SearchRooms();
+            RebuildListOfRooms();
         }
 
-        protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the RadioButtonListParks control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void RadioButtonListParks_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buildings();
-            SearchRooms();
+            FillBuildingsForSelectedPark();
+            RebuildListOfRooms();
         }
 
-        public void buildings()
+        /// <summary>
+        /// Fills the buildings for selected park.
+        /// </summary>
+        public void FillBuildingsForSelectedPark()
         {
             DropDownListBuildings.Items.Clear();
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect.Open();
-            int selectedpark = RadioButtonList1.SelectedIndex + 1;
-            string buildingsql = "Select buildingName from [Building] where parkID =" + selectedpark;
+            int selectedpark = RadioButtonListParks.SelectedIndex + 1;
+            string buildingsql = String.Format("Select buildingName from [Building] where parkID = {0}", selectedpark);
             SqlCommand buildingscommand = new SqlCommand(buildingsql, connect);
             SqlDataReader buildings = buildingscommand.ExecuteReader();
             while (buildings.Read())
@@ -1640,6 +1644,11 @@ namespace Team11
             connect.Close();
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the DropDownListRooms control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void DropDownListRooms_SelectedIndexChanged(object sender, EventArgs e)
         {
             string label = "None";
@@ -1667,6 +1676,11 @@ namespace Team11
             DropDownListRoomsAlt.Items.Remove(selectedroom);
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the DropDownListRoomsAlt control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void DropDownListRoomsAlt_SelectedIndexChanged(object sender, EventArgs e)
         {
             string label = "None";
@@ -1693,6 +1707,11 @@ namespace Team11
             DropDownListRoomsAlt.Items.Remove(selectedroom);
         }
 
+        /// <summary>
+        /// Handles the Click event of the ButtonDeleteRoom1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ButtonDeleteRoom1_Click(object sender, EventArgs e)
         {
             string label = "None";
@@ -1768,12 +1787,20 @@ namespace Team11
             }
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the DropDownListBuildings control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void DropDownListBuildings_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            SearchRooms();
+            RebuildListOfRooms();
         }
 
+        /// <summary>
+        /// Clears all selections.
+        /// </summary>
         public void clearEverything() {
             ClearPeriods();
             Week1.Checked = false;
@@ -1802,8 +1829,8 @@ namespace Team11
             RadioButtonListProjector.SelectedIndex = -1;
             RadioButtonListArrangement.SelectedIndex = -1;
             RadioButtonListRoomType.SelectedIndex = -1;
-            DropDownList1.SelectedIndex = 0;
-            RadioButtonList1.SelectedIndex = -1;
+            DropDownListModules.SelectedIndex = 0;
+            RadioButtonListParks.SelectedIndex = -1;
             DropDownListBuildings.Items.Clear();
 
             string label = "None";
@@ -1855,10 +1882,16 @@ namespace Team11
                 LabelRoomAlt3.Text = "None";
             }
         }
+
+        /// <summary>
+        /// Handles the Click event of the ButtonClearAll control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ButtonClearAll_Click(object sender, EventArgs e)
         {
             clearEverything();
-            SearchRooms();
+            RebuildListOfRooms();
         }
 
 

@@ -7,8 +7,11 @@
     <link rel="Stylesheet" type="text/css" href="Styles/Availability.css"/>    
     
     <script type="text/javascript" language="javascript">
-         $(document).ready(function () {
+        $(document).ready(function ()
+        {
+            /*$.each([
 
+            ])*/
             //Ad-Hoc Type
             if ($("#MainContent_RadioButtonListView_0").is(":checked")) {
                 $("#MainContent_RadioButtonListView_0").parent().addClass("btn btn-danger");
@@ -358,7 +361,7 @@
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
         ConnectionString="<%$ ConnectionStrings:myConnectionString %>" 
         SelectCommand="SELECT [moduleTitle] FROM [Module]"></asp:SqlDataSource>
-    
+                                                                 
     <!-- BY ROOM -->
     <div id="divByRoom" runat="server" visible="false">
 

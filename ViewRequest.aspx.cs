@@ -230,7 +230,7 @@ namespace Team11
                     SqlDataReader h1 = h1sql.ExecuteReader();
                     if (h1.Read())
                     {
-                        headerOne.Add(h1.GetString(0));
+                        headerOne.Add(h1.GetInt32(0).ToString());
                     }
                     connection.Close();
                 }

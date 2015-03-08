@@ -83,3 +83,9 @@ input[type=radio], input[type=checkbox]
     width:100% !important;   
 }
     
+.btn-period
+{
+    font-size: 12px;
+    padding-left: 4px;
+    padding-right: 4px;
+}

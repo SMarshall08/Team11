@@ -13,40 +13,13 @@ namespace Team11 {
     public partial class CreateRequest {
         
         /// <summary>
-        /// SqlDataSource1 control.
+        /// DropDownListModules control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
-        
-        /// <summary>
-        /// SqlDataSource2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
-        
-        /// <summary>
-        /// SqlDataSource3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource3;
-        
-        /// <summary>
-        /// DropDownList1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListModules;
         
         /// <summary>
         /// TextBoxCapacity control.
@@ -139,13 +112,13 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.TextBox TextBox2;
         
         /// <summary>
-        /// RadioButtonList1 control.
+        /// RadioButtonListParks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList1;
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListParks;
         
         /// <summary>
         /// DropDownListBuildings control.

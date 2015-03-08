@@ -4,266 +4,93 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     
     <script type="text/javascript" language="javascript">
-        $(document).ready(function () {
-
-            //Room Type
-            if ($("#MainContent_RadioButtonListRoomType_0").is(":checked")) {
-                $("#MainContent_RadioButtonListRoomType_0").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_RadioButtonListRoomType_1").is(":checked")) {
-                $("#MainContent_RadioButtonListRoomType_1").parent().addClass("btn btn-danger");
-            };
-
-            //Arrangement
-            if ($('#MainContent_RadioButtonListArrangement_0').is(":checked")) {
-                $('#MainContent_RadioButtonListArrangement_0').parent().addClass("btn btn-danger");
-            };
-            if ($('#MainContent_RadioButtonListArrangement_1').is(":checked")) {
-                $('#MainContent_RadioButtonListArrangement_1').parent().addClass("btn btn-danger");
-            };
-
-            //Wheelchair Access
-            if ($('#MainContent_RadioButtonListWheelchair_0').is(":checked")) {
-                $('#MainContent_RadioButtonListWheelchair_0').parent().addClass("btn btn-danger");
-            };
-            if ($('#MainContent_RadioButtonListWheelchair_1').is(":checked")) {
-                $('#MainContent_RadioButtonListWheelchair_1').parent().addClass("btn btn-danger");
-            };
-
-            //Board Type
-            if ($("#MainContent_CheckBoxWB").is(":checked")) {
-                $("#MainContent_CheckBoxWB").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxCB").is(":checked")) {
-                $("#MainContent_CheckBoxCB").parent().addClass("btn btn-danger");
-            };
-
-            //Data Projectors
-            if ($('#MainContent_RadioButtonListProjector_0').is(":checked")) {
-                $('#MainContent_RadioButtonListProjector_0').parent().addClass("btn btn-danger");
-            };
-            if ($('#MainContent_RadioButtonListProjector_1').is(":checked")) {
-                $('#MainContent_RadioButtonListProjector_1').parent().addClass("btn btn-danger");
-            };
-            //Visualiser
-            if ($('#MainContent_RadioButtonListVisualiser_0').is(":checked")) {
-                $('#MainContent_RadioButtonListVisualiser_0').parent().addClass("btn btn-danger");
-            };
-            if ($('#MainContent_RadioButtonListVisualiser_1').is(":checked")) {
-                $('#MainContent_RadioButtonListVisualiser_1').parent().addClass("btn btn-danger");
-            };
-            //Fixed Computer
-            if ($('#MainContent_RadioButtonListComputer_0').is(":checked")) {
-                $('#MainContent_RadioButtonListComputer_0').parent().addClass("btn btn-danger");
-            };
-            if ($('#MainContent_RadioButtonListComputer_1').is(":checked")) {
-                $('#MainContent_RadioButtonListComputer_1').parent().addClass("btn btn-danger");
-            };
-
-            //Weeks
-            if ($("#MainContent_Week1").is(":checked")) {
-                $("#MainContent_Week1").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week2").is(":checked")) {
-                $("#MainContent_Week2").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week3").is(":checked")) {
-                $("#MainContent_Week3").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week4").is(":checked")) {
-                $("#MainContent_Week4").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week5").is(":checked")) {
-                $("#MainContent_Week5").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week6").is(":checked")) {
-                $("#MainContent_Week6").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week7").is(":checked")) {
-                $("#MainContent_Week7").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week8").is(":checked")) {
-                $("#MainContent_Week8").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week9").is(":checked")) {
-                $("#MainContent_Week9").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week10").is(":checked")) {
-                $("#MainContent_Week10").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week11").is(":checked")) {
-                $("#MainContent_Week11").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week12").is(":checked")) {
-                $("#MainContent_Week12").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week13").is(":checked")) {
-                $("#MainContent_Week13").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week14").is(":checked")) {
-                $("#MainContent_Week14").parent().addClass("btn btn-danger");
-            }
-            if ($("#MainContent_Week15").is(":checked")) {
-                $("#MainContent_Week15").parent().addClass("btn btn-danger");
-            }
-
-            //Days and Periods 
-            if ($("#MainContent_CheckBoxM1").is(":checked")) {
-                $("#MainContent_CheckBoxM1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM2").is(":checked")) {
-                $("#MainContent_CheckBoxM2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM3").is(":checked")) {
-                $("#MainContent_CheckBoxM3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM4").is(":checked")) {
-                $("#MainContent_CheckBoxM4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM5").is(":checked")) {
-                $("#MainContent_CheckBoxM5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM6").is(":checked")) {
-                $("#MainContent_CheckBoxM6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM7").is(":checked")) {
-                $("#MainContent_CheckBoxM7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM8").is(":checked")) {
-                $("#MainContent_CheckBoxM8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM9").is(":checked")) {
-                $("#MainContent_CheckBoxM9").parent().addClass("btn btn-danger");
-            };
-            //Tuesday
-            if ($("#MainContent_CheckBoxT1").is(":checked")) {
-                $("#MainContent_CheckBoxT1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT2").is(":checked")) {
-                $("#MainContent_CheckBoxT2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT3").is(":checked")) {
-                $("#MainContent_CheckBoxT3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT4").is(":checked")) {
-                $("#MainContent_CheckBoxT4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT5").is(":checked")) {
-                $("#MainContent_CheckBoxT5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT6").is(":checked")) {
-                $("#MainContent_CheckBoxT6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT7").is(":checked")) {
-                $("#MainContent_CheckBoxT7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT8").is(":checked")) {
-                $("#MainContent_CheckBoxT8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT9").is(":checked")) {
-                $("#MainContent_CheckBoxT9").parent().addClass("btn btn-danger");
-            };
-            //Wednesday
-            if ($("#MainContent_CheckBoxW1").is(":checked")) {
-                $("#MainContent_CheckBoxW1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW2").is(":checked")) {
-                $("#MainContent_CheckBoxW2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW3").is(":checked")) {
-                $("#MainContent_CheckBoxW3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW4").is(":checked")) {
-                $("#MainContent_CheckBoxW4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW5").is(":checked")) {
-                $("#MainContent_CheckBoxW5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW6").is(":checked")) {
-                $("#MainContent_CheckBoxW6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW7").is(":checked")) {
-                $("#MainContent_CheckBoxW7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW8").is(":checked")) {
-                $("#MainContent_CheckBoxW8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW9").is(":checked")) {
-                $("#MainContent_CheckBoxW9").parent().addClass("btn btn-danger");
-            };
-            //THURSDAY
-            if ($("#MainContent_CheckBoxJ1").is(":checked")) {
-                $("#MainContent_CheckBoxJ1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ2").is(":checked")) {
-                $("#MainContent_CheckBoxJ2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ3").is(":checked")) {
-                $("#MainContent_CheckBoxJ3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ4").is(":checked")) {
-                $("#MainContent_CheckBoxJ4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ5").is(":checked")) {
-                $("#MainContent_CheckBoxJ5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ6").is(":checked")) {
-                $("#MainContent_CheckBoxJ6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ7").is(":checked")) {
-                $("#MainContent_CheckBoxJ7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ8").is(":checked")) {
-                $("#MainContent_CheckBoxJ8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ9").is(":checked")) {
-                $("#MainContent_CheckBoxJ9").parent().addClass("btn btn-danger");
-            };
-            //Friday
-            if ($("#MainContent_CheckBoxF1").is(":checked")) {
-                $("#MainContent_CheckBoxF1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF2").is(":checked")) {
-                $("#MainContent_CheckBoxF2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF3").is(":checked")) {
-                $("#MainContent_CheckBoxF3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF4").is(":checked")) {
-                $("#MainContent_CheckBoxF4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF5").is(":checked")) {
-                $("#MainContent_CheckBoxF5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF6").is(":checked")) {
-                $("#MainContent_CheckBoxF6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF7").is(":checked")) {
-                $("#MainContent_CheckBoxF7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF8").is(":checked")) {
-                $("#MainContent_CheckBoxF8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF9").is(":checked")) {
-                $("#MainContent_CheckBoxF9").parent().addClass("btn btn-danger");
-            };
-            //Park
-
-            if ($('#MainContent_RadioButtonList1_0').is(":checked")) {
-                $('#MainContent_RadioButtonList1_0').parent().addClass("btn btn-danger");
-            };
-            if ($('#MainContent_RadioButtonList1_1').is(":checked")) {
-                $('#MainContent_RadioButtonList1_1').parent().addClass("btn btn-danger");
-            };
-            if ($('#MainContent_RadioButtonList1_2').is(":checked")) {
-                $('#MainContent_RadioButtonList1_2').parent().addClass("btn btn-danger");
-            };
-
-            //Semester
-            if ($("#MainContent_RadioButtonListSemester_1").is(":checked")) {
-                $("#MainContent_RadioButtonListSemester_1").parent().addClass("btn btn-danger");
-            };
-
+        $(document).ready(function ()
+        {   // for each radio and checkbox determine if it is checked and if it is then add the "btn" and "btn-danger" classes to the parent
+            $.each(["#MainContent_RadioButtonListRoomType_0",
+                    "#MainContent_RadioButtonListRoomType_1",
+                    "#MainContent_RadioButtonListArrangement_0",
+                    "#MainContent_RadioButtonListArrangement_1",
+                    "#MainContent_RadioButtonListWheelchair_0",
+                    "#MainContent_RadioButtonListWheelchair_1",
+                    "#MainContent_CheckBoxWB",
+                    "#MainContent_CheckBoxCB",
+                    "#MainContent_RadioButtonListProjector_0",
+                    "#MainContent_RadioButtonListProjector_1",
+                    "#MainContent_RadioButtonListVisualiser_0",
+                    "#MainContent_RadioButtonListVisualiser_1",
+                    "#MainContent_RadioButtonListComputer_0",
+                    "#MainContent_RadioButtonListComputer_1",
+                    "#MainContent_Week1",
+                    "#MainContent_Week2",
+                    "#MainContent_Week3",
+                    "#MainContent_Week4",
+                    "#MainContent_Week5",
+                    "#MainContent_Week6",
+                    "#MainContent_Week7",
+                    "#MainContent_Week8",
+                    "#MainContent_Week9",
+                    "#MainContent_Week10",
+                    "#MainContent_Week11",
+                    "#MainContent_Week12",
+                    "#MainContent_Week13",
+                    "#MainContent_Week14",
+                    "#MainContent_Week15",
+                    "#MainContent_CheckBoxM1",
+                    "#MainContent_CheckBoxM2",
+                    "#MainContent_CheckBoxM3",
+                    "#MainContent_CheckBoxM4",
+                    "#MainContent_CheckBoxM5",
+                    "#MainContent_CheckBoxM6",
+                    "#MainContent_CheckBoxM7",
+                    "#MainContent_CheckBoxM8",
+                    "#MainContent_CheckBoxM9",
+                    "#MainContent_CheckBoxT1",
+                    "#MainContent_CheckBoxT2",
+                    "#MainContent_CheckBoxT3",
+                    "#MainContent_CheckBoxT4",
+                    "#MainContent_CheckBoxT5",
+                    "#MainContent_CheckBoxT6",
+                    "#MainContent_CheckBoxT7",
+                    "#MainContent_CheckBoxT8",
+                    "#MainContent_CheckBoxT9",
+                    "#MainContent_CheckBoxW1",
+                    "#MainContent_CheckBoxW2",
+                    "#MainContent_CheckBoxW3",
+                    "#MainContent_CheckBoxW4",
+                    "#MainContent_CheckBoxW5",
+                    "#MainContent_CheckBoxW6",
+                    "#MainContent_CheckBoxW7",
+                    "#MainContent_CheckBoxW8",
+                    "#MainContent_CheckBoxW9",
+                    "#MainContent_CheckBoxJ1",
+                    "#MainContent_CheckBoxJ2",
+                    "#MainContent_CheckBoxJ3",
+                    "#MainContent_CheckBoxJ4",
+                    "#MainContent_CheckBoxJ5",
+                    "#MainContent_CheckBoxJ6",
+                    "#MainContent_CheckBoxJ7",
+                    "#MainContent_CheckBoxJ8",
+                    "#MainContent_CheckBoxJ9",
+                    "#MainContent_CheckBoxF1",
+                    "#MainContent_CheckBoxF2",
+                    "#MainContent_CheckBoxF3",
+                    "#MainContent_CheckBoxF4",
+                    "#MainContent_CheckBoxF5",
+                    "#MainContent_CheckBoxF6",
+                    "#MainContent_CheckBoxF7",
+                    "#MainContent_CheckBoxF8",
+                    "#MainContent_CheckBoxF9",
+                    "#MainContent_RadioButtonListParks_0",
+                    "#MainContent_RadioButtonListParks_1",
+                    "#MainContent_RadioButtonListParks_2",
+                    "#MainContent_RadioButtonListSemester_1",
+                                ],
+                function(index, controlRef)
+                {
+                    if ($(controlRef).is(":checked"))
+                        $(controlRef).parent().addClass("btn btn-danger");
+                }
+                );
 
         });
                 
@@ -282,20 +109,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-
-    
-
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:myConnectionString %>" 
-        SelectCommand="SELECT [parkName] FROM [Park]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
-     ConnectionString="<%$ ConnectionStrings:myConnectionString %>" 
-        SelectCommand="SELECT * FROM [BookedRoom]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:myConnectionString %>" 
-        SelectCommand="SELECT * FROM [BookedRoom]"></asp:SqlDataSource>
-
-                
         <!-- Module Details -->
             <div class="canister =">
             
@@ -321,7 +134,7 @@
                         <label class="form-control">Computer Science</label>
                     </div>
                     <div class="text-center col-md-4 col-sm-4">
-                        <asp:DropDownList class="form-control" ID="DropDownList1" runat="server"></asp:DropDownList>
+                        <asp:DropDownList class="form-control" ID="DropDownListModules" runat="server"></asp:DropDownList>
                     </div>
                     <div class="text-center col-md-4 col-sm-4">
                         <asp:TextBox class="form-control" ID="TextBoxCapacity" runat="server" AutoPostBack="True" ontextchanged="TextBoxCapacity_TextChanged" ></asp:TextBox>
@@ -470,7 +283,7 @@
                     
                     <div class="row">
                         <div class="text-center col-md-3 col-sm-3">
-                            <asp:RadioButtonList ID="RadioButtonList1" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonList1_SelectedIndexChanged" RepeatDirection="Horizontal">
+                            <asp:RadioButtonList ID="RadioButtonListParks" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListParks_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary">Central</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarglittle">East</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarglittle">West</asp:ListItem>
@@ -628,34 +441,34 @@
                             <table class="center">
                                 <tr>
                                     <td class="style2">
-                                        <asp:Button class="btn btn-warning" ID="ButtonClearPeriods" runat="server" onclick="ButtonClearPeriods_Click" Text="Clear Periods" />
+                                        <asp:Button class="btn btn-period btn-warning" ID="ButtonClearPeriods" runat="server" onclick="ButtonClearPeriods_Click" Text="Clear Periods" />
                                     </td>
                                     <td>
-                                        <asp:Button class="btn btn-success" ID="ButtonPeriod1" runat="server" Text="Period 1" onclick="ButtonPeriod1_Click" />
+                                        <asp:Button class="btn btn-period btn-success" ID="ButtonPeriod1" runat="server" Text="Period 1" onclick="ButtonPeriod1_Click" />
                                     </td>
                                     <td>
-                                        <asp:Button class="btn btn-success" ID="ButtonPeriod2" runat="server" Text="Period 2" onclick="ButtonPeriod2_Click" />
+                                        <asp:Button class="btn btn-period btn-success" ID="ButtonPeriod2" runat="server" Text="Period 2" onclick="ButtonPeriod2_Click" />
                                     </td>
                                     <td>
-                                        <asp:Button class="btn btn-success" ID="ButtonPeriod3" runat="server" Text="Period 3" onclick="ButtonPeriod3_Click" />
+                                        <asp:Button class="btn btn-period btn-success" ID="ButtonPeriod3" runat="server" Text="Period 3" onclick="ButtonPeriod3_Click" />
                                     </td>
                                     <td>
-                                        <asp:Button class="btn btn-success" ID="ButtonPeriod4" runat="server" Text="Period 4" onclick="ButtonPeriod4_Click" />
+                                        <asp:Button class="btn btn-period btn-success" ID="ButtonPeriod4" runat="server" Text="Period 4" onclick="ButtonPeriod4_Click" />
                                     </td>
                                     <td>
-                                        <asp:Button class="btn btn-success" ID="ButtonPeriod5" runat="server" Text="Period 5" onclick="ButtonPeriod5_Click" />
+                                        <asp:Button class="btn btn-period btn-success" ID="ButtonPeriod5" runat="server" Text="Period 5" onclick="ButtonPeriod5_Click" />
                                     </td>
                                     <td>
-                                        <asp:Button class="btn btn-success" ID="ButtonPeriod6" runat="server" Text="Period 6" onclick="ButtonPeriod6_Click" />
+                                        <asp:Button class="btn btn-period btn-success" ID="ButtonPeriod6" runat="server" Text="Period 6" onclick="ButtonPeriod6_Click" />
                                     </td>
                                     <td>
-                                        <asp:Button class="btn btn-success" ID="ButtonPeriod7" runat="server" Text="Period 7" onclick="ButtonPeriod7_Click" />
+                                        <asp:Button class="btn btn-period btn-success" ID="ButtonPeriod7" runat="server" Text="Period 7" onclick="ButtonPeriod7_Click" />
                                     </td>
                                     <td>
-                                        <asp:Button class="btn btn-success" ID="ButtonPeriod8" runat="server" Text="Period 8" onclick="ButtonPeriod8_Click" />
+                                        <asp:Button class="btn btn-period btn-success" ID="ButtonPeriod8" runat="server" Text="Period 8" onclick="ButtonPeriod8_Click" />
                                     </td>
                                     <td>
-                                        <asp:Button class="btn btn-success" ID="ButtonPeriod9" runat="server" Text="Period 9" onclick="ButtonPeriod9_Click" />
+                                        <asp:Button class="btn btn-period btn-success" ID="ButtonPeriod9" runat="server" Text="Period 9" onclick="ButtonPeriod9_Click" />
                                     </td>
                                 </tr>
                                 <tr>

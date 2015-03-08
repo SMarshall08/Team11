@@ -15,9 +15,13 @@ namespace Team11
     public partial class EditRequest : System.Web.UI.Page
     {
         int requestid = 1;
-        int userID = 1;
+        int userID = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            // read the userid from the querystring
+            userID = Convert.ToInt32(Request.QueryString["userID"]);
+
             requestid = Convert.ToInt32(Request.QueryString["request"]);
             if (!IsPostBack)
             {
@@ -41,8 +45,8 @@ namespace Team11
                 string modcode = "";
                 int weekID = 0;
                 string day = "";
-                int start = 0;
-                int end = 0;
+                int startPeriod = 0;
+                int endPeriod = 0;
                 int park = 0;
 
 
@@ -59,8 +63,8 @@ namespace Team11
                     modcode = requestreader.GetString(1);
                     weekID = requestreader.GetInt32(3);
                     day = requestreader.GetString(4);
-                    start = requestreader.GetInt32(5);
-                    end = requestreader.GetInt32(6);
+                    startPeriod = requestreader.GetInt32(5);
+                    endPeriod = requestreader.GetInt32(6);
 
                 }
                 connect.Close();
@@ -83,37 +87,21 @@ namespace Team11
                 SqlDataReader weeks = weekcommand.ExecuteReader();
                 while (weeks.Read())
                 {
-                    if (weeks.GetInt32(1) == 1)
-                    { Week1.Checked = true; }
-                    if (weeks.GetInt32(2) == 1)
-                    { Week2.Checked = true; }
-                    if (weeks.GetInt32(3) == 1)
-                    { Week3.Checked = true; }
-                    if (weeks.GetInt32(4) == 1)
-                    { Week4.Checked = true; }
-                    if (weeks.GetInt32(5) == 1)
-                    { Week5.Checked = true; }
-                    if (weeks.GetInt32(6) == 1)
-                    { Week6.Checked = true; }
-                    if (weeks.GetInt32(7) == 1)
-                    { Week7.Checked = true; }
-                    if (weeks.GetInt32(8) == 1)
-                    { Week8.Checked = true; }
-                    if (weeks.GetInt32(9) == 1)
-                    { Week9.Checked = true; }
-                    if (weeks.GetInt32(10) == 1)
-                    { Week10.Checked = true; }
-                    if (weeks.GetInt32(11) == 1)
-                    { Week11.Checked = true; }
-                    if (weeks.GetInt32(12) == 1)
-                    { Week12.Checked = true; }
-                    if (weeks.GetInt32(13) == 1)
-                    { Week13.Checked = true; }
-                    if (weeks.GetInt32(14) == 1)
-                    { Week14.Checked = true; }
-                    if (weeks.GetInt32(15) == 1)
-                    { Week15.Checked = true; }
-
+                    Week1.Checked = (weeks.GetInt32(1) == 1);
+                    Week2.Checked = (weeks.GetInt32(2) == 1);
+                    Week3.Checked = (weeks.GetInt32(3) == 1);
+                    Week4.Checked = (weeks.GetInt32(4) == 1);
+                    Week5.Checked = (weeks.GetInt32(5) == 1);
+                    Week6.Checked = (weeks.GetInt32(6) == 1);
+                    Week7.Checked = (weeks.GetInt32(7) == 1);
+                    Week8.Checked = (weeks.GetInt32(8) == 1);
+                    Week9.Checked = (weeks.GetInt32(9) == 1);
+                    Week10.Checked = (weeks.GetInt32(10) == 1);
+                    Week11.Checked = (weeks.GetInt32(11) == 1);
+                    Week12.Checked = (weeks.GetInt32(12) == 1);
+                    Week13.Checked = (weeks.GetInt32(13) == 1);
+                    Week14.Checked = (weeks.GetInt32(14) == 1);
+                    Week15.Checked = (weeks.GetInt32(15) == 1);
                 }
                 connect.Close();
 
@@ -143,51 +131,43 @@ namespace Team11
                     facilitiesIDs.Add(facilities.GetInt32(0));
                 }
 
-                for (int i = 0; i < facilitiesIDs.Count; i++)
+                for (int facility = 0; facility < facilitiesIDs.Count; facility++)
                 {
-                    if (facilitiesIDs[i] == 1)
+                    switch (facilitiesIDs[facility])
                     {
-                        RadioButtonListRoomType.SelectedIndex = 0;
-                    }
-                    if (facilitiesIDs[i] == 2)
-                    {
-                        RadioButtonListRoomType.SelectedIndex = 1;
-                    }
-                    if (facilitiesIDs[i] == 3)
-                    {
-                        RadioButtonListArrangement.SelectedIndex = 0;
-                    }
-                    if (facilitiesIDs[i] == 4)
-                    {
-                        RadioButtonListArrangement.SelectedIndex = 1;
-                    }
-                    if (facilitiesIDs[i] == 5)
-                    {
-                        RadioButtonListProjector.SelectedIndex = 0;
-                    }
-                    if (facilitiesIDs[i] == 6)
-                    {
-                        RadioButtonListProjector.SelectedIndex = 1;
-                    }
-                    if (facilitiesIDs[i] == 7)
-                    {
-                        CheckBoxCB.Checked = true;
-                    }
-                    if (facilitiesIDs[i] == 8)
-                    {
-                        CheckBoxWB.Checked = true;
-                    }
-                    if (facilitiesIDs[i] == 9)
-                    {
-                        RadioButtonListWheelchair.SelectedIndex = 0;
-                    }
-                    if (facilitiesIDs[i] == 10)
-                    {
-                        RadioButtonListVisualiser.SelectedIndex = 0;
-                    }
-                    if (facilitiesIDs[i] == 11)
-                    {
-                        RadioButtonListComputer.SelectedIndex = 0;
+                        case 1:
+                            RadioButtonListRoomType.SelectedIndex = 0;
+                            break;
+                        case 2:
+                            RadioButtonListRoomType.SelectedIndex = 1;
+                            break;
+                        case 3:
+                            RadioButtonListArrangement.SelectedIndex = 0;
+                            break;
+                        case 4:
+                            RadioButtonListArrangement.SelectedIndex = 1;
+                            break;
+                        case 5:
+                            RadioButtonListProjector.SelectedIndex = 0;
+                            break;
+                        case 6:
+                            RadioButtonListProjector.SelectedIndex = 1;
+                            break;
+                        case 7:
+                            CheckBoxCB.Checked = true;
+                            break;
+                        case 8:
+                            CheckBoxWB.Checked = true;
+                            break;
+                        case 9:
+                            RadioButtonListWheelchair.SelectedIndex = 0;
+                            break;
+                        case 10:
+                            RadioButtonListVisualiser.SelectedIndex = 0;
+                            break;
+                        case 11:
+                            RadioButtonListComputer.SelectedIndex = 0;
+                            break;
                     }
 
                 }
@@ -240,38 +220,31 @@ namespace Team11
                 boxes[4, 7] = CheckBoxF8;
                 boxes[4, 8] = CheckBoxF9;
 
-                if (day == "Monday")
+                // translate day name to a day-of-week number so we can use it in the boxes[] array below
+                int dayId = 0;
+                switch (day)
                 {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[0, i].Checked = true;
-                    }
+                    case "Monday":
+                        dayId = 0;
+                        break;
+                    case "Tuesday":
+                        dayId = 1;
+                        break;
+                    case "Wednesday":
+                        dayId = 2;
+                        break;
+                    case "Thursday":
+                        dayId = 3;
+                        break;
+                    case "Friday":
+                        dayId = 4;
+                        break;
                 }
-                if (day == "Tuesday")
+                for (int period = startPeriod - 1; period < endPeriod; period++)
                 {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[1, i].Checked = true;
-                    }
-                } if (day == "Wednesday")
-                {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[2, i].Checked = true;
-                    }
-                } if (day == "Thursday")
-                {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[3, i].Checked = true;
-                    }
-                } if (day == "Friday")
-                {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[4, i].Checked = true;
-                    }
+                    boxes[dayId, period].Checked = true;
                 }
+
                 connect.Close();
                 connect.Open();
 

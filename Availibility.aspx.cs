@@ -14,8 +14,13 @@ namespace Team11
     public partial class Availibility : System.Web.UI.Page
     {
         string moduleCode = "";
+        int userID = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            // read the userid from the querystring
+            userID = Convert.ToInt32(Request.QueryString["userID"]);
+
             if (!IsPostBack)
             {
                 SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
@@ -1786,7 +1791,7 @@ namespace Team11
             }
             connect.Close();
             connect.Open();
-            string deptdetails = "SELECT deptName FROM [User] WHERE userID =1";
+            string deptdetails = String.Format("SELECT deptName FROM [User] WHERE userID = {0}", userID);
             SqlCommand departmentcommand = new SqlCommand(deptdetails, connect);
             //Retrieve the request details and store them in appropriate Variables
             SqlDataReader departmentdetails = departmentcommand.ExecuteReader();
