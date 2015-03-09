@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -64,6 +64,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="AddEditModule.aspx" />
+	<Content Include="Admin.aspx" />
     <Content Include="Availibility.aspx" />
     <Content Include="CreateRequest.aspx" />
     <Content Include="EditRequest.aspx" />
@@ -134,6 +135,13 @@
     </Compile>
     <Compile Include="AddEditModule.aspx.designer.cs">
       <DependentUpon>AddEditModule.aspx</DependentUpon>
+    </Compile>
+	<Compile Include="Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Availibility.aspx.cs">
       <DependentUpon>Availibility.aspx</DependentUpon>
