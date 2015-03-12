@@ -13,6 +13,7 @@
     </h2>
     
     <div id="areYouAdmin" runat="server"> <%--This div is where buttons, text forms, and other text will be placed. --%>
+        <asp:TextBox id="facilityText" runat="server" />
         
     </div>
     <div id="scriptDiv" runat="server"> <%--This div is where script tags will be placed. --%>
