@@ -11,7 +11,17 @@
     <h2 align="center">
         Admin Menu
     </h2>
-    <p id="areYouAdmin" runat="server">
+    
+    <div id="areYouAdmin" runat="server"> <%--This div is where buttons, text forms, and other text will be placed. --%>
         
-    </p>
+    </div>
+    <div id="scriptDiv" runat="server"> <%--This div is where script tags will be placed. --%>
+
+    </div>
+
+
+
+
+
+
 </asp:Content>
