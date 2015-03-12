@@ -15,6 +15,7 @@ namespace Team11
     {
         int userID = 0;
         protected void Page_Load(object sender, EventArgs e) {
+            
 
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
             connect.Open();
@@ -36,13 +37,11 @@ namespace Team11
 
 
 
-             TextBox facilityText = new TextBox(); //This is the box that will have the facility entered into.
-             facilityText.Text = "Type facility name here.";
-             facilityText.ID = "que1";
-             areYouAdmin.Controls.Add(facilityText);
+             
              Button addFacility = new Button(); //This button will submit the facility.
              addFacility.ID = "addFacility";
              addFacility.Text = "Add Facility";
+             
              addFacility.Click += new EventHandler(addFacilityFunction);
              areYouAdmin.Controls.Add(addFacility);
              
@@ -55,7 +54,7 @@ namespace Team11
            else {
                 //Below executed if user logged in is not an admin.
 
-               areYouAdmin.InnerHtml = "<script>document.GetElementById(areYouAdmin).style.visibility=\"hidden\"</script>";
+               areYouAdmin.InnerHtml = "You are not logged in as an admin. Please log in to an account with administrator privileges in order to view the admin options.";
                
                  }
 
@@ -70,10 +69,20 @@ namespace Team11
         protected void addFacilityFunction(Object sender, EventArgs e) //This is executed when the add facility button is pressed.
         {
 
+
+
+            string facility = facilityText.Text.ToString();
+            
+            SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            connect2.Open();
+            string addFacilityString = "Insert into Facility (facilityName) VALUES ('"+facility+"')";
+            SqlCommand addFacilityCommand = new SqlCommand(addFacilityString, connect2);
+            addFacilityCommand.ExecuteNonQuery();
             
             scriptDiv.InnerHtml = "<script>alert(\"Facility successfully added!\")</script>";
-        
-        
+            
+
+
         }
                                  
 
