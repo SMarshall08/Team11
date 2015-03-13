@@ -9,321 +9,116 @@
     <script type="text/javascript" language="javascript">
         $(document).ready(function ()
         {
-            /*$.each([
-
-            ])*/
-            //Ad-Hoc Type
-            if ($("#MainContent_RadioButtonListView_0").is(":checked")) {
-                $("#MainContent_RadioButtonListView_0").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_RadioButtonListView_1").is(":checked")) {
-                $("#MainContent_RadioButtonListView_1").parent().addClass("btn btn-danger");
-            };
-
-            //Park
-            if ($("#MainContent_RadioButtonListPark_0").is(":checked")) {
-                $("#MainContent_RadioButtonListPark_0").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_RadioButtonListPark_1").is(":checked")) {
-                $("#MainContent_RadioButtonListPark_1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_RadioButtonListPark_2").is(":checked")) {
-                $("#MainContent_RadioButtonListPark_2").parent().addClass("btn btn-danger");
-            };
-
-            //Days and Periods 
-            if ($("#MainContent_CheckBoxM1").is(":checked")) {
-                $("#MainContent_CheckBoxM1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM2").is(":checked")) {
-                $("#MainContent_CheckBoxM2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM3").is(":checked")) {
-                $("#MainContent_CheckBoxM3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM4").is(":checked")) {
-                $("#MainContent_CheckBoxM4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM5").is(":checked")) {
-                $("#MainContent_CheckBoxM5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM6").is(":checked")) {
-                $("#MainContent_CheckBoxM6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM7").is(":checked")) {
-                $("#MainContent_CheckBoxM7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM8").is(":checked")) {
-                $("#MainContent_CheckBoxM8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM9").is(":checked")) {
-                $("#MainContent_CheckBoxM9").parent().addClass("btn btn-danger");
-            };
-            //Tuesday
-            if ($("#MainContent_CheckBoxT1").is(":checked")) {
-                $("#MainContent_CheckBoxT1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT2").is(":checked")) {
-                $("#MainContent_CheckBoxT2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT3").is(":checked")) {
-                $("#MainContent_CheckBoxT3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT4").is(":checked")) {
-                $("#MainContent_CheckBoxT4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT5").is(":checked")) {
-                $("#MainContent_CheckBoxT5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT6").is(":checked")) {
-                $("#MainContent_CheckBoxT6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT7").is(":checked")) {
-                $("#MainContent_CheckBoxT7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT8").is(":checked")) {
-                $("#MainContent_CheckBoxT8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT9").is(":checked")) {
-                $("#MainContent_CheckBoxT9").parent().addClass("btn btn-danger");
-            };
-            //Wednesday
-            if ($("#MainContent_CheckBoxW1").is(":checked")) {
-                $("#MainContent_CheckBoxW1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW2").is(":checked")) {
-                $("#MainContent_CheckBoxW2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW3").is(":checked")) {
-                $("#MainContent_CheckBoxW3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW4").is(":checked")) {
-                $("#MainContent_CheckBoxW4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW5").is(":checked")) {
-                $("#MainContent_CheckBoxW5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW6").is(":checked")) {
-                $("#MainContent_CheckBoxW6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW7").is(":checked")) {
-                $("#MainContent_CheckBoxW7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW8").is(":checked")) {
-                $("#MainContent_CheckBoxW8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW9").is(":checked")) {
-                $("#MainContent_CheckBoxW9").parent().addClass("btn btn-danger");
-            };
-            //THURSDAY
-            if ($("#MainContent_CheckBoxJ1").is(":checked")) {
-                $("#MainContent_CheckBoxJ1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ2").is(":checked")) {
-                $("#MainContent_CheckBoxJ2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ3").is(":checked")) {
-                $("#MainContent_CheckBoxJ3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ4").is(":checked")) {
-                $("#MainContent_CheckBoxJ4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ5").is(":checked")) {
-                $("#MainContent_CheckBoxJ5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ6").is(":checked")) {
-                $("#MainContent_CheckBoxJ6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ7").is(":checked")) {
-                $("#MainContent_CheckBoxJ7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ8").is(":checked")) {
-                $("#MainContent_CheckBoxJ8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ9").is(":checked")) {
-                $("#MainContent_CheckBoxJ9").parent().addClass("btn btn-danger");
-            };
-            //Friday
-            if ($("#MainContent_CheckBoxF1").is(":checked")) {
-                $("#MainContent_CheckBoxF1").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF2").is(":checked")) {
-                $("#MainContent_CheckBoxF2").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF3").is(":checked")) {
-                $("#MainContent_CheckBoxF3").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF4").is(":checked")) {
-                $("#MainContent_CheckBoxF4").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF5").is(":checked")) {
-                $("#MainContent_CheckBoxF5").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF6").is(":checked")) {
-                $("#MainContent_CheckBoxF6").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF7").is(":checked")) {
-                $("#MainContent_CheckBoxF7").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF8").is(":checked")) {
-                $("#MainContent_CheckBoxF8").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF9").is(":checked")) {
-                $("#MainContent_CheckBoxF9").parent().addClass("btn btn-danger");
-            };
-            //Park
-
-            if ($('#MainContent_RadioButtonList1_0').is(":checked")) {
-                $('#MainContent_RadioButtonList1_0').parent().addClass("btn btn-danger");
-            };
-            if ($('#MainContent_RadioButtonList1_1').is(":checked")) {
-                $('#MainContent_RadioButtonList1_1').parent().addClass("btn btn-danger");
-            };
-            if ($('#MainContent_RadioButtonList1_2').is(":checked")) {
-                $('#MainContent_RadioButtonList1_2').parent().addClass("btn btn-danger");
-            };
-
-            //Days and Periods 
-            if ($("#MainContent_CheckBoxM10").is(":checked")) {
-                $("#MainContent_CheckBoxM10").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM11").is(":checked")) {
-                $("#MainContent_CheckBoxM11").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM12").is(":checked")) {
-                $("#MainContent_CheckBoxM12").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM13").is(":checked")) {
-                $("#MainContent_CheckBoxM13").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM14").is(":checked")) {
-                $("#MainContent_CheckBoxM14").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM15").is(":checked")) {
-                $("#MainContent_CheckBoxM15").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM16").is(":checked")) {
-                $("#MainContent_CheckBoxM16").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM17").is(":checked")) {
-                $("#MainContent_CheckBoxM17").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxM18").is(":checked")) {
-                $("#MainContent_CheckBoxM18").parent().addClass("btn btn-danger");
-            };
-            //Tuesday
-            if ($("#MainContent_CheckBoxT10").is(":checked")) {
-                $("#MainContent_CheckBoxT10").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT11").is(":checked")) {
-                $("#MainContent_CheckBoxT11").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT12").is(":checked")) {
-                $("#MainContent_CheckBoxT12").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT13").is(":checked")) {
-                $("#MainContent_CheckBoxT13").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT14").is(":checked")) {
-                $("#MainContent_CheckBoxT14").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT15").is(":checked")) {
-                $("#MainContent_CheckBoxT15").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT16").is(":checked")) {
-                $("#MainContent_CheckBoxT16").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT17").is(":checked")) {
-                $("#MainContent_CheckBoxT17").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxT18").is(":checked")) {
-                $("#MainContent_CheckBoxT18").parent().addClass("btn btn-danger");
-            };
-            //Wednesday
-            if ($("#MainContent_CheckBoxW10").is(":checked")) {
-                $("#MainContent_CheckBoxW10").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW11").is(":checked")) {
-                $("#MainContent_CheckBoxW11").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW12").is(":checked")) {
-                $("#MainContent_CheckBoxW12").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW13").is(":checked")) {
-                $("#MainContent_CheckBoxW13").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW14").is(":checked")) {
-                $("#MainContent_CheckBoxW14").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW15").is(":checked")) {
-                $("#MainContent_CheckBoxW15").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW16").is(":checked")) {
-                $("#MainContent_CheckBoxW16").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW17").is(":checked")) {
-                $("#MainContent_CheckBoxW17").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxW18").is(":checked")) {
-                $("#MainContent_CheckBoxW18").parent().addClass("btn btn-danger");
-            };
-            //THURSDAY
-            if ($("#MainContent_CheckBoxJ10").is(":checked")) {
-                $("#MainContent_CheckBoxJ10").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ11").is(":checked")) {
-                $("#MainContent_CheckBoxJ11").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ12").is(":checked")) {
-                $("#MainContent_CheckBoxJ12").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ13").is(":checked")) {
-                $("#MainContent_CheckBoxJ13").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ14").is(":checked")) {
-                $("#MainContent_CheckBoxJ14").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ15").is(":checked")) {
-                $("#MainContent_CheckBoxJ15").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ16").is(":checked")) {
-                $("#MainContent_CheckBoxJ16").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ17").is(":checked")) {
-                $("#MainContent_CheckBoxJ17").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxJ18").is(":checked")) {
-                $("#MainContent_CheckBoxJ18").parent().addClass("btn btn-danger");
-            };
-            //fRIDAY
-            if ($("#MainContent_CheckBoxF10").is(":checked")) {
-                $("#MainContent_CheckBoxF10").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF11").is(":checked")) {
-                $("#MainContent_CheckBoxF11").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF12").is(":checked")) {
-                $("#MainContent_CheckBoxF12").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF13").is(":checked")) {
-                $("#MainContent_CheckBoxF13").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF14").is(":checked")) {
-                $("#MainContent_CheckBoxF14").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF15").is(":checked")) {
-                $("#MainContent_CheckBoxF15").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF16").is(":checked")) {
-                $("#MainContent_CheckBoxF16").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF17").is(":checked")) {
-                $("#MainContent_CheckBoxF17").parent().addClass("btn btn-danger");
-            };
-            if ($("#MainContent_CheckBoxF18").is(":checked")) {
-                $("#MainContent_CheckBoxF18").parent().addClass("btn btn-danger");
-            };
-
+            // for each radio and checkbox determine if it is checked and if it is then add the "btn" and "btn-danger" classes to the parent
+            //Scott Marshall
+            $.each([
+                  "#MainContent_RadioButtonListView_0",
+                  "#MainContent_RadioButtonListView_1",
+                  "#MainContent_RadioButtonListPark_0",
+                  "#MainContent_RadioButtonListPark_1",
+                  "#MainContent_RadioButtonListPark_2",
+                  "#MainContent_CheckBoxM1",
+                  "#MainContent_CheckBoxM2",
+                  "#MainContent_CheckBoxM3",
+                  "#MainContent_CheckBoxM4",
+                  "#MainContent_CheckBoxM5",
+                  "#MainContent_CheckBoxM6",
+                  "#MainContent_CheckBoxM7",
+                  "#MainContent_CheckBoxM8",
+                  "#MainContent_CheckBoxM9",
+                  "#MainContent_CheckBoxT1",
+                  "#MainContent_CheckBoxT2",
+                  "#MainContent_CheckBoxT3",
+                  "#MainContent_CheckBoxT4",
+                  "#MainContent_CheckBoxT5",
+                  "#MainContent_CheckBoxT6",
+                  "#MainContent_CheckBoxT7",
+                  "#MainContent_CheckBoxT8",
+                  "#MainContent_CheckBoxT9",
+                  "#MainContent_CheckBoxW1",
+                  "#MainContent_CheckBoxW2",
+                  "#MainContent_CheckBoxW3",
+                  "#MainContent_CheckBoxW4",
+                  "#MainContent_CheckBoxW5",
+                  "#MainContent_CheckBoxW6",
+                  "#MainContent_CheckBoxW7",
+                  "#MainContent_CheckBoxW8",
+                  "#MainContent_CheckBoxW9",
+                  "#MainContent_CheckBoxJ1",
+                  "#MainContent_CheckBoxJ2",
+                  "#MainContent_CheckBoxJ3",
+                  "#MainContent_CheckBoxJ4",
+                  "#MainContent_CheckBoxJ5",
+                  "#MainContent_CheckBoxJ6",
+                  "#MainContent_CheckBoxJ7",
+                  "#MainContent_CheckBoxJ8",
+                  "#MainContent_CheckBoxJ9",
+                  "#MainContent_CheckBoxF1",
+                  "#MainContent_CheckBoxF2",
+                  "#MainContent_CheckBoxF3",
+                  "#MainContent_CheckBoxF4",
+                  "#MainContent_CheckBoxF5",
+                  "#MainContent_CheckBoxF6",
+                  "#MainContent_CheckBoxF7",
+                  "#MainContent_CheckBoxF8",
+                  "#MainContent_CheckBoxF9",
+                  "#MainContent_RadioButtonList1_0",
+                  "#MainContent_RadioButtonList1_1",
+                  "#MainContent_RadioButtonList1_2",
+                  "#MainContent_CheckBoxM10",
+                  "#MainContent_CheckBoxM11",
+                  "#MainContent_CheckBoxM12",
+                  "#MainContent_CheckBoxM13",
+                  "#MainContent_CheckBoxM14",
+                  "#MainContent_CheckBoxM15",
+                  "#MainContent_CheckBoxM16",
+                  "#MainContent_CheckBoxM17",
+                  "#MainContent_CheckBoxM18",
+                  "#MainContent_CheckBoxT10",
+                  "#MainContent_CheckBoxT11",
+                  "#MainContent_CheckBoxT12",
+                  "#MainContent_CheckBoxT13",
+                  "#MainContent_CheckBoxT14",
+                  "#MainContent_CheckBoxT15",
+                  "#MainContent_CheckBoxT16",
+                  "#MainContent_CheckBoxT17",
+                  "#MainContent_CheckBoxT18",
+                  "#MainContent_CheckBoxW10",
+                  "#MainContent_CheckBoxW11",
+                  "#MainContent_CheckBoxW12",
+                  "#MainContent_CheckBoxW13",
+                  "#MainContent_CheckBoxW14",
+                  "#MainContent_CheckBoxW15",
+                  "#MainContent_CheckBoxW16",
+                  "#MainContent_CheckBoxW17",
+                  "#MainContent_CheckBoxW18",
+                  "#MainContent_CheckBoxJ10",
+                  "#MainContent_CheckBoxJ11",
+                  "#MainContent_CheckBoxJ12",
+                  "#MainContent_CheckBoxJ13",
+                  "#MainContent_CheckBoxJ14",
+                  "#MainContent_CheckBoxJ15",
+                  "#MainContent_CheckBoxJ16",
+                  "#MainContent_CheckBoxJ17",
+                  "#MainContent_CheckBoxJ18",
+                  "#MainContent_CheckBoxF10",
+                  "#MainContent_CheckBoxF11",
+                  "#MainContent_CheckBoxF11",
+                  "#MainContent_CheckBoxF12",
+                  "#MainContent_CheckBoxF13",
+                  "#MainContent_CheckBoxF14",
+                  "#MainContent_CheckBoxF15",
+                  "#MainContent_CheckBoxF16",
+                  "#MainContent_CheckBoxF17",
+                  "#MainContent_CheckBoxF18",
+            ],
+                function(index,controlAva)
+                {
+                    if($(controlAva).is(":checked"))
+                        $(controlAva).parent().addClass("btn btn-danger");
+                }
+                );
+            
 
         });
     </script>
