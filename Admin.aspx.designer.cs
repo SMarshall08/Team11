@@ -40,6 +40,33 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.TextBox facilityText;
         
         /// <summary>
+        /// addFacility control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button addFacility;
+        
+        /// <summary>
+        /// facilityList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList facilityList;
+        
+        /// <summary>
+        /// deleteFacility control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button deleteFacility;
+        
+        /// <summary>
         /// scriptDiv control.
         /// </summary>
         /// <remarks>
