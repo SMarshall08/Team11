@@ -15,6 +15,39 @@ namespace Team11
     {
         int userID = 0;
         protected void Page_Load(object sender, EventArgs e) {
+
+            string listSQL = "SELECT facilityID,facilityName FROM Facility";
+
+            SqlConnection deleteFacilitiesConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            SqlCommand cmd = new SqlCommand(listSQL, deleteFacilitiesConnection);
+            SqlDataReader reader;
+
+            try
+            {
+                ListItem newItem = new ListItem();
+                newItem.Text = "Choose a facility";
+                newItem.Value = "0";
+                facilityList.Items.Add(newItem);
+
+                deleteFacilitiesConnection.Open();
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    newItem = new ListItem();
+                    newItem.Text = reader["facilityName"].ToString();
+                    newItem.Value = reader["facilityID"].ToString();
+                    facilityList.Items.Add(newItem);
+                }
+                reader.Close();
+            }
+            catch (Exception err)
+            {
+                //TODO
+            }
+            finally
+            {
+                deleteFacilitiesConnection.Close();
+            }
             
 
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
@@ -38,12 +71,10 @@ namespace Team11
 
 
              
-             Button addFacility = new Button(); //This button will submit the facility.
-             addFacility.ID = "addFacility";
-             addFacility.Text = "Add Facility";
+             
              
              addFacility.Click += new EventHandler(addFacilityFunction);
-             areYouAdmin.Controls.Add(addFacility);
+             
              
 
              
