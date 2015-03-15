@@ -24,21 +24,27 @@ namespace Team11
 
             try
             {
-                ListItem newItem = new ListItem();
-                newItem.Text = "Choose a facility";
-                newItem.Value = "0";
-                facilityList.Items.Add(newItem);
-
-                deleteFacilitiesConnection.Open();
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
+                if (!Page.IsPostBack)
                 {
-                    newItem = new ListItem();
-                    newItem.Text = reader["facilityName"].ToString();
-                    newItem.Value = reader["facilityID"].ToString();
+
+                    facilityList.Items.Clear(); //Clears the drop down list (for deleting facilities). Without this, every time the page is reloaded, the list would get bigger and bigger.
+
+                    ListItem newItem = new ListItem();
+                    newItem.Text = "Choose a facility";
+                    newItem.Value = "test";
                     facilityList.Items.Add(newItem);
+
+                    deleteFacilitiesConnection.Open();
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        newItem = new ListItem();
+                        newItem.Text = reader["facilityName"].ToString();
+                        newItem.Value = reader["facilityID"].ToString();
+                        facilityList.Items.Add(newItem);
+                    }
+                    reader.Close();
                 }
-                reader.Close();
             }
             catch (Exception err)
             {
@@ -63,6 +69,9 @@ namespace Team11
             string administratorYesNo = adminCommand.ExecuteScalar().ToString();
             string trimmedAdmin = administratorYesNo.Trim();
             bool userIsAdmin = (trimmedAdmin == "yes");
+
+
+            
            
              
             if (userIsAdmin)
@@ -74,6 +83,7 @@ namespace Team11
              
              
              addFacility.Click += new EventHandler(addFacilityFunction);
+             deleteFacility.Click += new EventHandler(deleteFacilityFunction);
              
              
 
@@ -86,6 +96,7 @@ namespace Team11
                 //Below executed if user logged in is not an admin.
 
                areYouAdmin.InnerHtml = "You are not logged in as an admin. Please log in to an account with administrator privileges in order to view the admin options.";
+                //Because the inner html is set to the above, it rewrites all the html in admin.aspx, rendering the page blank for those who are not admin.
                
                  }
 
@@ -111,6 +122,25 @@ namespace Team11
             addFacilityCommand.ExecuteNonQuery();
             
             scriptDiv.InnerHtml = "<script>alert(\"Facility successfully added!\")</script>";
+            
+
+
+        }
+        protected void deleteFacilityFunction(Object sender, EventArgs e) //This is executed when the delete facility button is pressed.
+        {
+
+
+
+            string selectedFacility = facilityList.SelectedItem.Value;
+            Response.Write(selectedFacility);
+            
+            SqlConnection connect3 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            connect3.Open();
+            string deleteFacilityString = "DELETE FROM Facility WHERE facilityID=" + selectedFacility;   
+            SqlCommand deleteFacilityCommand = new SqlCommand(deleteFacilityString, connect3);
+            deleteFacilityCommand.ExecuteNonQuery();
+
+            scriptDiv.InnerHtml = "<script>alert(\"Facility successfully deleted!\")</script>";
             
 
 
