@@ -22,6 +22,18 @@ namespace Team11
             SqlCommand cmd = new SqlCommand(listSQL, deleteFacilitiesConnection);
             SqlDataReader reader;
 
+            string poolSQL = "SELECT roomID,roomName FROM Room WHERE pool=1";
+
+            SqlConnection poolConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            SqlCommand poolCmd = new SqlCommand(poolSQL, poolConnection);
+            SqlDataReader poolReader;
+
+            string roomSQL = "SELECT roomID,roomName FROM Room WHERE pool=0";
+
+            SqlConnection roomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            SqlCommand roomCmd = new SqlCommand(roomSQL, roomConnection);
+            SqlDataReader roomReader;
+
             try
             {
                 if (!Page.IsPostBack)
@@ -44,6 +56,42 @@ namespace Team11
                         facilityList.Items.Add(newItem);
                     }
                     reader.Close();
+
+                    poolDropDownList.Items.Clear();
+
+                    ListItem newItem2 = new ListItem();
+                    newItem2.Text = "Choose a pool room";
+                    newItem2.Value = "test";
+                    poolDropDownList.Items.Add(newItem2);
+
+                    poolConnection.Open();
+                    poolReader = poolCmd.ExecuteReader();
+                    while (poolReader.Read())
+                    {
+                        newItem2 = new ListItem();
+                        newItem2.Text = poolReader["roomName"].ToString();
+                        newItem2.Value = poolReader["roomID"].ToString();
+                        poolDropDownList.Items.Add(newItem2);
+                    }
+                    poolReader.Close();
+
+                    roomDropDownList.Items.Clear();
+
+                    ListItem newItem3 = new ListItem();
+                    newItem3.Text = "Choose a non-pool room";
+                    newItem3.Value = "test";
+                    roomDropDownList.Items.Add(newItem3);
+
+                    roomConnection.Open();
+                    roomReader = roomCmd.ExecuteReader();
+                    while (roomReader.Read())
+                    {
+                        newItem3 = new ListItem();
+                        newItem3.Text = roomReader["roomName"].ToString();
+                        newItem3.Value = roomReader["roomID"].ToString();
+                        roomDropDownList.Items.Add(newItem3);
+                    }
+                    roomReader.Close();
                 }
             }
             catch (Exception err)
@@ -79,7 +127,9 @@ namespace Team11
              
              
              addFacility.Click += new EventHandler(addFacilityFunction);
-             deleteFacility.Click += new EventHandler(deleteFacilityFunction);       
+             deleteFacility.Click += new EventHandler(deleteFacilityFunction);
+             removePoolRoom.Click += new EventHandler(removePoolRoomFunction);
+             addPoolRoom.Click += new EventHandler(addPoolRoomFunction);
              
            }
            else {
@@ -155,6 +205,57 @@ namespace Team11
 
             }
 
+        }
+        protected void removePoolRoomFunction(Object sender, EventArgs e) {
+            string selectedPoolRoom = poolDropDownList.SelectedItem.Value;
+            if (selectedPoolRoom == "test")
+            {
+
+
+                scriptDiv.InnerHtml = "<script>alert(\"You have not selected a pool room.\")</script>";
+
+            }
+            else {
+
+                SqlConnection connect4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                connect4.Open();
+                string poolString = "UPDATE Room SET pool=0 WHERE roomID=" + selectedPoolRoom;
+                SqlCommand poolCommand = new SqlCommand(poolString, connect4);
+                poolCommand.ExecuteNonQuery();
+
+                Response.Redirect(Request.RawUrl);
+            
+            
+            
+            }
+        
+        }
+        protected void addPoolRoomFunction(Object sender, EventArgs e) {
+
+            string selectedRoom = roomDropDownList.SelectedItem.Value;
+            if (selectedRoom == "test")
+            {
+
+
+                scriptDiv.InnerHtml = "<script>alert(\"You have not selected a room.\")</script>";
+
+            }
+            else
+            {
+
+                SqlConnection connect5 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                connect5.Open();
+                string roomString = "UPDATE Room SET pool=1 WHERE roomID=" + selectedRoom;
+                SqlCommand roomCommand = new SqlCommand(roomString, connect5);
+                roomCommand.ExecuteNonQuery();
+
+                Response.Redirect(Request.RawUrl);
+
+
+
+            }
+        
+        
         }
                                  
 
