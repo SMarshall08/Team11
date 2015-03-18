@@ -75,21 +75,11 @@ namespace Team11
            
              
             if (userIsAdmin)
-         {        //Below executed if user logged in is an admin.
-
-
-
-             
+         {        //Below executed if user logged in is an admin.            
              
              
              addFacility.Click += new EventHandler(addFacilityFunction);
-             deleteFacility.Click += new EventHandler(deleteFacilityFunction);
-             
-             
-
-             
-
-             
+             deleteFacility.Click += new EventHandler(deleteFacilityFunction);       
              
            }
            else {
@@ -114,15 +104,26 @@ namespace Team11
 
 
             string facility = facilityText.Text.ToString();
-            
-            SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
-            connect2.Open();
-            string addFacilityString = "Insert into Facility (facilityName) VALUES ('"+facility+"')";
-            SqlCommand addFacilityCommand = new SqlCommand(addFacilityString, connect2);
-            addFacilityCommand.ExecuteNonQuery();
-            
-            scriptDiv.InnerHtml = "<script>alert(\"Facility successfully added!\")</script>";
-            
+            if (facility == "")
+            {
+
+
+                scriptDiv.InnerHtml = "<script>alert(\"You have not entered a facility to add.\")</script>";
+
+            }
+            else
+            {
+
+                SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                connect2.Open();
+                string addFacilityString = "Insert into Facility (facilityName) VALUES ('" + facility + "')";
+                SqlCommand addFacilityCommand = new SqlCommand(addFacilityString, connect2);
+                addFacilityCommand.ExecuteNonQuery();
+                /// scriptDiv.InnerHtml = "<script>alert(\"Facility successfully added!\");window.location.href=\"Admin.aspx\"; </script>";
+                ///scriptDiv.InnerHtml = "<script>alert(\"Facility successfully added!\")</script>";
+                /// ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Facility successfully added')", true);
+                Response.Redirect(Request.RawUrl);
+            }
 
 
         }
@@ -132,17 +133,27 @@ namespace Team11
 
 
             string selectedFacility = facilityList.SelectedItem.Value;
-            Response.Write(selectedFacility);
-            
-            SqlConnection connect3 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
-            connect3.Open();
-            string deleteFacilityString = "DELETE FROM Facility WHERE facilityID=" + selectedFacility;   
-            SqlCommand deleteFacilityCommand = new SqlCommand(deleteFacilityString, connect3);
-            deleteFacilityCommand.ExecuteNonQuery();
+            if (selectedFacility == "test")
+            {
 
-            scriptDiv.InnerHtml = "<script>alert(\"Facility successfully deleted!\")</script>";
-            
 
+                scriptDiv.InnerHtml = "<script>alert(\"You have not selected a facility to delete.\")</script>";
+
+            }
+            else
+            {
+
+                SqlConnection connect3 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                connect3.Open();
+                string deleteFacilityString = "DELETE FROM Facility WHERE facilityID=" + selectedFacility;
+                SqlCommand deleteFacilityCommand = new SqlCommand(deleteFacilityString, connect3);
+                deleteFacilityCommand.ExecuteNonQuery();
+                /// scriptDiv.InnerHtml = "<script>alert(\"Facility successfully deleted!\");window.location.href=\"Admin.aspx\"; </script>";
+                /// scriptDiv.InnerHtml = "<script>alert(\"Facility successfully deleted!\")</script>";
+                ///ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Facility successfully deleted')", true);
+                Response.Redirect(Request.RawUrl);
+
+            }
 
         }
                                  
