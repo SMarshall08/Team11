@@ -15,11 +15,18 @@
     <div id="areYouAdmin" runat="server"> <%--This div is where buttons, text forms, and other text will be placed. --%>
         <asp:TextBox id="facilityText" runat="server" />
         <asp:Button id="addFacility" Text="Add Facility" runat="server" />
-        <br /><br />
+        <br />
         <asp:DropDownList id="facilityList" runat="server"> 
             <%--Facilities will be taken from db and placed into this tag. --%>
         </asp:DropDownList>
         <asp:Button id="deleteFacility" Text="Delete Facility" runat="server" />
+        <br />
+        <asp:DropDownList id="poolDropDownList" runat="server"> 
+            
+        </asp:DropDownList><asp:Button id="removePoolRoom" Text="Remove Pool Room" runat="server" /><br />
+        <asp:DropDownList id="roomDropDownList" runat="server"> 
+            
+        </asp:DropDownList> <asp:Button id="addPoolRoom" Text="Add Pool Room" runat="server" />
         
         
     </div>
