@@ -67,6 +67,15 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.Button deleteFacility;
         
         /// <summary>
+        /// filterPool control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filterPool;
+        
+        /// <summary>
         /// poolDropDownList control.
         /// </summary>
         /// <remarks>
@@ -83,6 +92,15 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button removePoolRoom;
+        
+        /// <summary>
+        /// filterRoom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filterRoom;
         
         /// <summary>
         /// roomDropDownList control.
