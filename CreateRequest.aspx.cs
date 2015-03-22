@@ -26,17 +26,31 @@ namespace Team11
         {
             // read the userid from the querystring
             userID = Convert.ToInt32(Request.QueryString["userID"]);
+            /*
+            SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            connect2.Open();
 
+            string fillDeptName = string.Format("SELECT deptName from [Module] where userID={0}", userID);
+            SqlCommand deptcommand = new SqlCommand(fillDeptName, connect2);
+            SqlDataReader dept = deptcommand.ExecuteReader();
+
+            while (dept.Read())
+            {
+                deptName.InnerText = fillDeptName.ToString();
+            }
+
+            connect2.Close();
+            */
             if (!IsPostBack)
             {   // if this is the initial page load, then ...
 
                 // populate the list of module codes as "code : name"
                 SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                 connect.Open();
-
                 string modulesql = String.Format("Select moduleCode, moduleTitle from [Module] where userID={0}", userID);
                 SqlCommand modulecommand = new SqlCommand(modulesql, connect);
                 SqlDataReader modules = modulecommand.ExecuteReader();
+                
                 while (modules.Read())
                 {
                     string modulecode = modules.GetString(0);
@@ -278,24 +292,24 @@ namespace Team11
                                 /* Find a weekID relating to week selection */
                                 int weekIDText;
                                 string weekquery = String.Format(@"
-SELECT COUNT(weekID) 
-FROM [Week] 
-WHERE week1= {0}
-AND week2= {1} 
-AND week3= {2} 
-AND week4= {3} 
-AND week5= {4} 
-AND week6= {5} 
-AND week7= {6} 
-AND week8= {7} 
-AND week9= {8} 
-AND week10= {9} 
-AND week11= {10} 
-AND week12= {11} 
-AND week13= {12} 
-AND week14= {13} 
-AND week15= {14}",
-                      week1,week2,week3,week4,week5,week6,week7,week8,week9,week10,week11,week12,week13,week14,week15);
+                                    SELECT COUNT(weekID) 
+                                    FROM [Week] 
+                                    WHERE week1= {0}
+                                    AND week2= {1} 
+                                    AND week3= {2} 
+                                    AND week4= {3} 
+                                    AND week5= {4} 
+                                    AND week6= {5} 
+                                    AND week7= {6} 
+                                    AND week8= {7} 
+                                    AND week9= {8} 
+                                    AND week10= {9} 
+                                    AND week11= {10} 
+                                    AND week12= {11} 
+                                    AND week13= {12} 
+                                    AND week14= {13} 
+                                    AND week15= {14}",
+                                week1,week2,week3,week4,week5,week6,week7,week8,week9,week10,week11,week12,week13,week14,week15);
                                 SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                 connection.Open();
                                 SqlCommand weeksql = new SqlCommand(weekquery, connection);
@@ -330,105 +344,11 @@ AND week15= {14}",
                                 }
 
                                 /* Make  an array for each day storing each period */
-                                bool[] mondayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-                                if (CheckBoxM1.Checked == true)
-                                    mondayrequest[0] = true;
-                                if (CheckBoxM2.Checked == true)
-                                    mondayrequest[1] = true;
-                                if (CheckBoxM3.Checked == true)
-                                    mondayrequest[2] = true;
-                                if (CheckBoxM4.Checked == true)
-                                    mondayrequest[3] = true;
-                                if (CheckBoxM5.Checked == true)
-                                    mondayrequest[4] = true;
-                                if (CheckBoxM6.Checked == true)
-                                    mondayrequest[5] = true;
-                                if (CheckBoxM7.Checked == true)
-                                    mondayrequest[6] = true;
-                                if (CheckBoxM8.Checked == true)
-                                    mondayrequest[7] = true;
-                                if (CheckBoxM9.Checked == true)
-                                    mondayrequest[8] = true;
-
-                                bool[] tuesdayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-                                if (CheckBoxT1.Checked == true)
-                                    tuesdayrequest[0] = true;
-                                if (CheckBoxT2.Checked == true)
-                                    tuesdayrequest[1] = true;
-                                if (CheckBoxT3.Checked == true)
-                                    tuesdayrequest[2] = true;
-                                if (CheckBoxT4.Checked == true)
-                                    tuesdayrequest[3] = true;
-                                if (CheckBoxT5.Checked == true)
-                                    tuesdayrequest[4] = true;
-                                if (CheckBoxT6.Checked == true)
-                                    tuesdayrequest[5] = true;
-                                if (CheckBoxT7.Checked == true)
-                                    tuesdayrequest[6] = true;
-                                if (CheckBoxT8.Checked == true)
-                                    tuesdayrequest[7] = true;
-                                if (CheckBoxT9.Checked == true)
-                                    tuesdayrequest[8] = true;
-
-                                bool[] wednesdayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-                                if (CheckBoxW1.Checked == true)
-                                    wednesdayrequest[0] = true;
-                                if (CheckBoxW2.Checked == true)
-                                    wednesdayrequest[1] = true;
-                                if (CheckBoxW3.Checked == true)
-                                    wednesdayrequest[2] = true;
-                                if (CheckBoxW4.Checked == true)
-                                    wednesdayrequest[3] = true;
-                                if (CheckBoxW5.Checked == true)
-                                    wednesdayrequest[4] = true;
-                                if (CheckBoxW6.Checked == true)
-                                    wednesdayrequest[5] = true;
-                                if (CheckBoxW7.Checked == true)
-                                    wednesdayrequest[6] = true;
-                                if (CheckBoxW8.Checked == true)
-                                    wednesdayrequest[7] = true;
-                                if (CheckBoxW9.Checked == true)
-                                    wednesdayrequest[8] = true;
-
-                                bool[] thursdayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-                                if (CheckBoxJ1.Checked == true)
-                                    thursdayrequest[0] = true;
-                                if (CheckBoxJ2.Checked == true)
-                                    thursdayrequest[1] = true;
-                                if (CheckBoxJ3.Checked == true)
-                                    thursdayrequest[2] = true;
-                                if (CheckBoxJ4.Checked == true)
-                                    thursdayrequest[3] = true;
-                                if (CheckBoxJ5.Checked == true)
-                                    thursdayrequest[4] = true;
-                                if (CheckBoxJ6.Checked == true)
-                                    thursdayrequest[5] = true;
-                                if (CheckBoxJ7.Checked == true)
-                                    thursdayrequest[6] = true;
-                                if (CheckBoxJ8.Checked == true)
-                                    thursdayrequest[7] = true;
-                                if (CheckBoxJ9.Checked == true)
-                                    thursdayrequest[8] = true;
-
-                                bool[] fridayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-                                if (CheckBoxF1.Checked == true)
-                                    fridayrequest[0] = true;
-                                if (CheckBoxF2.Checked == true)
-                                    fridayrequest[1] = true;
-                                if (CheckBoxF3.Checked == true)
-                                    fridayrequest[2] = true;
-                                if (CheckBoxF4.Checked == true)
-                                    fridayrequest[3] = true;
-                                if (CheckBoxF5.Checked == true)
-                                    fridayrequest[4] = true;
-                                if (CheckBoxF6.Checked == true)
-                                    fridayrequest[5] = true;
-                                if (CheckBoxF7.Checked == true)
-                                    fridayrequest[6] = true;
-                                if (CheckBoxF8.Checked == true)
-                                    fridayrequest[7] = true;
-                                if (CheckBoxF9.Checked == true)
-                                    fridayrequest[8] = true;
+                                CheckBox[,] weekdayCheckBoxes = { { CheckBoxM1, CheckBoxM2, CheckBoxM3, CheckBoxM4, CheckBoxM5, CheckBoxM6, CheckBoxM7, CheckBoxM8, CheckBoxM9 }, 
+                                                                    {CheckBoxT1, CheckBoxT2, CheckBoxT3, CheckBoxT4, CheckBoxT5, CheckBoxT6, CheckBoxT7, CheckBoxT8, CheckBoxT9 },
+                                                                    {CheckBoxW1, CheckBoxW2, CheckBoxW3, CheckBoxW4, CheckBoxW5, CheckBoxW6, CheckBoxW7, CheckBoxW8, CheckBoxW9  },
+                                                                    {CheckBoxJ1, CheckBoxJ2, CheckBoxJ3, CheckBoxJ4, CheckBoxJ5, CheckBoxJ6, CheckBoxJ7, CheckBoxJ8, CheckBoxJ9  },
+                                                                    {CheckBoxM1, CheckBoxF2, CheckBoxF3, CheckBoxF4, CheckBoxF5, CheckBoxF6, CheckBoxF7, CheckBoxF8, CheckBoxF9  }};
 
                                 /*Make a list of every selected room*/
                                 int numberOfRooms = 0;
@@ -567,352 +487,81 @@ AND week15= {14}",
 
                                 /* Cycle through each array and, if any were selected, create a request with that data */
                                 /* The while loops find any multiple period requests */
-                                for (int i = 0; i < 9; i++)
+                                //bool[] availableDays = new bool[32] {mondayrequest,tuesdayrequest,wednesdayrequest,thursdayrequest,fridayrequest};
+                                string[] dayName = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+                                for (int day = 0; day < 5; day++)
                                 {
-                                    if (mondayrequest[i] == true)
+                                    for (int period = 0; period < 9; period++)
                                     {
-                                        int startTime = i + 1;
-                                        int duration = 0;
-                                        int n = i - 1;
-                                        bool ended = true;
-                                        while (ended)
+                                        if (weekdayCheckBoxes[day, period].Checked)
                                         {
-                                            n++;
-                                            switch (mondayrequest[n] == true && mondayrequest[n + 1] == true)
+                                            int startTime = period + 1;
+                                            int duration = 0;
+                                            int n = period - 1;
+                                            bool ended = true;
+                                            while (ended)
                                             {
-                                                case true:
-                                                    duration++;
-                                                    i++;
-                                                    break;
-                                                case false:
-                                                    int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Monday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
-                                                    SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                    connection6.Open();
-                                                    SqlCommand insreqsql = new SqlCommand(insreq, connection6);
-                                                    insreqsql.ExecuteNonQuery();
-                                                    connection6.Close();
-                                                    string booked = "";
-                                                    if (roomlist.Count != 0)
-                                                    {
-                                                        SqlConnection conn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn2.Open();
-                                                        for (int y = 0; y < roomlist.Count; y++)
+                                                n++;
+                                                if (weekdayCheckBoxes[day, n].Checked 
+                                                    && n < 8 // only check the next period if there is a next period (i.e.: we are not at the last period)
+                                                    && weekdayCheckBoxes[day, n + 1].Checked)
+                                                {
+                                                        duration++;
+                                                        period++;
+                                                }
+                                                else
+                                                {
+                                                        int endTime = startTime + duration;
+                                                        string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
+                                                        SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                                        connection6.Open();
+                                                        SqlCommand insreqsql = new SqlCommand(insreq, connection6);
+                                                        insreqsql.ExecuteNonQuery();
+                                                        connection6.Close();
+                                                        string booked = "";
+                                                        if (roomlist.Count != 0)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn2);
-                                                            bookedsql.ExecuteNonQuery();
-                                                        }
+                                                            SqlConnection conn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                                            conn2.Open();
+                                                            for (int y = 0; y < roomlist.Count; y++)
+                                                            {
+                                                                booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
+                                                                SqlCommand bookedsql = new SqlCommand(booked, conn2);
+                                                                bookedsql.ExecuteNonQuery();
+                                                            }
 
-                                                        conn2.Close();
-                                                    }
-                                                    else
-                                                    {
-                                                        SqlConnection conn4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn4.Open();
-                                                        for (int x = 0; x < numberOfRooms; x++)
-                                                        {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn4);
-                                                            bookedsql.ExecuteNonQuery();
+                                                            conn2.Close();
                                                         }
-                                                        conn4.Close();
-                                                    }
-                                                    if (list.Count != 0)
-                                                    {
-                                                        SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn.Open();
-                                                        for (int z = 0; z < list.Count; z++)
+                                                        else
                                                         {
-                                                            reqfac = "INSERT INTO [RequestFacilities] VALUES ((SELECT MAX(requestID) FROM [Request])," + list[z] + ")";
-                                                            SqlCommand reqfacsql = new SqlCommand(reqfac, conn);
-                                                            reqfacsql.ExecuteNonQuery();
+                                                            SqlConnection conn4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                                            conn4.Open();
+                                                            for (int x = 0; x < numberOfRooms; x++)
+                                                            {
+                                                                booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
+                                                                SqlCommand bookedsql = new SqlCommand(booked, conn4);
+                                                                bookedsql.ExecuteNonQuery();
+                                                            }
+                                                            conn4.Close();
                                                         }
-                                                        conn.Close();
-                                                    }
-                                                    ended = false;
-                                                    break;
+                                                        if (list.Count != 0)
+                                                        {
+                                                            SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                                            conn.Open();
+                                                            for (int z = 0; z < list.Count; z++)
+                                                            {
+                                                                reqfac = "INSERT INTO [RequestFacilities] VALUES ((SELECT MAX(requestID) FROM [Request])," + list[z] + ")";
+                                                                SqlCommand reqfacsql = new SqlCommand(reqfac, conn);
+                                                                reqfacsql.ExecuteNonQuery();
+                                                            }
+                                                            conn.Close();
+                                                        }
+                                                        ended = false;
+                                                }
                                             }
                                         }
                                     }
                                 }
-                                for (int i = 0; i < 9; i++)
-                                {
-                                    if (tuesdayrequest[i] == true)
-                                    {
-                                        int startTime = i + 1;
-                                        int duration = 0;
-                                        int n = i - 1;
-                                        bool ended = true;
-                                        while (ended)
-                                        {
-                                            n++;
-                                            switch (tuesdayrequest[n] == true && tuesdayrequest[n + 1] == true)
-                                            {
-                                                case true:
-                                                    duration++;
-                                                    i++;
-                                                    break;
-                                                case false:
-                                                    int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Tuesday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
-                                                    SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                    connection6.Open();
-                                                    SqlCommand insreqsql = new SqlCommand(insreq, connection6);
-                                                    insreqsql.ExecuteNonQuery();
-                                                    connection6.Close();
-                                                    string booked = "";
-                                                    if (roomlist.Count != 0)
-                                                    {
-                                                        SqlConnection conn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn2.Open();
-                                                        for (int y = 0; y < roomlist.Count; y++)
-                                                        {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn2);
-                                                            bookedsql.ExecuteNonQuery();
-                                                        }
-
-                                                        conn2.Close();
-                                                    }
-                                                    else
-                                                    {
-                                                        SqlConnection conn4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn4.Open();
-                                                        for (int x = 0; x < numberOfRooms; x++)
-                                                        {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn4);
-                                                            bookedsql.ExecuteNonQuery();
-                                                        }
-                                                        conn4.Close();
-                                                    }
-                                                    if (list.Count != 0)
-                                                    {
-                                                        SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn.Open();
-                                                        for (int z = 0; z < list.Count; z++)
-                                                        {
-                                                            reqfac = "INSERT INTO [RequestFacilities] VALUES ((SELECT MAX(requestID) FROM [Request])," + list[z] + ")";
-                                                            SqlCommand reqfacsql = new SqlCommand(reqfac, conn);
-                                                            reqfacsql.ExecuteNonQuery();
-                                                        }
-                                                        conn.Close();
-                                                    }
-                                                    ended = false;
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                }
-                                for (int i = 0; i < 9; i++)
-                                {
-                                    if (wednesdayrequest[i] == true)
-                                    {
-                                        int startTime = i + 1;
-                                        int duration = 0;
-                                        int n = i - 1;
-                                        bool ended = true;
-                                        while (ended)
-                                        {
-                                            n++;
-                                            switch (wednesdayrequest[n] == true && wednesdayrequest[n + 1] == true)
-                                            {
-                                                case true:
-                                                    duration++;
-                                                    i++;
-                                                    break;
-                                                case false:
-                                                    int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Wednesday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
-                                                    SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                    connection6.Open();
-                                                    SqlCommand insreqsql = new SqlCommand(insreq, connection6);
-                                                    insreqsql.ExecuteNonQuery();
-                                                    connection6.Close();
-                                                    string booked = "";
-                                                    if (roomlist.Count != 0)
-                                                    {
-                                                        SqlConnection conn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn2.Open();
-                                                        for (int y = 0; y < roomlist.Count; y++)
-                                                        {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn2);
-                                                            bookedsql.ExecuteNonQuery();
-                                                        }
-
-                                                        conn2.Close();
-                                                    }
-                                                    else
-                                                    {
-                                                        SqlConnection conn4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn4.Open();
-                                                        for (int x = 0; x < numberOfRooms; x++)
-                                                        {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn4);
-                                                            bookedsql.ExecuteNonQuery();
-                                                        }
-                                                        conn4.Close();
-                                                    }
-                                                    if (list.Count != 0)
-                                                    {
-                                                        SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn.Open();
-                                                        for (int z = 0; z < list.Count; z++)
-                                                        {
-                                                            reqfac = "INSERT INTO [RequestFacilities] VALUES ((SELECT MAX(requestID) FROM [Request])," + list[z] + ")";
-                                                            SqlCommand reqfacsql = new SqlCommand(reqfac, conn);
-                                                            reqfacsql.ExecuteNonQuery();
-                                                        }
-                                                        conn.Close();
-                                                    }
-                                                    ended = false;
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                }
-                                for (int i = 0; i < 9; i++)
-                                {
-                                    if (thursdayrequest[i] == true)
-                                    {
-                                        int startTime = i + 1;
-                                        int duration = 0;
-                                        int n = i - 1;
-                                        bool ended = true;
-                                        while (ended)
-                                        {
-                                            n++;
-                                            switch (thursdayrequest[n] == true && thursdayrequest[n + 1] == true)
-                                            {
-                                                case true:
-                                                    duration++;
-                                                    i++;
-                                                    break;
-                                                case false:
-                                                    int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Thursday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
-                                                    SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                    connection6.Open();
-                                                    SqlCommand insreqsql = new SqlCommand(insreq, connection6);
-                                                    insreqsql.ExecuteNonQuery();
-                                                    connection6.Close();
-                                                    string booked = "";
-                                                    if (roomlist.Count != 0)
-                                                    {
-                                                        SqlConnection conn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn2.Open();
-                                                        for (int y = 0; y < roomlist.Count; y++)
-                                                        {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn2);
-                                                            bookedsql.ExecuteNonQuery();
-                                                        }
-
-                                                        conn2.Close();
-                                                    }
-                                                    else
-                                                    {
-                                                        SqlConnection conn4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn4.Open();
-                                                        for (int x = 0; x < numberOfRooms; x++)
-                                                        {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn4);
-                                                            bookedsql.ExecuteNonQuery();
-                                                        }
-                                                        conn4.Close();
-                                                    }
-                                                    if (list.Count != 0)
-                                                    {
-                                                        SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn.Open();
-                                                        for (int z = 0; z < list.Count; z++)
-                                                        {
-                                                            reqfac = "INSERT INTO [RequestFacilities] VALUES ((SELECT MAX(requestID) FROM [Request])," + list[z] + ")";
-                                                            SqlCommand reqfacsql = new SqlCommand(reqfac, conn);
-                                                            reqfacsql.ExecuteNonQuery();
-                                                        }
-                                                        conn.Close();
-                                                    }
-                                                    ended = false;
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                }
-                                for (int i = 0; i < 9; i++)
-                                {
-                                    if (fridayrequest[i] == true)
-                                    {
-                                        int startTime = i + 1;
-                                        int duration = 0;
-                                        int n = i - 1;
-                                        bool ended = true;
-                                        while (ended)
-                                        {
-                                            n++;
-                                            switch (fridayrequest[n] == true && fridayrequest[n + 1] == true)
-                                            {
-                                                case true:
-                                                    duration++;
-                                                    i++;
-                                                    break;
-                                                case false:
-                                                    int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Friday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
-                                                    SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                    connection6.Open();
-                                                    SqlCommand insreqsql = new SqlCommand(insreq, connection6);
-                                                    insreqsql.ExecuteNonQuery();
-                                                    connection6.Close();
-                                                    string booked = "";
-                                                    if (roomlist.Count != 0)
-                                                    {
-                                                        SqlConnection conn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn2.Open();
-                                                        for (int y = 0; y < roomlist.Count; y++)
-                                                        {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn2);
-                                                            bookedsql.ExecuteNonQuery();
-                                                        }
-
-                                                        conn2.Close();
-                                                    }
-                                                    else
-                                                    {
-                                                        SqlConnection conn4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn4.Open();
-                                                        for (int x = 0; x < numberOfRooms; x++)
-                                                        {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
-                                                            SqlCommand bookedsql = new SqlCommand(booked, conn4);
-                                                            bookedsql.ExecuteNonQuery();
-                                                        }
-                                                        conn4.Close();
-                                                    }
-                                                    if (list.Count != 0)
-                                                    {
-                                                        SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        conn.Open();
-                                                        for (int z = 0; z < list.Count; z++)
-                                                        {
-                                                            reqfac = "INSERT INTO [RequestFacilities] VALUES ((SELECT MAX(requestID) FROM [Request])," + list[z] + ")";
-                                                            SqlCommand reqfacsql = new SqlCommand(reqfac, conn);
-                                                            reqfacsql.ExecuteNonQuery();
-                                                        }
-                                                        conn.Close();
-                                                    }
-                                                    ended = false;
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                }
-
 
                                 if (numberAltRooms == 1)
                                 {
@@ -1024,6 +673,12 @@ AND week15= {14}",
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void All_Click(object sender, EventArgs e)
         {
+            /*CheckBox[] weekChecked = { Week1, Week2, Week3, Week4, Week5, Week6, Week7,
+                                  Week8, Week9, Week10, Week11, Week12, Week13, Week14, Week15};
+            foreach (checked week in weekChecked )
+            {
+                weekChecked[week] = true;
+            }*/
             Week1.Checked = true;
             Week2.Checked = true;
             Week3.Checked = true;
