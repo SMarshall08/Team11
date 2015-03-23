@@ -39,7 +39,7 @@ namespace Team11
         protected void Page_Load(object sender, EventArgs e)
         {
             DropDownListFilterModule.Items.Add("Please Select a Module To filter By");
-            string getModule = "SELECT moduleCode, moduleTitle FROM [Module] WHERE userID=1";
+            string getModule = "SELECT moduleCode, moduleTitle FROM [Module] WHERE userID=" + Session["userID"]; //Session["userID"] is intialised upon login.
             SqlConnection connect11 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect11.Open();
             SqlCommand getModuleSql = new SqlCommand(getModule, connect11);
@@ -79,7 +79,7 @@ namespace Team11
             connect11.Close();
             
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-            string preferencesquery = "SELECT period, hr24Format, header1, header2, header3 FROM [Preferences] WHERE userID='1'";
+            string preferencesquery = "SELECT period, hr24Format, header1, header2, header3 FROM [Preferences] WHERE userID='" + Session["userID"] + "'";
             connect.Open();
             SqlCommand preferencessql = new SqlCommand(preferencesquery, connect);
             SqlDataReader preferences = preferencessql.ExecuteReader();
@@ -114,7 +114,7 @@ namespace Team11
             
 
             //Collect all requests fitting filter
-            string reqid = "SELECT DISTINCT [Request].requestID FROM [Request] INNER JOIN [Module] ON [Module].moduleCode = [request].moduleCode INNER JOIN [BookedRoom] ON [Request].requestID = [BookedRoom].requestID INNER JOIN [Room] ON [BookedRoom].roomID = [Room].roomID INNER JOIN [Building] ON [Room].buildingID = [Building].buildingID INNER JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Module].userID = '1'" + codeStr;
+            string reqid = "SELECT DISTINCT [Request].requestID FROM [Request] INNER JOIN [Module] ON [Module].moduleCode = [request].moduleCode INNER JOIN [BookedRoom] ON [Request].requestID = [BookedRoom].requestID INNER JOIN [Room] ON [BookedRoom].roomID = [Room].roomID INNER JOIN [Building] ON [Room].buildingID = [Building].buildingID INNER JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Module].userID = '" + Session["userID"] + "'" + codeStr;
             SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             conn.Open();
             SqlCommand reqidsql = new SqlCommand(reqid, conn);
@@ -136,6 +136,7 @@ namespace Team11
                     SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                     connection.Open();
                     SqlCommand facilitysql = new SqlCommand(facname, connection);
+
                     SqlDataReader facility = facilitysql.ExecuteReader();
                     while (facility.Read())
                     {
@@ -807,7 +808,7 @@ namespace Team11
                 }
                 connect.Close();
                 connect.Open();
-                string deptdetails = "SELECT deptCode FROM [User] WHERE userID =1";
+                string deptdetails = "SELECT deptCode FROM [User] WHERE userID =" + Session["userID"];
                 SqlCommand departmentcommand = new SqlCommand(deptdetails, connect);
                 //Retrieve the request details and store them in appropriate Variables
                 SqlDataReader departmentdetails = departmentcommand.ExecuteReader();
