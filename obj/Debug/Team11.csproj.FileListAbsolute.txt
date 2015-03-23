@@ -42,10 +42,3 @@ D:\websites\testphp\TeamProject-11\TeamProjectsTeam11\obj\Debug\Team11.Propertie
 D:\websites\testphp\TeamProject-11\TeamProjectsTeam11\obj\Debug\Team11.csproj.GenerateResource.Cache
 D:\websites\testphp\TeamProject-11\TeamProjectsTeam11\obj\Debug\Team11.dll
 D:\websites\testphp\TeamProject-11\TeamProjectsTeam11\obj\Debug\Team11.pdb
-\\hs5.lboro.ac.uk\cojrc\GitHub\TeamProjectsTeam11\bin\Team11.dll
-\\hs5.lboro.ac.uk\cojrc\GitHub\TeamProjectsTeam11\bin\Team11.pdb
-\\hs5.lboro.ac.uk\cojrc\GitHub\TeamProjectsTeam11\obj\Debug\Team11.csprojResolveAssemblyReference.cache
-\\hs5.lboro.ac.uk\cojrc\GitHub\TeamProjectsTeam11\obj\Debug\Team11.Properties.Resources.resources
-\\hs5.lboro.ac.uk\cojrc\GitHub\TeamProjectsTeam11\obj\Debug\Team11.csproj.GenerateResource.Cache
-\\hs5.lboro.ac.uk\cojrc\GitHub\TeamProjectsTeam11\obj\Debug\Team11.dll
-\\hs5.lboro.ac.uk\cojrc\GitHub\TeamProjectsTeam11\obj\Debug\Team11.pdb
