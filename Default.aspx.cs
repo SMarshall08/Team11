@@ -80,6 +80,8 @@ namespace Team11
                         }
 
                         conn.Close();
+                        //initiate a new session that stores the userID of the person that logs in.
+                        Session["userID"] = userID;
                         // redirect after the databse connection has been closed
                         Response.Redirect(String.Format("{0}?userID={1}", redirectPage, userID));
 
