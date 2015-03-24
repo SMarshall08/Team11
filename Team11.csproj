@@ -20,6 +20,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,10 +68,11 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="AddEditModule.aspx" />
-	<Content Include="Admin.aspx" />
+    <Content Include="Admin.aspx" />
     <Content Include="Availibility.aspx" />
     <Content Include="CreateRequest.aspx" />
     <Content Include="EditRequest.aspx" />
+    <Content Include="Facilities.aspx" />
     <Content Include="Preference.aspx" />
     <None Include="Resources\favicon.png" />
     <None Include="Resources\logo2.jpg" />
@@ -136,7 +141,7 @@
     <Compile Include="AddEditModule.aspx.designer.cs">
       <DependentUpon>AddEditModule.aspx</DependentUpon>
     </Compile>
-	<Compile Include="Admin.aspx.cs">
+    <Compile Include="Admin.aspx.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -170,6 +175,13 @@
     </Compile>
     <Compile Include="EditRequest.aspx.designer.cs">
       <DependentUpon>EditRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Facilities.aspx.cs">
+      <DependentUpon>Facilities.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facilities.aspx.designer.cs">
+      <DependentUpon>Facilities.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
