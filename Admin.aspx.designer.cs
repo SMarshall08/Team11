@@ -121,6 +121,33 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.Button addPoolRoom;
         
         /// <summary>
+        /// filterEditFacilities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filterEditFacilities;
+        
+        /// <summary>
+        /// editFacilitiesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList editFacilitiesList;
+        
+        /// <summary>
+        /// editFacilities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button editFacilities;
+        
+        /// <summary>
         /// scriptDiv control.
         /// </summary>
         /// <remarks>
