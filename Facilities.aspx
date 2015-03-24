@@ -12,14 +12,20 @@
 
 
     
-    <di>
+    <div>
         <h3 align="center">
         Edit Facilities
         </h3>
     
 
         <asp:Label ID="labelID" runat="server"></asp:Label>
+        
         <a href="javascript: history.go(-1)">return to the admin menu.</a>
+        <br />
+        <br />
+        <br />
+        <br />
+        <asp:Label ID="labelID2" runat="server"></asp:Label>
     </div>
     
 
