@@ -28,7 +28,11 @@
        <asp:TextBox ID="filterRoom" runat="server" placeholder="Type to filter list."
          onkeyup = "FilterItems2(this.value)"></asp:TextBox>  <asp:DropDownList id="roomDropDownList" runat="server"> 
             
-        </asp:DropDownList> <asp:Button id="addPoolRoom" Text="Add Pool Room" runat="server" />
+        </asp:DropDownList> <asp:Button id="addPoolRoom" Text="Add Pool Room" runat="server" /><br />
+        <asp:TextBox ID="filterEditFacilities" runat="server" placeholder="Type to filter list."
+         onkeyup = "FilterItems3(this.value)"></asp:TextBox>  <asp:DropDownList id="editFacilitiesList" runat="server"> 
+            
+        </asp:DropDownList> <asp:Button id="editFacilities" Text="Edit the facilities for this room" runat="server" />
         
         
     </div>
@@ -37,7 +41,7 @@
     </div>
     
     <script type = "text/javascript">//This script tag is for filtering drop down lists for both pool rooms and non-pool rooms.
-        var ddlText, ddlValue, ddl;
+        var ddlText, ddlValue, ddl, ddlText2, ddlValue2, ddl2, ddlText3, ddlValue3, ddl3;
     function CacheItems() {
         ddlText = new Array();
         ddlValue = new Array();
@@ -55,6 +59,15 @@
             ddlText2[ddlText2.length] = ddl2.options[i].text;
             ddlValue2[ddlValue2.length] = ddl2.options[i].value;
         }
+        ddlText3 = new Array();
+        ddlValue3 = new Array();
+        ddl3 = document.getElementById("<%=editFacilitiesList.ClientID %>");
+
+        for (var i = 0; i < ddl3.options.length; i++) {
+            ddlText3[ddlText3.length] = ddl3.options[i].text;
+            ddlValue3[ddlValue3.length] = ddl3.options[i].value;
+        }
+
     }
         
    
@@ -75,7 +88,7 @@
         ddl.options.add(opt);
     }
 
-    var ddlText2, ddlValue2, ddl2;
+    
    
     
 
@@ -94,6 +107,22 @@
         opt2.text = text;
         opt2.value = value;
         ddl2.options.add(opt2);
+    }
+    function FilterItems3(value) {
+        ddl3.options.length = 0;
+        for (var i = 0; i < ddlText3.length; i++) {
+            if (ddlText3[i].toLowerCase().indexOf(value) != -1) {
+                AddItem3(ddlText3[i], ddlValue3[i]);
+            }
+        }
+
+    }
+
+    function AddItem3(text, value) {
+        var opt3 = document.createElement("option");
+        opt3.text = text;
+        opt3.value = value;
+        ddl3.options.add(opt3);
     }
     window.onload = CacheItems;
 </script>
