@@ -34,6 +34,12 @@ namespace Team11
             SqlCommand roomCmd = new SqlCommand(roomSQL, roomConnection);
             SqlDataReader roomReader;
 
+            string allRoomsSQL = "SELECT roomID,roomName FROM Room";
+
+            SqlConnection allRoomsConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            SqlCommand allRoomsCmd = new SqlCommand(allRoomsSQL, allRoomsConnection);
+            SqlDataReader allReader;
+
             try
             {
                 if (!Page.IsPostBack)
@@ -92,6 +98,23 @@ namespace Team11
                         roomDropDownList.Items.Add(newItem3);
                     }
                     roomReader.Close();
+                    editFacilitiesList.Items.Clear();
+
+                    ListItem newItem4 = new ListItem();
+                    newItem4.Text = "Choose a room";
+                    newItem4.Value = "test";
+                    editFacilitiesList.Items.Add(newItem4);
+
+                    allRoomsConnection.Open();
+                    allReader = allRoomsCmd.ExecuteReader();
+                    while (allReader.Read())
+                    {
+                        newItem4 = new ListItem();
+                        newItem4.Text = allReader["roomName"].ToString();
+                        newItem4.Value = allReader["roomID"].ToString();
+                        editFacilitiesList.Items.Add(newItem4);
+                    }
+                    allReader.Close();
                 }
             }
             catch (Exception err)
@@ -130,6 +153,7 @@ namespace Team11
              deleteFacility.Click += new EventHandler(deleteFacilityFunction);
              removePoolRoom.Click += new EventHandler(removePoolRoomFunction);
              addPoolRoom.Click += new EventHandler(addPoolRoomFunction);
+             editFacilities.Click += new EventHandler(editFacilitiesFunction);
              
            }
            else {
@@ -254,6 +278,25 @@ namespace Team11
 
 
             }
+        
+        
+        }
+        protected void editFacilitiesFunction(Object sender, EventArgs e) {
+
+            string selectedRoomToEdit = editFacilitiesList.SelectedItem.Value;
+            if (selectedRoomToEdit == "test") {
+
+                scriptDiv.InnerHtml = "<script>alert(\"You have not selected a room.\")</script>";
+            
+            }
+
+            else {
+                Session["selectedRoomToEdit"] = selectedRoomToEdit;
+            Response.Redirect("Facilities.aspx");
+
+
+            }
+                
         
         
         }
