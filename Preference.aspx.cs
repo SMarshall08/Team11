@@ -161,5 +161,13 @@ values ({0}, {1}, '{2}', '{3}', '{4}', '{5}', '{6}', {7})",
             preferencessql.ExecuteNonQuery();
             conn.Close();
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ChangePassword.aspx?userID=" + userID);
+
+
+
+        }
     }
 }
