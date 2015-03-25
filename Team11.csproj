@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -70,6 +70,7 @@
     <Content Include="AddEditModule.aspx" />
     <Content Include="Admin.aspx" />
     <Content Include="Availibility.aspx" />
+    <Content Include="ChangePassword.aspx" />
     <Content Include="CreateRequest.aspx" />
     <Content Include="EditRequest.aspx" />
     <Content Include="Facilities.aspx" />
@@ -78,6 +79,7 @@
     <None Include="Resources\logo2.jpg" />
     <Content Include="Styles\AddEditModule.css" />
     <Content Include="Styles\Availability.css" />
+    <Content Include="Styles\ChangePassword.css" />
     <Content Include="Styles\CreateRequest.css" />
     <Content Include="Styles\Default.css" />
     <Content Include="Styles\Preference.css" />
@@ -154,6 +156,13 @@
     </Compile>
     <Compile Include="Availibility.aspx.designer.cs">
       <DependentUpon>Availibility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="CreateRequest.aspx.cs">
       <DependentUpon>CreateRequest.aspx</DependentUpon>
@@ -251,7 +260,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62217</DevelopmentServerPort>
+          <DevelopmentServerPort>49792</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
