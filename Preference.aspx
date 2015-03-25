@@ -120,13 +120,13 @@
             </div>
            <div class="row">
                 <div class="text-center col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
-                    <asp:Button class="btn btn-success btn-block" ID="Button1" runat="server" onclick="Button2_Click" Text="Change Password" />
+                    <asp:Button class="btn btn-success btn-block" ID="ButtonChangePass" runat="server" onclick="ButtonChangePass_Click" Text="Change Password" />
                 </div>
             </div>
              <br/>
             <div class="row">
                 <div class="text-center col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
-                    <asp:Button class="btn btn-success btn-block" ID="Button2" runat="server" onclick="Button1_Click" Text="Save" />
+                    <asp:Button class="btn btn-success btn-block" ID="ButtonSave" runat="server" onclick="ButtonSave_Click" Text="Save" />
                 </div>
             </div>
         </div><!-- ./canistercontainer -->

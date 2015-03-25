@@ -85,7 +85,7 @@ namespace Team11
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void ButtonSave_Click(object sender, EventArgs e)
         {
             if (create.Checked)
                 loadingval = "Create";
@@ -162,9 +162,9 @@ values ({0}, {1}, '{2}', '{3}', '{4}', '{5}', '{6}', {7})",
             conn.Close();
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void ButtonChangePass_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ChangePassword.aspx?userID=" + userID);
+            Response.Redirect("ChangePassword.aspx");
 
 
 
