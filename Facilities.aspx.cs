@@ -73,9 +73,45 @@ namespace Team11
                 
                 var facilitiesTheRoomDoesNotHave = new List<string>();
                 facilitiesTheRoomDoesNotHave = (facilityIDs.Except(roomsFacilityIDs)).ToList();
-                String joined1 = String.Join(", ", roomsFacilityIDs);
-                String joined2 = String.Join(", ", facilitiesTheRoomDoesNotHave);
-                labelID2.Text = "The room " + roomName + " has facilities " + joined1 + ". It does not have facilities " + joined2 + ".";
+             ///   String joined1 = String.Join(", ", roomsFacilityIDs);
+              ///  String joined2 = String.Join(", ", facilitiesTheRoomDoesNotHave);
+             ///   labelID2.Text = "The room " + roomName + " has facilities " + joined1 + ". It does not have facilities " + joined2 + ".";
+             ///   
+                
+                var facilitiesIn = new List<string>();
+                var facilitiesOut = new List<string>();
+                string convertID;
+                string convertID2;
+
+
+                foreach (string value in facilitiesTheRoomDoesNotHave)
+                {
+                    convertID = "SELECT facilityName FROM Facility WHERE facilityID =" + value;
+                    
+                    SqlCommand convertCmd = new SqlCommand(convertID, getRoomsConnection);
+                    
+                    string facilityName = convertCmd.ExecuteScalar().ToString();
+                    facilitiesOut.Add(facilityName);
+                    
+
+                }
+
+                foreach (string value in roomsFacilityIDs)
+                {
+                    convertID2 = "SELECT facilityName FROM Facility WHERE facilityID =" + value;
+                    
+                    SqlCommand convertCmd2 = new SqlCommand(convertID2, getRoomsConnection);
+                    
+                    string facilityName2 = convertCmd2.ExecuteScalar().ToString();
+                    facilitiesIn.Add(facilityName2);
+                    
+
+                }
+
+                String joined1 = String.Join(", ", facilitiesIn);
+              String joined2 = String.Join(", ", facilitiesOut);
+                   labelID2.Text = "The room " + roomName + " has facilities " + joined1 + ". It does not have facilities " + joined2 + ".";
+                   
                 
 
             }
