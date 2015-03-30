@@ -25,7 +25,15 @@
         <br />
         <br />
         <br />
-        <asp:Label ID="labelID2" runat="server"></asp:Label>
+        <asp:Label ID="labelID2" runat="server"></asp:Label> <br />
+        Facilities the room has:
+        <asp:DropDownList id="inDDL" runat="server">
+            
+        </asp:DropDownList><asp:Button id="removeFacility" Text="remove selected facility from room" runat="server" /> <br />
+        Facilities the room has not:
+        <asp:DropDownList id="outDDL" runat="server"> 
+            
+        </asp:DropDownList><asp:Button id="addFacility" Text="add selected facility to room" runat="server" />
     </div>
     
 
