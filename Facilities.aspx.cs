@@ -19,7 +19,8 @@ namespace Team11
             {
                 string roomID = Session["selectedRoomToEdit"].ToString();
 
-
+                removeFacility.Click += new EventHandler(removeFacilityFunction);
+                addFacility.Click += new EventHandler(addFacilityFunction);
                 string getRoomsSQL = "SELECT roomName FROM Room WHERE roomID =" + roomID;
                 SqlConnection getRoomsConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
                 SqlCommand getRoomsCmd = new SqlCommand(getRoomsSQL, getRoomsConnection);
@@ -107,15 +108,68 @@ namespace Team11
                     
 
                 }
+                ///Below was commented out because it is better to just have the facilities in a ddl than have them in text form.
+              ///  String joined1 = String.Join(", ", facilitiesIn);
+              ///  String joined2 = String.Join(", ", facilitiesOut);
+              ///  labelID2.Text = "The room " + roomName + " has facilities " + joined1 + ". It does not have facilities " + joined2 + ".";
 
-                String joined1 = String.Join(", ", facilitiesIn);
-              String joined2 = String.Join(", ", facilitiesOut);
-                   labelID2.Text = "The room " + roomName + " has facilities " + joined1 + ". It does not have facilities " + joined2 + ".";
-                   
+                ///Below was used to put the facilities into a drop down list, but it has been commented out because it's better to do it a different way.
+             ///   foreach (string value in facilitiesIn) { inDDL.Items.Add(new ListItem(value, "no")); } //Every facility the room has is added to this ddl.
+
+            ///    foreach (string value in facilitiesOut) { outDDL.Items.Add(new ListItem(value, "no")); } //Every facility it doesn't have is added to this ddl.
+            ///    
+
+                ///Below, the lists of IDs and names are zipped together.
+                var bothLists = roomsFacilityIDs.Zip(facilitiesIn, (i, n) => new { Identifier = i, NameString = n });
+                var bothLists2 = facilitiesTheRoomDoesNotHave.Zip(facilitiesOut, (i, n) => new { Identifier = i, NameString = n });
+
+                //The text value of an item in the ddl is the facility name and the actual value is the facility id.
+                foreach (var value in bothLists) {
+
+                    string ID = value.Identifier;
+                    string name = value.NameString;
+                    inDDL.Items.Add(new ListItem(name, ID));
                 
+                }
+                foreach (var value in bothLists2)
+                {
 
+                    string ID = value.Identifier;
+                    string name = value.NameString;
+                    outDDL.Items.Add(new ListItem(name, ID));
+
+                }
             }
 
         }
+
+        protected void addFacilityFunction(Object sender, EventArgs e)
+        {
+            string roomID = Session["selectedRoomToEdit"].ToString();
+            string selectedFacility = outDDL.SelectedItem.Value;
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            connect.Open();
+            string addFacilityString = "INSERT INTO RoomFacilities VALUES (" + roomID + "," + selectedFacility + ")";
+            SqlCommand addFacilityCommand = new SqlCommand(addFacilityString, connect);
+            addFacilityCommand.ExecuteNonQuery();
+            Response.Redirect(Request.RawUrl);
+
+
+
+        }
+        protected void removeFacilityFunction(Object sender, EventArgs e) {
+
+            string roomID = Session["selectedRoomToEdit"].ToString();
+            string selectedFacility = inDDL.SelectedItem.Value;
+            SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            connect2.Open();
+            string removeFacilityString = "DELETE FROM RoomFacilities WHERE roomID =" + roomID + " AND facilityID =" + selectedFacility;
+            SqlCommand removeFacilityCommand = new SqlCommand(removeFacilityString, connect2);
+            removeFacilityCommand.ExecuteNonQuery();
+            Response.Redirect(Request.RawUrl);    
+                      
+        
+        }
+
     }
 }
