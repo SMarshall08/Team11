@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddEditModule.aspx.cs" Inherits="Team11.AddEditModule" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddEditModule.aspx.cs" Inherits="Team11.AddEditModule" %>
 
 <%-- Header Content --%>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
@@ -34,6 +34,7 @@
                     </div>
                     <div class="text-center col-md-8 col-sm-8">
                         <asp:TextBox class="form-control" ID="TextBoxModuleCode" runat="server"></asp:TextBox>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBoxModuleCode" ErrorMessage="Please enter a valid Module Code" ValidationExpression="^1[3-4][A-Z]{2}[A-D][0-9]{3}$"></asp:RegularExpressionValidator>
                     </div>
                 </div>
                 <div class="row">
@@ -41,9 +42,11 @@
                         <asp:Button class="btn btn-success btn-block full" ID="Button1" runat="server" onclick="Button1_Click" Text="Add" Width="96px" />
                     </div>
                     <div class="text-center col-md-4 col-sm-4">
-                        <button class="btn btn-success btn-block">Clear All</button>
+                        <button class="btn btn-success btn-block">Clear All</button> <br />
                     </div>
+                    <div class="text-center col-md-6 col-sm-4">
                     <asp:Label ID="LabelResponse" runat="server" Text=""></asp:Label>
+                    </div>
                 </div>
             </div><!-- ./canistercontainer -->
         </div><!-- ./canister -->
