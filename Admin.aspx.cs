@@ -154,6 +154,7 @@ namespace Team11
              removePoolRoom.Click += new EventHandler(removePoolRoomFunction);
              addPoolRoom.Click += new EventHandler(addPoolRoomFunction);
              editFacilities.Click += new EventHandler(editFacilitiesFunction);
+             acceptRequests.Click += new EventHandler(acceptRequestsFunction);
              
            }
            else {
@@ -298,6 +299,11 @@ namespace Team11
             }
                 
         
+        
+        }
+        protected void acceptRequestsFunction(Object sender, EventArgs e) {
+
+            Response.Redirect("acceptRequests.aspx");
         
         }
                                  
