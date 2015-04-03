@@ -32,7 +32,12 @@
         <asp:TextBox ID="filterEditFacilities" runat="server" placeholder="Type to filter list."
          onkeyup = "FilterItems3(this.value)"></asp:TextBox>  <asp:DropDownList id="editFacilitiesList" runat="server"> 
             
-        </asp:DropDownList> <asp:Button id="editFacilities" Text="Edit the facilities for this room" runat="server" />
+        </asp:DropDownList> <asp:Button id="editFacilities" Text="Edit the facilities for this room" runat="server" /><br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <asp:Button ID="acceptRequests" Text="Click here to view and respond to booking requests." runat="server" />
         
         
     </div>
