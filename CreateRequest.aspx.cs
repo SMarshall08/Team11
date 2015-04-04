@@ -25,7 +25,7 @@ namespace Team11
         protected void Page_Load(object sender, EventArgs e)
         {
             // read the userid from the querystring
-            userID = Convert.ToInt32(Request.QueryString["userID"]);
+            userID = Convert.ToInt32(Session["userID"]);
             /*
             SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect2.Open();
@@ -511,52 +511,60 @@ namespace Team11
                                                 }
                                                 else
                                                 {
-                                                        int endTime = startTime + duration;
-                                                        string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
-                                                        SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                        connection6.Open();
-                                                        SqlCommand insreqsql = new SqlCommand(insreq, connection6);
-                                                        insreqsql.ExecuteNonQuery();
-                                                        connection6.Close();
-                                                        string booked = "";
-                                                        if (roomlist.Count != 0)
+                                                    int endTime = startTime + duration;
+                                                    // determine request status based on whether it is private or not
+                                                    string status = "";
+                                                    //TODO: figure out how to determine if it is private or not
+                                                    bool isPrivateRoom = false;
+                                                    if (isPrivateRoom)
+                                                        status = "Accepted";
+                                                    else
+                                                        status = "Pending";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','" + status + "'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
+                                                    SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                                    connection6.Open();
+                                                    SqlCommand insreqsql = new SqlCommand(insreq, connection6);
+                                                    insreqsql.ExecuteNonQuery();
+                                                    connection6.Close();
+                                                    string booked = "";
+                                                    if (roomlist.Count != 0)
+                                                    {
+                                                        SqlConnection conn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                                        conn2.Open();
+                                                        for (int y = 0; y < roomlist.Count; y++)
                                                         {
-                                                            SqlConnection conn2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                            conn2.Open();
-                                                            for (int y = 0; y < roomlist.Count; y++)
-                                                            {
-                                                                booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
-                                                                SqlCommand bookedsql = new SqlCommand(booked, conn2);
-                                                                bookedsql.ExecuteNonQuery();
-                                                            }
+                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
+                                                            SqlCommand bookedsql = new SqlCommand(booked, conn2);
+                                                            bookedsql.ExecuteNonQuery();
+                                                        }
 
-                                                            conn2.Close();
-                                                        }
-                                                        else
+                                                        conn2.Close();
+                                                    }
+                                                    else
+                                                    {
+                                                        SqlConnection conn4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                                        conn4.Open();
+                                                        for (int x = 0; x < numberOfRooms; x++)
                                                         {
-                                                            SqlConnection conn4 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                            conn4.Open();
-                                                            for (int x = 0; x < numberOfRooms; x++)
-                                                            {
-                                                                booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
-                                                                SqlCommand bookedsql = new SqlCommand(booked, conn4);
-                                                                bookedsql.ExecuteNonQuery();
-                                                            }
-                                                            conn4.Close();
+                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
+                                                            SqlCommand bookedsql = new SqlCommand(booked, conn4);
+                                                            bookedsql.ExecuteNonQuery();
                                                         }
-                                                        if (list.Count != 0)
+                                                        conn4.Close();
+                                                    }
+                                                    if (list.Count != 0)
+                                                    {
+                                                        SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                                        conn.Open();
+                                                        for (int z = 0; z < list.Count; z++)
                                                         {
-                                                            SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                                                            conn.Open();
-                                                            for (int z = 0; z < list.Count; z++)
-                                                            {
-                                                                reqfac = "INSERT INTO [RequestFacilities] VALUES ((SELECT MAX(requestID) FROM [Request])," + list[z] + ")";
-                                                                SqlCommand reqfacsql = new SqlCommand(reqfac, conn);
-                                                                reqfacsql.ExecuteNonQuery();
-                                                            }
-                                                            conn.Close();
+                                                            reqfac = "INSERT INTO [RequestFacilities] VALUES ((SELECT MAX(requestID) FROM [Request])," + list[z] + ")";
+                                                            SqlCommand reqfacsql = new SqlCommand(reqfac, conn);
+                                                            reqfacsql.ExecuteNonQuery();
                                                         }
-                                                        ended = false;
+                                                        conn.Close();
+                                                    }
+                                                    ended = false;
                                                 }
                                             }
                                         }

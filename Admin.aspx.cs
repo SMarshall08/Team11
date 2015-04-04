@@ -129,21 +129,14 @@ namespace Team11
 
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
             connect.Open();
-            
-            userID = Convert.ToInt32(Request.QueryString["userID"]);
-            /*
-            string url = Request.Url.Query; ///Gets url
-            Match match = Regex.Match(url, @"=(.*)"); ///Gets user ID from url
-            string urlID = match.Groups[1].Value;       */
+
+            userID = Convert.ToInt32(Session["userID"]);
+
             string adminString = "Select administrator from [User] where userID = " + userID;
             SqlCommand adminCommand = new SqlCommand(adminString, connect);
             string administratorYesNo = adminCommand.ExecuteScalar().ToString();
             string trimmedAdmin = administratorYesNo.Trim();
             bool userIsAdmin = (trimmedAdmin == "yes");
-
-
-            
-           
              
             if (userIsAdmin)
          {        //Below executed if user logged in is an admin.            

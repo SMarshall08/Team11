@@ -30,6 +30,13 @@ namespace Team11
         List<string> headerTwo = new List<string>();
         List<string> headerThree = new List<string>();
         List<int> requests = new List<int>();
+        List<string> park = new List<string>();
+        List<string> building = new List<string>();
+        List<int> semester = new List<int>();
+        List<int> year = new List<int>();
+        List<int> capacity = new List<int>();
+        List<string> facilities = new List<string>();
+        List<string> alternateRooms = new List<string>();
         List<string> modTitle = new List<string>();
         List<string> period = new List<string>();
         List<string> weeks = new List<string>();
@@ -114,505 +121,149 @@ namespace Team11
             
 
             //Collect all requests fitting filter
-            string reqid = "SELECT DISTINCT [Request].requestID FROM [Request] INNER JOIN [Module] ON [Module].moduleCode = [request].moduleCode INNER JOIN [BookedRoom] ON [Request].requestID = [BookedRoom].requestID INNER JOIN [Room] ON [BookedRoom].roomID = [Room].roomID INNER JOIN [Building] ON [Room].buildingID = [Building].buildingID INNER JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Module].userID = '" + Session["userID"] + "'" + codeStr;
+            string reqid = @"
+SELECT DISTINCT [Request].requestID, 
+                moduleTitle + ' / ' + module.moduleCode AS module, 
+                request.day, 
+                periodStart, 
+                periodEnd, 
+                status, 
+                parkName, 
+                semester, 
+                request.year, 
+                week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12, week13, week14, week15
+FROM [Request] 
+INNER JOIN [Week] on [Week].weekID = [request].weekID
+INNER JOIN [Module] ON [Module].moduleCode = [request].moduleCode 
+INNER JOIN [BookedRoom] ON [Request].requestID = [BookedRoom].requestID 
+INNER JOIN [Room] ON [BookedRoom].roomID = [Room].roomID 
+INNER JOIN [Building] ON [Room].buildingID = [Building].buildingID 
+INNER JOIN [Park] ON [Building].parkID = [Park].parkID 
+WHERE [Module].userID = '" + Session["userID"] + "'" + codeStr;
             SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             conn.Open();
             SqlCommand reqidsql = new SqlCommand(reqid, conn);
             SqlDataReader reqs = reqidsql.ExecuteReader();
             while (reqs.Read())
             {
-                requests.Add(reqs.GetInt32(0));
-            }
-            conn.Close();
-            
-            
-            if (header1 == "facilities")
-            {
-                string facilitiesList = "";
-                for (int k = 0; k < requests.Count; k++)
-                {
-                    facilitiesList = "";
-                    string facname = "SELECT facilityName FROM [Facility] INNER JOIN [RequestFacilities] ON [Facility].facilityID = [RequestFacilities].facilityID WHERE [RequestFacilities].requestID = " + requests[k];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand facilitysql = new SqlCommand(facname, connection);
+                requests.Add(reqs.GetInt32(reqs.GetOrdinal("requestID")));
+                park.Add(reqs.GetString(reqs.GetOrdinal("parkName")));
+                semester.Add(reqs.GetInt32(reqs.GetOrdinal("semester")));
+                year.Add(reqs.GetInt32(reqs.GetOrdinal("year")));
+                modTitle.Add(reqs.GetString(reqs.GetOrdinal("module")));
+                day.Add(reqs.GetString(reqs.GetOrdinal("day")));
+                status.Add(reqs.GetString(reqs.GetOrdinal("status")));
 
-                    SqlDataReader facility = facilitysql.ExecuteReader();
-                    while (facility.Read())
-                    {
-                        facilitiesList += facility.GetString(0) + ", ";
-                    }
-                    if (facilitiesList.Length > 3)
-                        facilitiesList = facilitiesList.Substring(0, facilitiesList.Length - 2);
-                    else if (facilitiesList.Length == 0)
-                        facilitiesList = "N/A";
-                    headerOne.Add(facilitiesList);
-                    connection.Close();
-                }
-            }
-            else if (header1 == "park")
-            {
-                for (int i = 0; i < requests.Count; i++)
+                int periodst = reqs.GetInt32(reqs.GetOrdinal("periodStart"));
+                int periodnd = reqs.GetInt32(reqs.GetOrdinal("periodEnd"));
+                //CHANGE DUE TO PREFERENCES
+                if (prefPeriod == 1)
                 {
-                    string parkname = "SELECT parkName FROM [Park] INNER JOIN [Building] ON [Park].parkID = [Building].parkID INNER JOIN [Room] ON [Building].buildingID = [Room].buildingID INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].RoomID WHERE [BookedRoom].requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand parksql = new SqlCommand(parkname, connection);
-                    SqlDataReader park = parksql.ExecuteReader();
-                    if (park.Read())
-                    {
-                        headerOne.Add(park.GetString(0));
-                    }
-                    connection.Close();
+                    period.Add(periodst + " - " + periodnd);
                 }
-            }
-            else if (header1 == "altrooms")
-            {
-                for (int i = 0; i < requests.Count; i++)
+                else
                 {
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    string rooomcol = "";
-                    string rom = "SELECT roomName FROM [Room] INNER JOIN [PreferredRoom] ON [Room].roomID = [PreferredRoom].roomID INNER JOIN [Request] ON [PreferredRoom].requestID = [Request].requestID WHERE [Request].requestID = " + requests[i];
-                    SqlCommand rooomsql = new SqlCommand(rom, connection);
-                    SqlDataReader getrooom = rooomsql.ExecuteReader();
-                    while (getrooom.Read())
+                    if (prefhr24 == 1)
                     {
-                        rooomcol += getrooom.GetString(0) + ", ";
-                    }
-                    connection.Close();
-                    if (rooomcol.Length > 3)
-                        rooomcol = rooomcol.Substring(0, rooomcol.Length - 2);
-                    else if (rooomcol.Length == 0)
-                        rooomcol = "N/A";
-                    headerOne.Add(rooomcol);
-                }
-            }
-            else if (header1 == "building")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h1name = "SELECT buildingName FROM [Building] INNER JOIN [Room] ON [Building].buildingID = [Room].buildingID INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].RoomID WHERE [BookedRoom].requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h1sql = new SqlCommand(h1name, connection);
-                    SqlDataReader h1 = h1sql.ExecuteReader();
-                    if (h1.Read())
-                    {
-                        headerOne.Add(h1.GetString(0));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header1 == "semester")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h1name = "SELECT semester FROM [Request] WHERE requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h1sql = new SqlCommand(h1name, connection);
-                    SqlDataReader h1 = h1sql.ExecuteReader();
-                    if (h1.Read())
-                    {
-                        headerOne.Add(Convert.ToString(h1.GetInt32(0)));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header1 == "year")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h1name = "SELECT year FROM [Request] WHERE requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h1sql = new SqlCommand(h1name, connection);
-                    SqlDataReader h1 = h1sql.ExecuteReader();
-                    if (h1.Read())
-                    {
-                        headerOne.Add(h1.GetInt32(0).ToString());
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header1 == "numberstudents")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h2name = "SELECT capacity FROM [Room] INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].roomID WHERE [BookedRoom].requestID = " + requests[i];
-                    int capacity = 0;
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h2sql = new SqlCommand(h2name, connection);
-                    SqlDataReader h2 = h2sql.ExecuteReader();
-                    while (h2.Read())
-                    {
-                        capacity += h2.GetInt32(0);
-                    }
-                    headerOne.Add(Convert.ToString(capacity));
-                    connection.Close();
-                }
-            }
-
-            if (header2 == "facilities")
-            {
-                string facilitiesList = "";
-                for (int k = 0; k < requests.Count; k++)
-                {
-                    facilitiesList = "";
-                    string facname = "SELECT facilityName FROM [Facility] INNER JOIN [RequestFacilities] ON [Facility].facilityID = [RequestFacilities].facilityID WHERE [RequestFacilities].requestID = " + requests[k];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand facilitysql = new SqlCommand(facname, connection);
-                    SqlDataReader facility = facilitysql.ExecuteReader();
-                    while (facility.Read())
-                    {
-                        facilitiesList += facility.GetString(0) + ", ";
-                    }
-                    connection.Close();
-                    if (facilitiesList.Length > 3)
-                        facilitiesList = facilitiesList.Substring(0, facilitiesList.Length - 2);
-                    else if (facilitiesList.Length == 0)
-                        facilitiesList = "N/A";
-                    headerTwo.Add(facilitiesList);
-                }
-            }
-            else if (header2 == "park")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string parkname = "SELECT parkName FROM [Park] INNER JOIN [Building] ON [Park].parkID = [Building].parkID INNER JOIN [Room] ON [Building].buildingID = [Room].buildingID INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].RoomID WHERE [BookedRoom].requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand parksql = new SqlCommand(parkname, connection);
-                    SqlDataReader parkn = parksql.ExecuteReader();
-                    if (parkn.Read())
-                    {
-                        headerTwo.Add(parkn.GetString(0));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header2 == "altrooms")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    string rooomcol = "";
-                    string rom = "SELECT roomName FROM [Room] INNER JOIN [PreferredRoom] ON [Room].roomID = [PreferredRoom].roomID INNER JOIN [Request] ON [PreferredRoom].requestID = [Request].requestID WHERE [Request].requestID = " + requests[i];
-                    SqlCommand rooomsql = new SqlCommand(rom, connection);
-                    SqlDataReader getrooom = rooomsql.ExecuteReader();
-                    while (getrooom.Read())
-                    {
-                        rooomcol += getrooom.GetString(0) + ", ";
-                    }
-                    connection.Close();
-                    if (rooomcol.Length > 3)
-                        rooomcol = rooomcol.Substring(0, rooomcol.Length - 2);
-                    else if (rooomcol.Length == 0)
-                        rooomcol = "N/A";
-                    headerTwo.Add(rooomcol);
-                }
-            }
-            else if (header2 == "building")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h2name = "SELECT buildingName FROM [Building] INNER JOIN [Room] ON [Building].buildingID = [Room].buildingID INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].RoomID WHERE [BookedRoom].requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h2sql = new SqlCommand(h2name, connection);
-                    SqlDataReader h2 = h2sql.ExecuteReader();
-                    if (h2.Read())
-                    {
-                        headerTwo.Add(h2.GetString(0));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header2 == "semester")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h2name = "SELECT semester FROM [Request] WHERE requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h2sql = new SqlCommand(h2name, connection);
-                    SqlDataReader h2 = h2sql.ExecuteReader();
-                    if (h2.Read())
-                    {
-                        headerTwo.Add(Convert.ToString(h2.GetInt32(0)));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header2 == "year")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h2name = "SELECT year FROM [Request] WHERE requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h2sql = new SqlCommand(h2name, connection);
-                    SqlDataReader h2 = h2sql.ExecuteReader();
-                    if (h2.Read())
-                    {
-                        headerTwo.Add(h2.GetString(0));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header2 == "numberstudents")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h2name = "SELECT capacity FROM [Room] INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].roomID WHERE [BookedRoom].requestID = " + requests[i];
-                    int capacity = 0;
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h2sql = new SqlCommand(h2name, connection);
-                    SqlDataReader h2 = h2sql.ExecuteReader();
-                    while (h2.Read())
-                    {
-                        capacity += h2.GetInt32(0);
-                    }
-                    connection.Close();
-                    headerTwo.Add(Convert.ToString(capacity));
-                }
-            }
-
-            if (header3 == "facilities")
-            {
-                string facilitiesList = "";
-                for (int k = 0; k < requests.Count; k++)
-                {
-                    string facname = "SELECT facilityName FROM [Facility] INNER JOIN [RequestFacilities] ON [Facility].facilityID = [RequestFacilities].facilityID WHERE [RequestFacilities].requestID = " + requests[k];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand facilitysql = new SqlCommand(facname, connection);
-                    SqlDataReader facility = facilitysql.ExecuteReader();
-                    while (facility.Read())
-                    {
-                        facilitiesList = facility.GetString(0) + ", ";
-                    }
-                    connection.Close();
-                    if(facilitiesList.Length > 3)
-                        facilitiesList = facilitiesList.Substring(0, facilitiesList.Length - 2);
-                    else if (facilitiesList.Length == 0)
-                        facilitiesList = "N/A";
-                    headerThree.Add(facilitiesList);
-                }
-            }
-            else if (header3 == "park")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string parkname = "SELECT parkName FROM [Park] INNER JOIN [Building] ON [Park].parkID = [Building].parkID INNER JOIN [Room] ON [Building].buildingID = [Room].buildingID INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].roomID WHERE [BookedRoom].requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand parksql = new SqlCommand(parkname, connection);
-                    SqlDataReader park = parksql.ExecuteReader();
-                    if (park.Read())
-                    {
-                        headerThree.Add(park.GetString(0));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header3 == "altrooms")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    string rooomcol = "";
-                    string rom = "SELECT roomName FROM [Room] INNER JOIN [PreferredRoom] ON [Room].roomID = [PreferredRoom].roomID INNER JOIN [Request] ON [PreferredRoom].requestID = [Request].requestID WHERE [Request].requestID = " + requests[i];
-                    SqlCommand rooomsql = new SqlCommand(rom, connection);
-                    SqlDataReader getrooom = rooomsql.ExecuteReader();
-                    while (getrooom.Read())
-                    {
-                        rooomcol += getrooom.GetString(0) + ", ";
-                    }
-                    connection.Close();
-                    if (rooomcol.Length > 3)
-                        rooomcol = rooomcol.Substring(0, rooomcol.Length - 2);
-                    else if (rooomcol.Length == 0)
-                        rooomcol = "N/A";
-                    headerThree.Add(rooomcol);
-                }
-            }
-            else if (header3 == "building")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h3name = "SELECT buildingName FROM [Building] INNER JOIN [Room] ON [Building].buildingID = [Room].buildingID INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].RoomID WHERE [BookedRoom].requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h3sql = new SqlCommand(h3name, connection);
-                    SqlDataReader h3 = h3sql.ExecuteReader();
-                    if (h3.Read())
-                    {
-                        headerThree.Add(h3.GetString(0));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header3 == "semester")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h3name = "SELECT semester FROM [Request] WHERE requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h3sql = new SqlCommand(h3name, connection);
-                    SqlDataReader h3 = h3sql.ExecuteReader();
-                    if (h3.Read())
-                    {
-                        headerThree.Add(Convert.ToString(h3.GetInt32(0)));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header3 == "year")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h3name = "SELECT year FROM [Request] WHERE requestID = " + requests[i];
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h3sql = new SqlCommand(h3name, connection);
-                    SqlDataReader h3 = h3sql.ExecuteReader();
-                    if (h3.Read())
-                    {
-                        headerThree.Add(Convert.ToString(h3.GetInt32(0)));
-                    }
-                    connection.Close();
-                }
-            }
-            else if (header3 == "numberstudents")
-            {
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    string h3name = "SELECT capacity FROM [Room] INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].roomID WHERE [BookedRoom].requestID = " + requests[i];
-                    int capacity = 0;
-                    SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                    connection.Open();
-                    SqlCommand h3sql = new SqlCommand(h3name, connection);
-                    SqlDataReader h3 = h3sql.ExecuteReader();
-                    while (h3.Read())
-                    {
-                        capacity += h3.GetInt32(0);
-                    }
-                    connection.Close();
-                    headerThree.Add(Convert.ToString(capacity));
-                }
-            }
-
-            for (int k = 0; k < requests.Count; k++)
-            {
-                string module = "SELECT moduleTitle, [Module].moduleCode FROM [Module] INNER JOIN [Request] ON [Request].moduleCode = [Module].moduleCode WHERE [Request].requestID = " + requests[k];
-                string Module = "";
-                SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                connection.Open();
-                SqlCommand modulesql = new SqlCommand(module, connection);
-                SqlDataReader getmodule = modulesql.ExecuteReader();
-                if (getmodule.Read())
-                {
-                    Module = getmodule.GetString(0);
-                    Module += " / " + getmodule.GetString(1);
-                    modTitle.Add(Module);
-                }
-                connection.Close();
-                connection.Open();
-                int periodst;
-                int periodnd;
-                string periods = "";
-                string per = "SELECT periodStart, periodEnd FROM [Request] WHERE [Request].requestID = " + requests[k];
-                SqlCommand periodsql = new SqlCommand(per, connection);
-                SqlDataReader getperiod = periodsql.ExecuteReader();
-                if (getperiod.Read())
-                {
-                    periodst = getperiod.GetInt32(0);
-                    periodnd = getperiod.GetInt32(1);
-                    //CHANGE DUE TO PREFERENCES
-                    if (prefPeriod == 1)
-                    {
-                        periods = periodst + " - " + periodnd;
+                        period.Add((periodst + 8) + ":00 - " + (periodnd + 8) + ":50");
                     }
                     else
                     {
-                        if (prefhr24 == 1)
-                        {
-                            periods = (periodst + 8) + ":00 - " + (periodnd + 8) + ":50";
-                        }
-                        else
-                        {
-                            periodst += 8;
-                            periodnd += 8;
-                            if (periodst > 12)
-                                periodst -= 12;
-                            if (periodnd > 12)
-                                periodnd -= 12;
-                            periods = periodst + ":00 - " + periodnd + ":50";
-                        }
+                        periodst += 8;
+                        periodnd += 8;
+                        if (periodst > 12)
+                            periodst -= 12;
+                        if (periodnd > 12)
+                            periodnd -= 12;
+                        period.Add(periodst + ":00 - " + periodnd + ":50");
                     }
-                    period.Add(periods);
                 }
-                connection.Close();
-                connection.Open();
+
                 int weekval;
                 string weekcol = "";
-                string wk = "SELECT week1,week2,week3,week4,week5,week6,week7,week8,week9,week10,week11,week12,week13,week14,week15 FROM [Week] INNER JOIN [Request] ON [Week].weekID = [Request].weekID WHERE [Request].requestID = " + requests[k];
-                SqlCommand weeksql = new SqlCommand(wk, connection);
-                SqlDataReader getweek = weeksql.ExecuteReader();
-                if (getweek.Read())
+                for (int n = reqs.GetOrdinal("week1"); n <= reqs.GetOrdinal("week15"); n++)
                 {
-                    for (int n = 0; n < 15; n++)
-                    {
-                        weekval = getweek.GetInt32(n);
-                        if (weekval == 1)
-                            weekcol += (n + 1) + ", ";
-                    }
-                    if (weekcol.Length != 0)
-                        weekcol = weekcol.Substring(0, weekcol.Length - 2);
-                    weeks.Add(weekcol);
+                    weekval = reqs.GetInt32(n);
+                    if (weekval == 1)
+                        weekcol += (n + 1) + ", ";
                 }
-                connection.Close();
-                connection.Open();
-                string dy = "SELECT day FROM [Request] WHERE requestID = " + requests[k];
-                SqlCommand daysql = new SqlCommand(dy, connection);
-                SqlDataReader getday = daysql.ExecuteReader();
-                if (getday.Read())
-                {
-                    day.Add(getday.GetString(0));
-                }
-                connection.Close();
-                connection.Open();
-                string roomcol = "";
-                string rm = "SELECT roomName FROM [Room] INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].roomID INNER JOIN [Request] ON [BookedRoom].requestID = [Request].requestID WHERE [Request].requestID = " + requests[k];
-                SqlCommand roomsql = new SqlCommand(rm, connection);
-                SqlDataReader getroom = roomsql.ExecuteReader();
-                while (getroom.Read())
-                {
-                    roomcol += getroom.GetString(0) + ", ";
-                }
-                if (roomcol.Length > 3)
-                    roomcol = roomcol.Substring(0, roomcol.Length - 2);
-                room.Add(roomcol);
-                connection.Close();
-                connection.Open();
-                string sts = "SELECT status FROM [Request] WHERE requestID = " + requests[k];
-                SqlCommand statussql = new SqlCommand(sts, connection);
-                SqlDataReader getstatus = statussql.ExecuteReader();
-                if (getstatus.Read())
-                {
+                if (weekcol.Length != 0)
+                    weekcol = weekcol.Substring(0, weekcol.Length - 2);
 
-                    status.Add(getstatus.GetString(0));
-                }
-                connection.Close();
+                weeks.Add(weekcol);
             }
+            conn.Close();
+            
+            for (int request = 0; request < requests.Count; request++)
+            {
+                string facilitiesList = "";
+                string facname = @"
+SELECT facilityName 
+FROM [Facility] 
+INNER JOIN [RequestFacilities] ON [Facility].facilityID = [RequestFacilities].facilityID 
+WHERE [RequestFacilities].requestID = " + requests[request];
+                conn.Open();
+                SqlCommand facilitysql = new SqlCommand(facname, conn);
+
+                SqlDataReader facility = facilitysql.ExecuteReader();
+                while (facility.Read())
+                {
+                    facilitiesList += facility.GetString(0) + ", ";
+                }
+                if (facilitiesList.Length > 3)
+                    facilitiesList = facilitiesList.Substring(0, facilitiesList.Length - 2);
+                else if (facilitiesList.Length == 0)
+                    facilitiesList = "N/A";
+                conn.Close();
+                facilities.Add(facilitiesList);
+
+                conn.Open();
+                string bookedRoomsList = "";
+                string buildingsList = "";
+                int totalcapacity = 0;
+                string bookroom = @"
+SELECT roomName, capacity, buildingName 
+FROM [Room] 
+INNER JOIN [Building] ON [Room].buildingID = [Building].buildingID 
+INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].roomID 
+INNER JOIN [Request] ON [BookedRoom].requestID = [Request].requestID 
+WHERE [Request].requestID = " + requests[request];
+                SqlCommand bookroomsql = new SqlCommand(bookroom, conn);
+                SqlDataReader getbookroom = bookroomsql.ExecuteReader();
+                while (getbookroom.Read())
+                {
+                    bookedRoomsList += getbookroom.GetString(getbookroom.GetOrdinal("roomName")) + ", ";
+                    totalcapacity += getbookroom.GetInt32(getbookroom.GetOrdinal("capacity"));
+                    buildingsList += getbookroom.GetString(getbookroom.GetOrdinal("buildingName")) + ", ";
+                }
+                conn.Close();
+                room.Add(bookedRoomsList);
+                capacity.Add(totalcapacity);
+                building.Add(buildingsList);
+
+                conn.Open();
+                string alternateRoomsList = "";
+                string altroom = @"
+SELECT roomName 
+FROM [Room] 
+INNER JOIN [PreferredRoom] ON [Room].roomID = [PreferredRoom].roomID 
+INNER JOIN [Request] ON [PreferredRoom].requestID = [Request].requestID 
+WHERE [Request].requestID = " + requests[request];
+                SqlCommand altroomsql = new SqlCommand(altroom, conn);
+                SqlDataReader getaltroom = altroomsql.ExecuteReader();
+                while (getaltroom.Read())
+                {
+                    alternateRoomsList += getaltroom.GetString(0) + ", ";
+                }
+                conn.Close();
+
+                if (alternateRoomsList.Length > 3)
+                    alternateRoomsList = alternateRoomsList.Substring(0, alternateRoomsList.Length - 2);
+                else if (alternateRoomsList.Length == 0)
+                    alternateRoomsList = "N/A";
+                alternateRooms.Add(alternateRoomsList);
+            }
+
             HtmlTable myTable = new HtmlTable();
             myTable.Border = 1;
             myTable.ID = "RequestsTable";
@@ -653,39 +304,33 @@ namespace Team11
             row.Cells.Add(cell9);
             myTable.Rows.Add(row);
 
-            for (int i = 0; i < requests.Count; i++)
+            for (int request = 0; request < requests.Count; request++)
             {
                 HtmlTableRow row2 = new HtmlTableRow();
                 HtmlTableCell cellx;
                 cellx = new HtmlTableCell();
-                cellx.InnerText = Convert.ToString(requests[i]);
+                cellx.InnerText = Convert.ToString(requests[request]);
                 row2.Cells.Add(cellx);
                 cellx = new HtmlTableCell();
-                cellx.InnerText = modTitle[i];
+                cellx.InnerText = modTitle[request];
                 row2.Cells.Add(cellx);
                 cellx = new HtmlTableCell();
-                cellx.InnerText = day[i];
+                cellx.InnerText = day[request];
                 row2.Cells.Add(cellx);
                 cellx = new HtmlTableCell();
-                cellx.InnerText = period[i];
+                cellx.InnerText = period[request];
                 row2.Cells.Add(cellx);
                 cellx = new HtmlTableCell();
-                cellx.InnerText = weeks[i];
+                cellx.InnerText = weeks[request];
                 row2.Cells.Add(cellx);
                 cellx = new HtmlTableCell();
-                cellx.InnerText = room[i];
+                cellx.InnerText = room[request];
                 row2.Cells.Add(cellx);
+                SetHeader(header1, request, row2);
+                SetHeader(header2, request, row2);
+                SetHeader(header3, request, row2);
                 cellx = new HtmlTableCell();
-                cellx.InnerText = headerOne[i];
-                row2.Cells.Add(cellx);
-                cellx = new HtmlTableCell();
-                cellx.InnerText = headerTwo[i];
-                row2.Cells.Add(cellx);
-                cellx = new HtmlTableCell();
-                cellx.InnerText = headerThree[i];
-                row2.Cells.Add(cellx);
-                cellx = new HtmlTableCell();
-                cellx.InnerText = status[i];
+                cellx.InnerText = status[request];
                 row2.Cells.Add(cellx);
                 myTable.Rows.Add(row2);
             }
@@ -702,6 +347,37 @@ namespace Team11
                 }
             }
         }
+
+        private void SetHeader(string header, int request, HtmlTableRow row2)
+        {
+            HtmlTableCell cellx = new HtmlTableCell();
+            switch (header)
+            {
+                case "facilities":
+                    cellx.InnerText = facilities[request];
+                    break;
+                case "park":
+                    cellx.InnerText = park[request];
+                    break;
+                case "altrooms":
+                    cellx.InnerText = alternateRooms[request];
+                    break;
+                case "building":
+                    cellx.InnerText = building[request];
+                    break;
+                case "semester":
+                    cellx.InnerText = Convert.ToString(semester[request]);
+                    break;
+                case "year":
+                    cellx.InnerText = Convert.ToString(year[request]);
+                    break;
+                case "numerstudents":
+                    cellx.InnerText = Convert.ToString(capacity[request]);
+                    break;
+            }
+            row2.Cells.Add(cellx);
+        }
+
         protected void ButtonRefreshSearch_Click(object sender, EventArgs e)
         {
             //Populate button request list

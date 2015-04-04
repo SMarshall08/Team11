@@ -19,7 +19,7 @@ namespace Team11
         protected void Page_Load(object sender, EventArgs e)
         {
             // read the userid from the querystring
-            userID = Convert.ToInt32(Request.QueryString["userID"]);
+            userID = Convert.ToInt32(Session["userID"]);
 
             if (!IsPostBack)
             {
@@ -108,109 +108,26 @@ namespace Team11
 
         public void roomavailibility()
         {
-
-            CheckBox[,] boxes = new CheckBox[5, 9];
-            boxes[0, 0] = CheckBoxM1;
-            boxes[0, 1] = CheckBoxM2;
-            boxes[0, 2] = CheckBoxM3;
-            boxes[0, 3] = CheckBoxM4;
-            boxes[0, 4] = CheckBoxM5;
-            boxes[0, 5] = CheckBoxM6;
-            boxes[0, 6] = CheckBoxM7;
-            boxes[0, 7] = CheckBoxM8;
-            boxes[0, 8] = CheckBoxM9;
-            boxes[1, 0] = CheckBoxT1;
-            boxes[1, 1] = CheckBoxT2;
-            boxes[1, 2] = CheckBoxT3;
-            boxes[1, 3] = CheckBoxT4;
-            boxes[1, 4] = CheckBoxT5;
-            boxes[1, 5] = CheckBoxT6;
-            boxes[1, 6] = CheckBoxT7;
-            boxes[1, 7] = CheckBoxT8;
-            boxes[1, 8] = CheckBoxT9;
-            boxes[2, 0] = CheckBoxW1;
-            boxes[2, 1] = CheckBoxW2;
-            boxes[2, 2] = CheckBoxW3;
-            boxes[2, 3] = CheckBoxW4;
-            boxes[2, 4] = CheckBoxW5;
-            boxes[2, 5] = CheckBoxW6;
-            boxes[2, 6] = CheckBoxW7;
-            boxes[2, 7] = CheckBoxW8;
-            boxes[2, 8] = CheckBoxW9;
-            boxes[3, 0] = CheckBoxJ1;
-            boxes[3, 1] = CheckBoxJ2;
-            boxes[3, 2] = CheckBoxJ3;
-            boxes[3, 3] = CheckBoxJ4;
-            boxes[3, 4] = CheckBoxJ5;
-            boxes[3, 5] = CheckBoxJ6;
-            boxes[3, 6] = CheckBoxJ7;
-            boxes[3, 7] = CheckBoxJ8;
-            boxes[3, 8] = CheckBoxJ9;
-            boxes[4, 0] = CheckBoxF1;
-            boxes[4, 1] = CheckBoxF2;
-            boxes[4, 2] = CheckBoxF3;
-            boxes[4, 3] = CheckBoxF4;
-            boxes[4, 4] = CheckBoxF5;
-            boxes[4, 5] = CheckBoxF6;
-            boxes[4, 6] = CheckBoxF7;
-            boxes[4, 7] = CheckBoxF8;
-            boxes[4, 8] = CheckBoxF9;
-
-            Button[,] labels = new Button[5, 9];
-            labels[0, 0] = LabelM1;
-            labels[0, 1] = LabelM2;
-            labels[0, 2] = LabelM3;
-            labels[0, 3] = LabelM4;
-            labels[0, 4] = LabelM5;
-            labels[0, 5] = LabelM6;
-            labels[0, 6] = LabelM7;
-            labels[0, 7] = LabelM8;
-            labels[0, 8] = LabelM9;
-            labels[1, 0] = LabelT1;
-            labels[1, 1] = LabelT2;
-            labels[1, 2] = LabelT3;
-            labels[1, 3] = LabelT4;
-            labels[1, 4] = LabelT5;
-            labels[1, 5] = LabelT6;
-            labels[1, 6] = LabelT7;
-            labels[1, 7] = LabelT8;
-            labels[1, 8] = LabelT9;
-            labels[2, 0] = LabelW1;
-            labels[2, 1] = LabelW2;
-            labels[2, 2] = LabelW3;
-            labels[2, 3] = LabelW4;
-            labels[2, 4] = LabelW5;
-            labels[2, 5] = LabelW6;
-            labels[2, 6] = LabelW7;
-            labels[2, 7] = LabelW8;
-            labels[2, 8] = LabelW9;
-            labels[3, 0] = LabelJ1;
-            labels[3, 1] = LabelJ2;
-            labels[3, 2] = LabelJ3;
-            labels[3, 3] = LabelJ4;
-            labels[3, 4] = LabelJ5;
-            labels[3, 5] = LabelJ6;
-            labels[3, 6] = LabelJ7;
-            labels[3, 7] = LabelJ8;
-            labels[3, 8] = LabelJ9;
-            labels[4, 0] = LabelF1;
-            labels[4, 1] = LabelF2;
-            labels[4, 2] = LabelF3;
-            labels[4, 3] = LabelF4;
-            labels[4, 4] = LabelF5;
-            labels[4, 5] = LabelF6;
-            labels[4, 6] = LabelF7;
-            labels[4, 7] = LabelF8;
-            labels[4, 8] = LabelF9;
+            // Initialise the two button arrays
+            CheckBox[,] boxes = { { CheckBoxM1, CheckBoxM2, CheckBoxM3, CheckBoxM4, CheckBoxM5, CheckBoxM6, CheckBoxM7, CheckBoxM8, CheckBoxM9 }, 
+                                                                    {CheckBoxT1, CheckBoxT2, CheckBoxT3, CheckBoxT4, CheckBoxT5, CheckBoxT6, CheckBoxT7, CheckBoxT8, CheckBoxT9 },
+                                                                    {CheckBoxW1, CheckBoxW2, CheckBoxW3, CheckBoxW4, CheckBoxW5, CheckBoxW6, CheckBoxW7, CheckBoxW8, CheckBoxW9  },
+                                                                    {CheckBoxJ1, CheckBoxJ2, CheckBoxJ3, CheckBoxJ4, CheckBoxJ5, CheckBoxJ6, CheckBoxJ7, CheckBoxJ8, CheckBoxJ9  },
+                                                                    {CheckBoxM1, CheckBoxF2, CheckBoxF3, CheckBoxF4, CheckBoxF5, CheckBoxF6, CheckBoxF7, CheckBoxF8, CheckBoxF9  }};
+            Button[,] labels = { { LabelM1, LabelM2, LabelM3, LabelM4, LabelM5, LabelM6, LabelM7, LabelM8, LabelM9 },
+                                   {LabelT1, LabelT2, LabelT3, LabelT4, LabelT5, LabelT6, LabelT7, LabelT8, LabelT9 },
+                                   {LabelW1, LabelW2, LabelW3, LabelW4, LabelW5, LabelW6, LabelW7, LabelW8, LabelW9 },
+                                   {LabelJ1, LabelJ2, LabelJ3, LabelJ4, LabelJ5, LabelJ6, LabelJ7, LabelJ8, LabelJ9 },
+                                   {LabelF1, LabelF2, LabelF3, LabelF4, LabelF5, LabelF6, LabelF7, LabelF8, LabelF9 } };
 
             //Reinitialize the view at every search function call.
-            for (int i = 0; i <= 4; i++)
+            for (int day = 0; day <= 4; day++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int period = 0; period < 9; period++)
                 {
-                    boxes[i, j].Enabled = true;
-                    boxes[i, j].Visible = true;
-                    labels[i, j].Visible = false;
+                    boxes[day, period].Enabled = true;
+                    boxes[day, period].Visible = true;
+                    labels[day, period].Visible = false;
 
                 }
             }
@@ -221,81 +138,43 @@ namespace Team11
 
             int selectedweek = DropDownListWeekNumber.SelectedIndex + 1;
 
-            string sqlquery = "Select distinct * from (([Room] Inner Join [BookedRoom]  On [Room].roomID=[BookedRoom].roomID) Inner join [Request] on [BookedRoom].requestID=[Request].requestID) inner join [Week] on [Request].weekID=[Week].weekID where [Room].roomName='" + selectedroom + "' and [Week].week" + selectedweek + "=1";
+            string sqlquery = String.Format(@"
+Select distinct moduleCode, [day], periodStart, periodEnd
+from [Room] 
+Inner Join [BookedRoom]  On [Room].roomID=[BookedRoom].roomID 
+Inner join [Request] on [BookedRoom].requestID=[Request].requestID 
+inner join [Week] on [Request].weekID=[Week].weekID 
+where [Room].roomName='{0}' and [Week].week1={1}", selectedroom, selectedweek);
             SqlCommand roomcommand = new SqlCommand(sqlquery, connect);
             SqlDataReader roominfo = roomcommand.ExecuteReader();
 
-            bool endofF = false;
-            if (roominfo.Read())
+           while (roominfo.Read())
             {
-                endofF = true;
-            }
+               // use GetOrdinal to find the column number so column ordering isn't so important
+                string dayName = roominfo.GetString(roominfo.GetOrdinal("day"));
+                int start = roominfo.GetInt32(roominfo.GetOrdinal("periodStart"));
+                int end = roominfo.GetInt32(roominfo.GetOrdinal("periodEnd"));
+                string moduleCode = roominfo.GetString(roominfo.GetOrdinal("moduleCode"));
 
-            while (endofF)
-            {
-
-                string day = roominfo.GetString(10);
-                int start = roominfo.GetInt32(11);
-                int end = roominfo.GetInt32(12);
-                string modulerequest = roominfo.GetString(7);
-
-                if (day == "Monday")
+                // determine the index in to the arrays from the day name
+                int dayIndex = 0;
+                switch (dayName)
                 {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[0, i].Enabled = false;
-                        boxes[0, i].Visible = false;
-                        labels[0, i].Text = modulerequest;
-                        labels[0, i].Visible = true;
-
-                    }
+                    case "Monday": dayIndex = 0; break;
+                    case "Tuesday": dayIndex = 1; break;
+                    case "Wednesday": dayIndex = 2; break;
+                    case "Thursday": dayIndex = 3; break;
+                    case "Friday": dayIndex = 4; break;
                 }
-                if (day == "Tuesday")
-                {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[1, i].Enabled = false;
-                        boxes[1, i].Visible = false;
-                        labels[1, i].Text = modulerequest;
-                        labels[1, i].Visible = true;
 
-                    }
-                } if (day == "Wednesday")
+                for (int period = start - 1; period < end; period++ )
                 {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[2, i].Enabled = false;
-                        boxes[2, i].Visible = false;
-                        labels[2, i].Text = modulerequest;
-                        labels[2, i].Visible = true;
-                    }
-                } if (day == "Thursday")
-                {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[3, i].Enabled = false;
-                        boxes[3, i].Visible = false;
-                        labels[3, i].Text = modulerequest;
-                        labels[3, i].Visible = true;
-                    }
-                } if (day == "Friday")
-                {
-                    for (int i = start - 1; i < end; i++)
-                    {
-                        boxes[4, i].Enabled = false;
-                        boxes[4, i].Visible = false;
-                        labels[4, i].Text = modulerequest;
-                        labels[4, i].Visible = true;
-                    }
+                    boxes[dayIndex, period].Enabled = false;
+                    boxes[dayIndex, period].Visible = false;
+                    labels[dayIndex, period].Text = moduleCode;
+                    labels[dayIndex, period].Visible = true;
                 }
-                if (roominfo.Read() == false)
-                {
-                    endofF = false;
-                    break;
-                }
-                //break;
-                //remove break
-            }
+             }
 
             connect.Close();
         }
@@ -315,83 +194,44 @@ namespace Team11
         protected void ButtonFindRooms_Click(object sender, EventArgs e)
         {
             DropDownListRoomsByDate.Items.Clear();
-            CheckBox[,] boxes = new CheckBox[5, 9];
-            boxes[0, 0] = CheckBoxM10;
-            boxes[0, 1] = CheckBoxM11;
-            boxes[0, 2] = CheckBoxM12;
-            boxes[0, 3] = CheckBoxM13;
-            boxes[0, 4] = CheckBoxM14;
-            boxes[0, 5] = CheckBoxM15;
-            boxes[0, 6] = CheckBoxM16;
-            boxes[0, 7] = CheckBoxM16;
-            boxes[0, 8] = CheckBoxM18;
-            boxes[1, 0] = CheckBoxT10;
-            boxes[1, 1] = CheckBoxT11;
-            boxes[1, 2] = CheckBoxT12;
-            boxes[1, 3] = CheckBoxT13;
-            boxes[1, 4] = CheckBoxT14;
-            boxes[1, 5] = CheckBoxT15;
-            boxes[1, 6] = CheckBoxT16;
-            boxes[1, 7] = CheckBoxT17;
-            boxes[1, 8] = CheckBoxT18;
-            boxes[2, 0] = CheckBoxW10;
-            boxes[2, 1] = CheckBoxW11;
-            boxes[2, 2] = CheckBoxW12;
-            boxes[2, 3] = CheckBoxW13;
-            boxes[2, 4] = CheckBoxW14;
-            boxes[2, 5] = CheckBoxW15;
-            boxes[2, 6] = CheckBoxW16;
-            boxes[2, 7] = CheckBoxW17;
-            boxes[2, 8] = CheckBoxW18;
-            boxes[3, 0] = CheckBoxJ10;
-            boxes[3, 1] = CheckBoxJ11;
-            boxes[3, 2] = CheckBoxJ12;
-            boxes[3, 3] = CheckBoxJ13;
-            boxes[3, 4] = CheckBoxJ14;
-            boxes[3, 5] = CheckBoxJ15;
-            boxes[3, 6] = CheckBoxJ16;
-            boxes[3, 7] = CheckBoxJ17;
-            boxes[3, 8] = CheckBoxJ18;
-            boxes[4, 0] = CheckBoxF10;
-            boxes[4, 1] = CheckBoxF11;
-            boxes[4, 2] = CheckBoxF12;
-            boxes[4, 3] = CheckBoxF13;
-            boxes[4, 4] = CheckBoxF14;
-            boxes[4, 5] = CheckBoxF15;
-            boxes[4, 6] = CheckBoxF16;
-            boxes[4, 7] = CheckBoxF17;
-            boxes[4, 8] = CheckBoxF18;
+            // initialise the checkbox array
+            CheckBox[,] boxes = { { CheckBoxM1, CheckBoxM2, CheckBoxM3, CheckBoxM4, CheckBoxM5, CheckBoxM6, CheckBoxM7, CheckBoxM8, CheckBoxM9 }, 
+                                                                    {CheckBoxT1, CheckBoxT2, CheckBoxT3, CheckBoxT4, CheckBoxT5, CheckBoxT6, CheckBoxT7, CheckBoxT8, CheckBoxT9 },
+                                                                    {CheckBoxW1, CheckBoxW2, CheckBoxW3, CheckBoxW4, CheckBoxW5, CheckBoxW6, CheckBoxW7, CheckBoxW8, CheckBoxW9  },
+                                                                    {CheckBoxJ1, CheckBoxJ2, CheckBoxJ3, CheckBoxJ4, CheckBoxJ5, CheckBoxJ6, CheckBoxJ7, CheckBoxJ8, CheckBoxJ9  },
+                                                                    {CheckBoxM1, CheckBoxF2, CheckBoxF3, CheckBoxF4, CheckBoxF5, CheckBoxF6, CheckBoxF7, CheckBoxF8, CheckBoxF9  }};
+
             string day = "";
             int week = DropDownListWeeks.SelectedIndex + 1;
             int periodStart = 0;
             List<string> days = new List<string>();
             List<int> periods = new List<int>();
-            for (int j = 0; j < 9; j++)
+            for (int period = 0; period < 9; period++)
             {
-                if (boxes[0, j].Checked)
+                if (boxes[0, period].Checked)
                 {
                     days.Add("Monday");
-                    periods.Add(j + 1);
+                    periods.Add(period + 1);
                 }
-                else if (boxes[1, j].Checked)
+                else if (boxes[1, period].Checked)
                 {
                     days.Add("Tuesday");
-                    periods.Add(j + 1);
+                    periods.Add(period + 1);
                 }
-                else if (boxes[2, j].Checked)
+                else if (boxes[2, period].Checked)
                 {
                     days.Add("Wednesday");
-                    periods.Add(j + 1);
+                    periods.Add(period + 1);
                 }
-                else if (boxes[3, j].Checked)
+                else if (boxes[3, period].Checked)
                 {
                     days.Add("Thursday");
-                    periods.Add(j + 1);
+                    periods.Add(period + 1);
                 }
-                else if (boxes[4, j].Checked)
+                else if (boxes[4, period].Checked)
                 {
                     days.Add("Friday");
-                    periods.Add(j + 1);
+                    periods.Add(period + 1);
                 }
             }
 
@@ -422,52 +262,12 @@ namespace Team11
             SqlConnection connection7 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connection7.Open();
 
-            CheckBox[,] boxes = new CheckBox[5, 9];
-            boxes[0, 0] = CheckBoxM10;
-            boxes[0, 1] = CheckBoxM11;
-            boxes[0, 2] = CheckBoxM12;
-            boxes[0, 3] = CheckBoxM13;
-            boxes[0, 4] = CheckBoxM14;
-            boxes[0, 5] = CheckBoxM15;
-            boxes[0, 6] = CheckBoxM16;
-            boxes[0, 7] = CheckBoxM16;
-            boxes[0, 8] = CheckBoxM18;
-            boxes[1, 0] = CheckBoxT10;
-            boxes[1, 1] = CheckBoxT11;
-            boxes[1, 2] = CheckBoxT12;
-            boxes[1, 3] = CheckBoxT13;
-            boxes[1, 4] = CheckBoxT14;
-            boxes[1, 5] = CheckBoxT15;
-            boxes[1, 6] = CheckBoxT16;
-            boxes[1, 7] = CheckBoxT17;
-            boxes[1, 8] = CheckBoxT18;
-            boxes[2, 0] = CheckBoxW10;
-            boxes[2, 1] = CheckBoxW11;
-            boxes[2, 2] = CheckBoxW12;
-            boxes[2, 3] = CheckBoxW13;
-            boxes[2, 4] = CheckBoxW14;
-            boxes[2, 5] = CheckBoxW15;
-            boxes[2, 6] = CheckBoxW16;
-            boxes[2, 7] = CheckBoxW17;
-            boxes[2, 8] = CheckBoxW18;
-            boxes[3, 0] = CheckBoxJ10;
-            boxes[3, 1] = CheckBoxJ11;
-            boxes[3, 2] = CheckBoxJ12;
-            boxes[3, 3] = CheckBoxJ13;
-            boxes[3, 4] = CheckBoxJ14;
-            boxes[3, 5] = CheckBoxJ15;
-            boxes[3, 6] = CheckBoxJ16;
-            boxes[3, 7] = CheckBoxJ17;
-            boxes[3, 8] = CheckBoxJ18;
-            boxes[4, 0] = CheckBoxF10;
-            boxes[4, 1] = CheckBoxF11;
-            boxes[4, 2] = CheckBoxF12;
-            boxes[4, 3] = CheckBoxF13;
-            boxes[4, 4] = CheckBoxF14;
-            boxes[4, 5] = CheckBoxF15;
-            boxes[4, 6] = CheckBoxF16;
-            boxes[4, 7] = CheckBoxF17;
-            boxes[4, 8] = CheckBoxF18;
+            // initialise the checkbox array
+            CheckBox[,] weekdayCheckBoxes = { { CheckBoxM1, CheckBoxM2, CheckBoxM3, CheckBoxM4, CheckBoxM5, CheckBoxM6, CheckBoxM7, CheckBoxM8, CheckBoxM9 }, 
+                                                                    {CheckBoxT1, CheckBoxT2, CheckBoxT3, CheckBoxT4, CheckBoxT5, CheckBoxT6, CheckBoxT7, CheckBoxT8, CheckBoxT9 },
+                                                                    {CheckBoxW1, CheckBoxW2, CheckBoxW3, CheckBoxW4, CheckBoxW5, CheckBoxW6, CheckBoxW7, CheckBoxW8, CheckBoxW9  },
+                                                                    {CheckBoxJ1, CheckBoxJ2, CheckBoxJ3, CheckBoxJ4, CheckBoxJ5, CheckBoxJ6, CheckBoxJ7, CheckBoxJ8, CheckBoxJ9  },
+                                                                    {CheckBoxM1, CheckBoxF2, CheckBoxF3, CheckBoxF4, CheckBoxF5, CheckBoxF6, CheckBoxF7, CheckBoxF8, CheckBoxF9  }};
 
             //Retrieve module name
             string moduleName = DropDownListModulesByDate.SelectedValue;
@@ -478,7 +278,7 @@ namespace Team11
             bool[] mondayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
             for (int i = 0; i < 9; i++)
             {
-                if (boxes[0, i].Checked)
+                if (weekdayCheckBoxes[0, i].Checked)
                 {
                     mondayrequest[i] = true;
                 }
@@ -486,7 +286,7 @@ namespace Team11
             bool[] tuesdayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
             for (int i = 0; i < 9; i++)
             {
-                if (boxes[1, i].Checked)
+                if (weekdayCheckBoxes[1, i].Checked)
                 {
                     tuesdayrequest[i] = true;
                 }
@@ -494,7 +294,7 @@ namespace Team11
             bool[] wednesdayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
             for (int i = 0; i < 9; i++)
             {
-                if (boxes[2, i].Checked)
+                if (weekdayCheckBoxes[2, i].Checked)
                 {
                     wednesdayrequest[i] = true;
                 }
@@ -502,7 +302,7 @@ namespace Team11
             bool[] thursdayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
             for (int i = 0; i < 9; i++)
             {
-                if (boxes[3, i].Checked)
+                if (weekdayCheckBoxes[3, i].Checked)
                 {
                     thursdayrequest[i] = true;
                 }
@@ -510,7 +310,7 @@ namespace Team11
             bool[] fridayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
             for (int i = 0; i < 9; i++)
             {
-                if (boxes[4, i].Checked)
+                if (weekdayCheckBoxes[4, i].Checked)
                 {
                     fridayrequest[i] = true;
                 }
@@ -718,52 +518,12 @@ namespace Team11
 
         protected void ButtonBookByRoom_Click(object sender, EventArgs e)
         {
-            CheckBox[,] boxes = new CheckBox[5, 9];
-            boxes[0, 0] = CheckBoxM1;
-            boxes[0, 1] = CheckBoxM2;
-            boxes[0, 2] = CheckBoxM3;
-            boxes[0, 3] = CheckBoxM4;
-            boxes[0, 4] = CheckBoxM5;
-            boxes[0, 5] = CheckBoxM6;
-            boxes[0, 6] = CheckBoxM7;
-            boxes[0, 7] = CheckBoxM8;
-            boxes[0, 8] = CheckBoxM9;
-            boxes[1, 0] = CheckBoxT1;
-            boxes[1, 1] = CheckBoxT2;
-            boxes[1, 2] = CheckBoxT3;
-            boxes[1, 3] = CheckBoxT4;
-            boxes[1, 4] = CheckBoxT5;
-            boxes[1, 5] = CheckBoxT6;
-            boxes[1, 6] = CheckBoxT7;
-            boxes[1, 7] = CheckBoxT8;
-            boxes[1, 8] = CheckBoxT9;
-            boxes[2, 0] = CheckBoxW1;
-            boxes[2, 1] = CheckBoxW2;
-            boxes[2, 2] = CheckBoxW3;
-            boxes[2, 3] = CheckBoxW4;
-            boxes[2, 4] = CheckBoxW5;
-            boxes[2, 5] = CheckBoxW6;
-            boxes[2, 6] = CheckBoxW7;
-            boxes[2, 7] = CheckBoxW8;
-            boxes[2, 8] = CheckBoxW9;
-            boxes[3, 0] = CheckBoxJ1;
-            boxes[3, 1] = CheckBoxJ2;
-            boxes[3, 2] = CheckBoxJ3;
-            boxes[3, 3] = CheckBoxJ4;
-            boxes[3, 4] = CheckBoxJ5;
-            boxes[3, 5] = CheckBoxJ6;
-            boxes[3, 6] = CheckBoxJ7;
-            boxes[3, 7] = CheckBoxJ8;
-            boxes[3, 8] = CheckBoxJ9;
-            boxes[4, 0] = CheckBoxF1;
-            boxes[4, 1] = CheckBoxF2;
-            boxes[4, 2] = CheckBoxF3;
-            boxes[4, 3] = CheckBoxF4;
-            boxes[4, 4] = CheckBoxF5;
-            boxes[4, 5] = CheckBoxF6;
-            boxes[4, 6] = CheckBoxF7;
-            boxes[4, 7] = CheckBoxF8;
-            boxes[4, 8] = CheckBoxF9;
+            // initialise the checkbox array
+            CheckBox[,] boxes = { { CheckBoxM1, CheckBoxM2, CheckBoxM3, CheckBoxM4, CheckBoxM5, CheckBoxM6, CheckBoxM7, CheckBoxM8, CheckBoxM9 }, 
+                                                                    {CheckBoxT1, CheckBoxT2, CheckBoxT3, CheckBoxT4, CheckBoxT5, CheckBoxT6, CheckBoxT7, CheckBoxT8, CheckBoxT9 },
+                                                                    {CheckBoxW1, CheckBoxW2, CheckBoxW3, CheckBoxW4, CheckBoxW5, CheckBoxW6, CheckBoxW7, CheckBoxW8, CheckBoxW9  },
+                                                                    {CheckBoxJ1, CheckBoxJ2, CheckBoxJ3, CheckBoxJ4, CheckBoxJ5, CheckBoxJ6, CheckBoxJ7, CheckBoxJ8, CheckBoxJ9  },
+                                                                    {CheckBoxM1, CheckBoxF2, CheckBoxF3, CheckBoxF4, CheckBoxF5, CheckBoxF6, CheckBoxF7, CheckBoxF8, CheckBoxF9  }};
 
             requestDetails.Visible = false;
             this.divBookingByRoom.Visible = true;
@@ -1405,53 +1165,12 @@ namespace Team11
         {
             SqlConnection connection7 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connection7.Open();
-            CheckBox[,] boxes = new CheckBox[5, 9];
-            boxes[0, 0] = CheckBoxM1;
-            boxes[0, 1] = CheckBoxM2;
-            boxes[0, 2] = CheckBoxM3;
-            boxes[0, 3] = CheckBoxM4;
-            boxes[0, 4] = CheckBoxM5;
-            boxes[0, 5] = CheckBoxM6;
-            boxes[0, 6] = CheckBoxM7;
-            boxes[0, 7] = CheckBoxM8;
-            boxes[0, 8] = CheckBoxM9;
-            boxes[1, 0] = CheckBoxT1;
-            boxes[1, 1] = CheckBoxT2;
-            boxes[1, 2] = CheckBoxT3;
-            boxes[1, 3] = CheckBoxT4;
-            boxes[1, 4] = CheckBoxT5;
-            boxes[1, 5] = CheckBoxT6;
-            boxes[1, 6] = CheckBoxT7;
-            boxes[1, 7] = CheckBoxT8;
-            boxes[1, 8] = CheckBoxT9;
-            boxes[2, 0] = CheckBoxW1;
-            boxes[2, 1] = CheckBoxW2;
-            boxes[2, 2] = CheckBoxW3;
-            boxes[2, 3] = CheckBoxW4;
-            boxes[2, 4] = CheckBoxW5;
-            boxes[2, 5] = CheckBoxW6;
-            boxes[2, 6] = CheckBoxW7;
-            boxes[2, 7] = CheckBoxW8;
-            boxes[2, 8] = CheckBoxW9;
-            boxes[3, 0] = CheckBoxJ1;
-            boxes[3, 1] = CheckBoxJ2;
-            boxes[3, 2] = CheckBoxJ3;
-            boxes[3, 3] = CheckBoxJ4;
-            boxes[3, 4] = CheckBoxJ5;
-            boxes[3, 5] = CheckBoxJ6;
-            boxes[3, 6] = CheckBoxJ7;
-            boxes[3, 7] = CheckBoxJ8;
-            boxes[3, 8] = CheckBoxJ9;
-            boxes[4, 0] = CheckBoxF1;
-            boxes[4, 1] = CheckBoxF2;
-            boxes[4, 2] = CheckBoxF3;
-            boxes[4, 3] = CheckBoxF4;
-            boxes[4, 4] = CheckBoxF5;
-            boxes[4, 5] = CheckBoxF6;
-            boxes[4, 6] = CheckBoxF7;
-            boxes[4, 7] = CheckBoxF8;
-            boxes[4, 8] = CheckBoxF9;
-
+            // initialise the checkbox array
+            CheckBox[,] boxes = { { CheckBoxM1, CheckBoxM2, CheckBoxM3, CheckBoxM4, CheckBoxM5, CheckBoxM6, CheckBoxM7, CheckBoxM8, CheckBoxM9 }, 
+                                                                    {CheckBoxT1, CheckBoxT2, CheckBoxT3, CheckBoxT4, CheckBoxT5, CheckBoxT6, CheckBoxT7, CheckBoxT8, CheckBoxT9 },
+                                                                    {CheckBoxW1, CheckBoxW2, CheckBoxW3, CheckBoxW4, CheckBoxW5, CheckBoxW6, CheckBoxW7, CheckBoxW8, CheckBoxW9  },
+                                                                    {CheckBoxJ1, CheckBoxJ2, CheckBoxJ3, CheckBoxJ4, CheckBoxJ5, CheckBoxJ6, CheckBoxJ7, CheckBoxJ8, CheckBoxJ9  },
+                                                                    {CheckBoxM1, CheckBoxF2, CheckBoxF3, CheckBoxF4, CheckBoxF5, CheckBoxF6, CheckBoxF7, CheckBoxF8, CheckBoxF9  }};
 
             bool[] mondayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
             for (int i = 0; i < 9; i++)

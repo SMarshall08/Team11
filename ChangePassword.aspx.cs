@@ -15,7 +15,7 @@ namespace Team11
             // SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
             //connect.Open();
 
-            userID = Convert.ToInt32(Request.QueryString["userID"]);
+            userID = Convert.ToInt32(Session["userID"]);
             Label4.Text = userID.ToString();
 
 

@@ -40,12 +40,12 @@
             <div class="center">
                 <ul class="center">
                     <li><img alt="Loughborough University Logo" class="navlogo" src="Resources/logo2.jpg" /></li>
-                    <li><a href="CreateRequest.aspx?userID=<%=Request.QueryString["userID"] %>">Request</a></li>
-                    <li><a href="ViewRequest.aspx?userID=<%=Request.QueryString["userID"] %>">View Request</a></li>
-                    <li><a href="Availibility.aspx?userID=<%=Request.QueryString["userID"] %>">Ad Hoc</a></li>
-                    <li><a href="AddEditModule.aspx?userID=<%=Request.QueryString["userID"] %>">Modules</a></li>
-                    <li><a href="Preference.aspx?userID=<%=Request.QueryString["userID"] %>">Preferences</a></li>
-                    <li><a href="Admin.aspx?userID=<%=Request.QueryString["userID"] %>">Admin</a></li>
+                    <li><a href="CreateRequest.aspx">Request</a></li>
+                    <li><a href="ViewRequest.aspx">View Request</a></li>
+                    <li><a href="Availibility.aspx">Ad Hoc</a></li>
+                    <li><a href="AddEditModule.aspx">Modules</a></li>
+                    <li><a href="Preference.aspx">Preferences</a></li>
+                    <li><a href="Admin.aspx">Admin</a></li>
                     <li><a href="Default.aspx">Logout</a></li>
                   
                 </ul>    

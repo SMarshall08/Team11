@@ -27,7 +27,7 @@ namespace Team11
         protected void Page_Load(object sender, EventArgs e)
         {
             // read the userid from the querystring
-            userID = Convert.ToInt32(Request.QueryString["userID"]);
+            userID = Convert.ToInt32(Session["userID"]);
 
             if (!IsPostBack)
             {
