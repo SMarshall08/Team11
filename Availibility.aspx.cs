@@ -275,46 +275,20 @@ where [Room].roomName='{0}' and [Week].week1={1}", selectedroom, selectedweek);
             SqlCommand modulessql = new SqlCommand(modulesquery, connection7);
             string moduleCodeText = modulessql.ExecuteScalar().ToString();
 
-            bool[] mondayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-            for (int i = 0; i < 9; i++)
+            string[] dayName = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+            bool[] weekdayRequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
+
+            for (int day = 0; day < 5; day++)
             {
-                if (weekdayCheckBoxes[0, i].Checked)
+                for (int period = 0; period < 9; period++)
                 {
-                    mondayrequest[i] = true;
+                    if (!weekdayCheckBoxes[day, period].Checked)
+                    {
+                        weekdayRequest[period] = true;
+                    }
                 }
             }
-            bool[] tuesdayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-            for (int i = 0; i < 9; i++)
-            {
-                if (weekdayCheckBoxes[1, i].Checked)
-                {
-                    tuesdayrequest[i] = true;
-                }
-            }
-            bool[] wednesdayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-            for (int i = 0; i < 9; i++)
-            {
-                if (weekdayCheckBoxes[2, i].Checked)
-                {
-                    wednesdayrequest[i] = true;
-                }
-            }
-            bool[] thursdayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-            for (int i = 0; i < 9; i++)
-            {
-                if (weekdayCheckBoxes[3, i].Checked)
-                {
-                    thursdayrequest[i] = true;
-                }
-            }
-            bool[] fridayrequest = new bool[10] { false, false, false, false, false, false, false, false, false, false };
-            for (int i = 0; i < 9; i++)
-            {
-                if (weekdayCheckBoxes[4, i].Checked)
-                {
-                    fridayrequest[i] = true;
-                }
-            }
+            
             //Weeks part
             int weeknumber = DropDownListWeeks.SelectedIndex;
             int[] weeksarray = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -354,162 +328,48 @@ where [Room].roomName='{0}' and [Week].week1={1}", selectedroom, selectedweek);
 
             if (selectedroom != "")
             {
-                for (int i = 0; i < 9; i++)
+                for (int day = 0; day < 5; day++)
                 {
-                    if (mondayrequest[i] == true)
+                    for (int period = 0; period < 9; period++)
                     {
-                        int startTime = i + 1;
-                        int duration = 0;
-                        int n = i - 1;
-                        bool ended = true;
-                        while (ended)
+                        if (weekdayCheckBoxes[day, period].Checked)
                         {
-                            n++;
-                            switch (mondayrequest[n] == true && mondayrequest[n + 1] == true)
+                            int startTime = period + 1;
+                            int duration = 0;
+                            int n = period - 1;
+                            bool ended = true;
+                            while (ended)
                             {
-                                case true:
+                                n++;
+                                if (weekdayCheckBoxes[day, n].Checked
+                                    && n < 8
+                                    && weekdayCheckBoxes[day, n + 1].Checked)
+                                {
                                     duration++;
-                                    i++;
-                                    break;
-                                case false:
+                                    period++;
+                                }
+                                else
+                                {
                                     int endTime = startTime + duration;
-                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Accepted'," + weekIDText + ",'Monday'," + startTime + "," + endTime + ",1,2014,3)";
-                                    SqlCommand insreqsql = new SqlCommand(insreq, connection7);
-                                    insreqsql.ExecuteNonQuery();
-                                    string booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomid + ")";
-                                    SqlCommand bookedsql = new SqlCommand(booked, connection7);
-                                    bookedsql.ExecuteNonQuery();
-                                    ended = false;
-                                    break;
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < 9; i++)
-                {
-                    if (tuesdayrequest[i] == true)
-                    {
-                        int startTime = i + 1;
-                        int duration = 0;
-                        int n = i - 1;
-                        bool ended = true;
-                        while (ended)
-                        {
-                            n++;
-                            switch (tuesdayrequest[n] == true && tuesdayrequest[n + 1] == true)
-                            {
-                                case true:
-                                    duration++;
-                                    i++;
-                                    break;
-                                case false:
-                                    int endTime = startTime + duration;
-                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Accepted'," + weekIDText + ",'Tuesday'," + startTime + "," + endTime + ",1,2014,3)";
-                                    SqlCommand insreqsql = new SqlCommand(insreq, connection7);
-                                    insreqsql.ExecuteNonQuery();
-                                    string booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomid + ")";
-                                    SqlCommand bookedsql = new SqlCommand(booked, connection7);
-                                    bookedsql.ExecuteNonQuery();
-                                    ended = false;
-                                    break;
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < 9; i++)
-                {
-                    if (wednesdayrequest[i] == true)
-                    {
-                        int startTime = i + 1;
-                        int duration = 0;
-                        int n = i - 1;
-                        bool ended = true;
-                        while (ended)
-                        {
-                            n++;
-                            switch (wednesdayrequest[n] == true && wednesdayrequest[n + 1] == true)
-                            {
-                                case true:
-                                    duration++;
-                                    i++;
-                                    break;
-                                case false:
-                                    int endTime = startTime + duration;
-                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Accepted'," + weekIDText + ",'Wednesday'," + startTime + "," + endTime + ",1,2014,3)";
-                                    SqlCommand insreqsql = new SqlCommand(insreq, connection7);
-                                    insreqsql.ExecuteNonQuery();
-                                    string booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomid + ")";
-                                    SqlCommand bookedsql = new SqlCommand(booked, connection7);
-                                    bookedsql.ExecuteNonQuery();
-                                    ended = false;
-                                    break;
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < 9; i++)
-                {
-                    if (thursdayrequest[i] == true)
-                    {
-                        int startTime = i + 1;
-                        int duration = 0;
-                        int n = i - 1;
-                        bool ended = true;
-                        while (ended)
-                        {
-                            n++;
-                            switch (thursdayrequest[n] == true && thursdayrequest[n + 1] == true)
-                            {
-                                case true:
-                                    duration++;
-                                    i++;
-                                    break;
-                                case false:
-                                    int endTime = startTime + duration;
-                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Accepted'," + weekIDText + ",'Thursday'," + startTime + "," + endTime + ",1,2014,3)";
-                                    SqlCommand insreqsql = new SqlCommand(insreq, connection7);
-                                    insreqsql.ExecuteNonQuery();
-                                    string booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomid + ")";
-                                    SqlCommand bookedsql = new SqlCommand(booked, connection7);
-                                    bookedsql.ExecuteNonQuery();
-                                    ended = false;
-                                    break;
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < 9; i++)
-                {
-                    if (fridayrequest[i] == true)
-                    {
-                        int startTime = i + 1;
-                        int duration = 0;
-                        int n = i - 1;
-                        bool ended = true;
-                        while (ended)
-                        {
-                            n++;
-                            switch (fridayrequest[n] == true && fridayrequest[n + 1] == true)
-                            {
-                                case true:
-                                    duration++;
-                                    i++;
-                                    break;
-                                case false:
-                                    int endTime = startTime + duration;
-                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Accepted'," + weekIDText + ",'Friday'," + startTime + "," + endTime + ",1,2014,3)";
-                                    SqlCommand insreqsql = new SqlCommand(insreq, connection7);
-                                    insreqsql.ExecuteNonQuery();
-                                    string booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomid + ")";
-                                    SqlCommand bookedsql = new SqlCommand(booked, connection7);
-                                    bookedsql.ExecuteNonQuery();
-                                    ended = false;
-                                    break;
-                            }
-                        }
+                                    string status = "";
+                                    //TODO: figure out how to determine if it is private or not
+                                    bool isPrivateRoom = false;
+                                    if (isPrivateRoom)
+                                        status = "Accepted";
+                                    else
+                                        status = "Pending";
 
+                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','" + status + "'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + ",1,2014,3)";
+                                    SqlCommand insreqsql = new SqlCommand(insreq, connection7);
+                                    insreqsql.ExecuteNonQuery();
+                                    string booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomid + ")";
+                                    SqlCommand bookedsql = new SqlCommand(booked, connection7);
+                                    bookedsql.ExecuteNonQuery();
+                                    ended = false;
 
-
+                                }
+                            }
+                        }
                     }
                 }
                 connection7.Close();
