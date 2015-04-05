@@ -29,7 +29,7 @@ h1
 }
 .page
 {
-    width: 960px;
+    width: 95%;
     background-color: #fff;
     margin: 10px auto 0px auto;
     border: 1px solid #496077;
@@ -52,15 +52,16 @@ h1
 .header h1 
 {
     margin:0;
-    padding:0;   
+    padding:0;  
+    text-align:center; 
 }   
 /* Where content WITHIN .page is loaded from other .aspx iles */
 .main
 {
     padding: 10px;
     margin: -2px 10px 8px 8px;
-    min-height: 420px;
-    width:942px;
+    min-height: 95%;
+    width:98%;
     background-color:#fff;
     font-size:12pt;
 }
@@ -99,7 +100,7 @@ div.navbar ul li
 {
     display:inline;
     float:left;
-    width:120px;
+    width:100px;
     text-align:center;
     height:60px;
     font-size:12pt;

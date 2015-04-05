@@ -43,6 +43,7 @@
                     <li><a href="CreateRequest.aspx">Request</a></li>
                     <li><a href="ViewRequest.aspx">View Request</a></li>
                     <li><a href="Availibility.aspx">Ad Hoc</a></li>
+                    <li><a href="Schedule.aspx">Schedule</a></li>
                     <li><a href="AddEditModule.aspx">Modules</a></li>
                     <li><a href="Preference.aspx">Preferences</a></li>
                     <li><a href="Admin.aspx">Admin</a></li>

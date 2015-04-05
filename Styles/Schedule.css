@@ -1,6 +1,6 @@
 .canister 
 {
-   width:1080px;
+   width:900px;
    margin: 10px auto 0 auto;
    border:2px solid #CC0066;
    border-top-left-radius:15px;
@@ -27,16 +27,39 @@
     font-size:10pt;
    
 }
-.minustopmarg 
+table 
 {
-    margin-top:-0px;   
+    margin-top:30px; 
+    color:White ;
+    width: 100%;
 }
-.full 
+table th 
 {
-    width:250px !important;   
+    color:White;   
+    background-color:#CC0066;
+    text-align:center;
+    width:10%;
 }
-.tablecontainer 
+table td 
 {
-    margin:10px auto 0px auto;   
-    width:880px;
+    text-align:center;   
+    color: black;
+    font-size: 10pt;
+}
+
+tr:nth-child(even)
+{
+    background-color:#E0E0E0 ;   
+}
+#requestDetails, 
+{
+    
+}
+.none input[type=radio], .none input[type=checkbox]
+{
+     -webkit-appearance:none;
+}
+input[type=radio], input[type=checkbox] 
+{
+    display:none;   
 }

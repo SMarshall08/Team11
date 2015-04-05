@@ -62,14 +62,7 @@ namespace Team11
                 getBuilding = "SELECT buildingName FROM [Building]";
             else
                 getBuilding = "SELECT buildingName FROM [Building] WHERE parkID=" + DropDownListFilterPark.SelectedValue;
-            connect11.Open();
-            SqlCommand getBuildingSql = new SqlCommand(getBuilding, connect11);
-            SqlDataReader getBuildingData = getBuildingSql.ExecuteReader();
-            while (getBuildingData.Read())
-            {
-                DropDownListFilterBuilding.Items.Add(getBuildingData.GetString(0));
-            }
-            connect11.Close();
+           
             DropDownListFilterRooms.Items.Add("Please Select a Room To Filter By");
             string getRooms;
             if (DropDownListFilterBuilding.SelectedIndex == 0)
@@ -113,7 +106,7 @@ namespace Team11
             if (RadioButtonListFilterStatus.SelectedIndex != 0)
                 codeStr += " AND [Request].status='" + RadioButtonListFilterStatus.SelectedValue + "'";
             if (DropDownListFilterModule.SelectedIndex != 0)
-                codeStr += " AND [Request].moduleCode='" + DropDownListFilterModule.SelectedValue.Substring(DropDownListFilterModule.SelectedValue.Length - 8, 8) + "'";
+                codeStr += " AND [Request].moduleCode='" + DropDownListFilterModule.SelectedValue.Substring(DropDownListFilterModule.SelectedValue.Length - 6, 6) + "'";
             if (DropDownList2.SelectedIndex == 1)
                 codeStr += " AND [Request].year=2013";
             else if (DropDownList2.SelectedIndex == 2)

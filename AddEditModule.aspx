@@ -78,7 +78,7 @@
     <asp:GridView ID="GridView2" runat="server" AllowSorting="True" 
         AutoGenerateColumns="False" CellPadding="4" DataKeyNames="moduleID" 
         DataSourceID="SqlDataSource2" ForeColor="#333333" GridLines="None" 
-        Width="927px">
+        Width="95%" style="padding-left:20px">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         <Columns>
             <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
