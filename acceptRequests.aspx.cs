@@ -4,93 +4,68 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Text;
-using System.Configuration;
+using System.Text.RegularExpressions;
 using System.Data.SqlClient;
-
+using System.Web.Configuration;
 namespace Team11
 {
-    public partial class acceptRequests : System.Web.UI.Page
+    public partial class acceptRequests2 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+             
+            string url = Request.Url.Query; ///Gets url
+            Match match = Regex.Match(url, @"=(.*)"); ///Gets reference from url
+            string reference = match.Groups[1].Value;
+            referenceLabel.Text = "You are responding to the request with reference number: " + reference+".";
+
+            string listSQL = "SELECT * FROM Request WHERE requestID ="+reference;
+
+            SqlConnection Connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            Connection.Open();
+            SqlCommand cmd = new SqlCommand(listSQL, Connection);
+            
+            SqlDataReader reader; reader = cmd.ExecuteReader();
+            string moduleCode="", status="", weekID="", day="", periodStart="", periodEnd="", semester="", year="", round="";
+            
+            while (reader.Read())
             {
-                //Populating a DataTable from database.
-                DataTable dt = this.GetData();
-
-                //Building an HTML string.
-                StringBuilder html = new StringBuilder();
-
-                //Table start.
-                html.Append("<table border = '1'>");
-
-                //Building the Header row.
-                html.Append("<tr>");
-                foreach (DataColumn column in dt.Columns)
-                {
-                    html.Append("<th>");
-                    html.Append(column.ColumnName);
-                    html.Append("</th>");
-                }
-                html.Append("</tr>");
-
-                //Building the Data rows.
-                foreach (DataRow row in dt.Rows)
-                {
-                    html.Append("<tr>");
-                    bool reference = true;
-                    foreach (DataColumn column in dt.Columns)
-                    {
-                      //  string compare = row[column.ColumnName].ToString();
-                        if (reference)
-                        {
-                            string columnName = row[column.ColumnName].ToString();
-
-                            html.Append("<td>");
-                            html.Append("<a href=\"acceptRequests2.aspx?requestReference="+columnName+"\">"+row[column.ColumnName]+"</a>");
-                            html.Append("</td>");
-                            reference = false;
-
-                        }
-                        else { 
-                        html.Append("<td>");
-                        html.Append(row[column.ColumnName]);
-                        html.Append("</td>");
-                    
-                    }
-                    }
-                    html.Append("</tr>");
-                }
-
-                //Table end.
-                html.Append("</table>");
-
-                //Append the HTML string to Placeholder.
-                PlaceHolder1.Controls.Add(new Literal { Text = html.ToString() });
+                
+                moduleCode = reader["moduleCode"].ToString();
+                status = reader["status"].ToString();
+                weekID = reader["weekID"].ToString();
+                day = reader["day"].ToString();
+                periodStart = reader["periodStart"].ToString();
+                periodEnd = reader["periodEnd"].ToString();
+                semester = reader["semester"].ToString();
+                year = reader["year"].ToString();
+                round = reader["round"].ToString();
+                
             }
-        }
+            tableDiv.InnerHtml = "<table style=\"border: 4px solid black;\"><tr style=\"border: 4px solid black;\">" +
+    "<td style=\"border: 4px solid black;\">Module Code</td>" +
+    "<td style=\"border: 4px solid black;\">Status</td>" +
+    "<td style=\"border: 4px solid black;\">Week</td>" +
+"<td style=\"border: 4px solid black;\">Day</td>" +
+"<td style=\"border: 4px solid black;\">Period Start</td>" +
+"<td style=\"border: 4px solid black;\">Period End</td>" +
+"<td style=\"border: 4px solid black;\">Semester</td>" +
+"<td style=\"border: 4px solid black;\">Year</td>" +
+"<td style=\"border: 4px solid black;\">Round</td>" +
+"</tr>" +
+"<tr style=\"border: 4px solid black;\">" +
+"<td style=\"border: 4px solid black;\">" + moduleCode + "</td>" +
+"<td style=\"border: 4px solid black;\">" + status + "</td>" +
+"<td style=\"border: 4px solid black;\">" + weekID + "</td>" +
+"<td style=\"border: 4px solid black;\">" + day + "</td>" +
+"<td style=\"border: 4px solid black;\">" + periodStart + "</td>" +
+"<td style=\"border: 4px solid black;\">" + periodEnd + "</td>" +
+"<td style=\"border: 4px solid black;\">" + semester + "</td>" +
+"<td style=\"border: 4px solid black;\">" + year + "</td>" +
+"<td style=\"border: 4px solid black;\">" + round + "</td>" +
+"</tr></table>";
 
-        private DataTable GetData()
-        {
-            string constr = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
-            {
-                using (SqlCommand cmd = new SqlCommand("SELECT requestID, moduleCode, status, weekID , day, periodStart, periodEnd, semester, year, round FROM Request"))
-                {
-                    using (SqlDataAdapter sda = new SqlDataAdapter())
-                    {
-                        cmd.Connection = con;
-                        sda.SelectCommand = cmd;
-                        using (DataTable dt = new DataTable())
-                        {
-                            sda.Fill(dt);
-                            return dt;
-                        }
-                    }
-                }
-            }
+
         }
     }
 }
