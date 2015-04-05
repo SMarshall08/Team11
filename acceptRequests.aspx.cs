@@ -46,10 +46,10 @@ namespace Team11
                       //  string compare = row[column.ColumnName].ToString();
                         if (reference)
                         {
-                            string yo = row[column.ColumnName].ToString();
+                            string columnName = row[column.ColumnName].ToString();
 
                             html.Append("<td>");
-                            html.Append("<a href=\"acceptRequests2.aspx?userID="+yo+"\">"+row[column.ColumnName]+"</a>");
+                            html.Append("<a href=\"acceptRequests2.aspx?userID="+columnName+"\">"+row[column.ColumnName]+"</a>");
                             html.Append("</td>");
                             reference = false;
 
