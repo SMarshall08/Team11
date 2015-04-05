@@ -49,7 +49,7 @@ namespace Team11
                             string columnName = row[column.ColumnName].ToString();
 
                             html.Append("<td>");
-                            html.Append("<a href=\"acceptRequests2.aspx?userID="+columnName+"\">"+row[column.ColumnName]+"</a>");
+                            html.Append("<a href=\"acceptRequests2.aspx?requestReference="+columnName+"\">"+row[column.ColumnName]+"</a>");
                             html.Append("</td>");
                             reference = false;
 
