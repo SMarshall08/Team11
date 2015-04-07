@@ -131,7 +131,7 @@
 
                 <div class="row modulerow">
                     <div class="text-center col-md-4 col-sm-4">
-                        <label id="deptName" class="form-control" runat="server"></label>
+                        <label id="deptName" class="form-control" runat="server" style="font-size:12px;"></label>
                     </div>
                     <div class="text-center col-md-4 col-sm-4">
                         <asp:DropDownList class="form-control" ID="DropDownListModules" runat="server"></asp:DropDownList>

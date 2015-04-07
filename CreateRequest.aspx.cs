@@ -26,21 +26,22 @@ namespace Team11
         {
             // read the userid from the querystring
             userID = Convert.ToInt32(Session["userID"]);
-            /*
+            string fillDeptName = string.Format("SELECT deptCode from [User] where userID={0}", Session["userID"]);
             SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect2.Open();
 
-            string fillDeptName = string.Format("SELECT deptName from [Module] where userID={0}", userID);
-            SqlCommand deptcommand = new SqlCommand(fillDeptName, connect2);
-            SqlDataReader dept = deptcommand.ExecuteReader();
+            SqlCommand getdeptsql = new SqlCommand(fillDeptName, connect2);
+            SqlDataReader getdeptdata = getdeptsql.ExecuteReader();
 
-            while (dept.Read())
+            while (getdeptdata.Read())
             {
-                deptName.InnerText = fillDeptName.ToString();
+                string deptInnerName = getdeptdata.GetString(0);
+                deptName.InnerText = deptInnerName.ToString();
             }
 
             connect2.Close();
-            */
+
+            
             if (!IsPostBack)
             {   // if this is the initial page load, then ...
 
