@@ -62,7 +62,11 @@ namespace Team11
                 DropDownListFilterBuilding.Items.Add(getbuildingdata.GetString(0));
             }*/
             
+        }
+            
 
+        protected void DropDownListFilterModule_SelectedIndexChanged(object sender, EventArgs e)
+        {
             string[,] schedule = { { "", "", "", "", "", "", "", "", "", "" },
                                  { "", "", "", "", "", "", "", "", "", "" },
                                  { "", "", "", "", "", "", "", "", "", "" },
@@ -151,10 +155,7 @@ WHERE week1 = 1 ";
             ViewTable.Controls.Add(myTable);
         }
 
-        protected void DropDownListFilterModule_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
 
         protected void DropDownListFilterPark_SelectedIndexChanged(object sender, EventArgs e)

@@ -154,7 +154,7 @@
         </div>
         <div>
             
-            <div runat="server" id="ViewTable" style="margin-top: 0px">hello</div>
+            <div runat="server" id="ViewTable" style="margin-top: 0px"></div>
             
 
         </div>
