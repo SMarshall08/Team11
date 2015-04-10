@@ -77,7 +77,7 @@ namespace Team11
             string constr = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT requestID, moduleCode, status, weekID , day, periodStart, periodEnd, semester, year, round FROM Request"))
+                using (SqlCommand cmd = new SqlCommand("SELECT requestID, moduleCode, status, weekID , day, periodStart, periodEnd, semester, year, round FROM Request WHERE status='Pending'"))
                 {
                     using (SqlDataAdapter sda = new SqlDataAdapter())
                     {
