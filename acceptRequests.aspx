@@ -5,7 +5,7 @@
 
 
 
-    <div>
+    <div id="acceptRequestsDiv" runat="server">
     Click on a request's reference number to respond to it.
     </div>
 
