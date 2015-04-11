@@ -8,67 +8,87 @@ using System.Data;
 using System.Text;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 
 namespace Team11
 {
     public partial class acceptRequests : System.Web.UI.Page
     {
+        int userID = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            userID = Convert.ToInt32(Session["userID"]);
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            connect.Open();
+            string adminString = "Select administrator from [User] where userID = " + userID;
+            SqlCommand adminCommand = new SqlCommand(adminString, connect);
+            string administratorYesNo = adminCommand.ExecuteScalar().ToString();
+            string trimmedAdmin = administratorYesNo.Trim();
+            bool userIsAdmin = (trimmedAdmin == "yes");
+            if (userIsAdmin)
             {
-                //Populating a DataTable from database.
-                DataTable dt = this.GetData();
-
-                //Building an HTML string.
-                StringBuilder html = new StringBuilder();
-
-                //Table start.
-                html.Append("<table border = '1'>");
-
-                //Building the Header row.
-                html.Append("<tr>");
-                foreach (DataColumn column in dt.Columns)
+                if (!this.IsPostBack)
                 {
-                    html.Append("<th>");
-                    html.Append(column.ColumnName);
-                    html.Append("</th>");
-                }
-                html.Append("</tr>");
+                    //Populating a DataTable from database.
+                    DataTable dt = this.GetData();
 
-                //Building the Data rows.
-                foreach (DataRow row in dt.Rows)
-                {
+                    //Building an HTML string.
+                    StringBuilder html = new StringBuilder();
+
+                    //Table start.
+                    html.Append("<table border = '1'>");
+
+                    //Building the Header row.
                     html.Append("<tr>");
-                    bool reference = true;
                     foreach (DataColumn column in dt.Columns)
                     {
-                      //  string compare = row[column.ColumnName].ToString();
-                        if (reference)
-                        {
-                            string columnName = row[column.ColumnName].ToString();
-
-                            html.Append("<td>");
-                            html.Append("<a href=\"acceptRequests2.aspx?requestReference="+columnName+"\">"+row[column.ColumnName]+"</a>");
-                            html.Append("</td>");
-                            reference = false;
-
-                        }
-                        else { 
-                        html.Append("<td>");
-                        html.Append(row[column.ColumnName]);
-                        html.Append("</td>");
-                    
-                    }
+                        html.Append("<th>");
+                        html.Append(column.ColumnName);
+                        html.Append("</th>");
                     }
                     html.Append("</tr>");
+
+                    //Building the Data rows.
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        html.Append("<tr>");
+                        bool reference = true;
+                        foreach (DataColumn column in dt.Columns)
+                        {
+                            //  string compare = row[column.ColumnName].ToString();
+                            if (reference)
+                            {
+                                string columnName = row[column.ColumnName].ToString();
+
+                                html.Append("<td>");
+                                html.Append("<a href=\"acceptRequests2.aspx?requestReference=" + columnName + "\">" + row[column.ColumnName] + "</a>");
+                                html.Append("</td>");
+                                reference = false;
+
+                            }
+                            else
+                            {
+                                html.Append("<td>");
+                                html.Append(row[column.ColumnName]);
+                                html.Append("</td>");
+
+                            }
+                        }
+                        html.Append("</tr>");
+                    }
+
+                    //Table end.
+                    html.Append("</table>");
+
+                    //Append the HTML string to Placeholder.
+                    PlaceHolder1.Controls.Add(new Literal { Text = html.ToString() });
                 }
+            }
+            else {
 
-                //Table end.
-                html.Append("</table>");
-
-                //Append the HTML string to Placeholder.
-                PlaceHolder1.Controls.Add(new Literal { Text = html.ToString() });
+                acceptRequestsDiv.InnerHtml = "You are not logged in as an admin. To use this page, you must be logged in as an admin.";
+            
+            
             }
         }
 
