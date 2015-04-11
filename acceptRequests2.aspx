@@ -10,11 +10,13 @@
     <div id="tableDiv" runat="server">
     
     </div>
-
+    
+    <div id="scriptDiv" runat="server"></div>
+    <div id="buttonDiv" runat="server">
     <br /><br /><br /><br /><br />
     <asp:Button ID="acceptRequestedRoom" Text="Accept request" runat="server" />
     <asp:Button ID="changeRequestedRoom" Text="Accept request but assign a different room" runat="server" />
     <asp:Button ID="rejectRequestedRoom" Text="Reject request" runat="server" />
-
+    </div>
     
     </asp:Content>
