@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 namespace Team11
 {
-  
+
     public partial class acceptRequests2 : System.Web.UI.Page
     {
         int userID = 0;
@@ -33,6 +33,44 @@ namespace Team11
             }
             else
             {
+                string allRoomsSQL = "SELECT roomID,roomName FROM Room";
+
+                SqlConnection allRoomsConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                SqlCommand allRoomsCmd = new SqlCommand(allRoomsSQL, allRoomsConnection);
+                SqlDataReader allReader;
+
+                try
+                {
+                    if (!Page.IsPostBack)
+                    {
+
+                        listOfRooms.Items.Clear();
+
+                        ListItem newItem = new ListItem();
+                        newItem.Text = "Choose a room";
+                        newItem.Value = "test";
+                        listOfRooms.Items.Add(newItem);
+
+                        allRoomsConnection.Open();
+                        allReader = allRoomsCmd.ExecuteReader();
+                        while (allReader.Read())
+                        {
+                            newItem = new ListItem();
+                            newItem.Text = allReader["roomName"].ToString();
+                            newItem.Value = allReader["roomID"].ToString();
+                            listOfRooms.Items.Add(newItem);
+                        }
+                        allReader.Close();
+                    }
+                }
+                catch (Exception err)
+                {
+                    //TODO
+                }
+                finally
+                {
+                    //Blank, may need to contain connection closing
+                }
                 acceptRequestedRoom.Click += new EventHandler(acceptRequestedRoomFunction);
                 changeRequestedRoom.Click += new EventHandler(changeRequestedRoomFunction);
                 rejectRequestedRoom.Click += new EventHandler(rejectRequestedRoomFunction);
@@ -97,7 +135,7 @@ namespace Team11
 
                 SqlCommand cmd3 = new SqlCommand(roomSQL, Connection);
                 SqlDataReader reader3; reader3 = cmd3.ExecuteReader();
-                
+
                 while (reader3.Read())
                 {
                     roomID = reader3["roomID"].ToString();
@@ -168,40 +206,68 @@ namespace Team11
 
             }
         }
-        protected void changeRequestedRoomFunction(Object sender, EventArgs e) {
+        protected void changeRequestedRoomFunction(Object sender, EventArgs e)
+        {
 
+            string selectedRoom = listOfRooms.SelectedItem.Value;
+            if (selectedRoom == "test") {
+
+                scriptDiv.InnerHtml = "<script>alert(\"You have not selected a room. Please select a room from the drop down list (that is the room that will be booked for this request).\");</script>";
             
+            }
+            else
+            {
+                string url = Request.Url.Query; ///Gets url
+                Match match = Regex.Match(url, @"=(.*)"); ///Gets reference from url
+                string reference = match.Groups[1].Value;
+
+                SqlConnection acceptConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                acceptConnect.Open();
+                string acceptString = "UPDATE Request SET status='Accepted' WHERE requestID=" + reference;
+                SqlCommand acceptCommand = new SqlCommand(acceptString, acceptConnect);
+                acceptCommand.ExecuteNonQuery();
+                string bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + selectedRoom + ")";
+                SqlCommand bookRoomCommand = new SqlCommand(bookRoomSQL, acceptConnect);
+                bookRoomCommand.ExecuteNonQuery();
+                scriptDiv.InnerHtml = "<script>alert(\"Request successfully accepted.\");</script>";
+                Response.Redirect("acceptRequests.aspx");
+            }
+
         }
-        protected void acceptRequestedRoomFunction(Object sender, EventArgs e) {
-            
-            if (room == "No preferred room") {
+        protected void acceptRequestedRoomFunction(Object sender, EventArgs e)
+        {
+
+            if (room == "No preferred room")
+            {
 
                 scriptDiv.InnerHtml = "<script>alert(\"You cannot accept a request that does not have a preferred room. Please click 'Accept request but assign a different room'.\");</script>";
 
 
             }
-            else { 
-            string url = Request.Url.Query; ///Gets url
-            Match match = Regex.Match(url, @"=(.*)"); ///Gets reference from url
-            string reference = match.Groups[1].Value;
-            
-            SqlConnection acceptConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
-            acceptConnect.Open();
-            string acceptString = "UPDATE Request SET status='Accepted' WHERE requestID=" + reference;
-            SqlCommand acceptCommand = new SqlCommand(acceptString, acceptConnect);
-            acceptCommand.ExecuteNonQuery();
-            string bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + roomID + ")";
-            SqlCommand bookRoomCommand = new SqlCommand(bookRoomSQL, acceptConnect);
-            bookRoomCommand.ExecuteNonQuery();
-            scriptDiv.InnerHtml = "<script>alert(\"Request successfully accepted.\");</script>";
-            Response.Redirect("acceptRequests.aspx");
+            else
+            {
+                string url = Request.Url.Query; ///Gets url
+                Match match = Regex.Match(url, @"=(.*)"); ///Gets reference from url
+                string reference = match.Groups[1].Value;
+
+                SqlConnection acceptConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                acceptConnect.Open();
+                string acceptString = "UPDATE Request SET status='Accepted' WHERE requestID=" + reference;
+                SqlCommand acceptCommand = new SqlCommand(acceptString, acceptConnect);
+                acceptCommand.ExecuteNonQuery();
+                string bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + roomID + ")";
+                SqlCommand bookRoomCommand = new SqlCommand(bookRoomSQL, acceptConnect);
+                bookRoomCommand.ExecuteNonQuery();
+                scriptDiv.InnerHtml = "<script>alert(\"Request successfully accepted.\");</script>";
+                Response.Redirect("acceptRequests.aspx");
             }
         }
-        protected void rejectRequestedRoomFunction(Object sender, EventArgs e) {
+        protected void rejectRequestedRoomFunction(Object sender, EventArgs e)
+        {
             string url = Request.Url.Query; ///Gets url
             Match match = Regex.Match(url, @"=(.*)"); ///Gets reference from url
             string reference = match.Groups[1].Value;
-            
+
             SqlConnection rejectConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
             rejectConnect.Open();
             string rejectString = "UPDATE Request SET status='Rejected' WHERE requestID=" + reference;
@@ -213,6 +279,6 @@ namespace Team11
 
 
 
-        
+
     }
 }
