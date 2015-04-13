@@ -40,32 +40,34 @@ namespace Team11
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            DropDownListFilterModule.Items.Add("Please Select a Module To filter By");
-            string getModule = "SELECT moduleCode, moduleTitle FROM [Module] WHERE userID=" +Session["userID"]; //Session["userID"] is intialised upon login.
-            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-            connect.Open();
-            SqlCommand getModuleSql = new SqlCommand(getModule, connect);
-            SqlDataReader getmoduledata = getModuleSql.ExecuteReader();
-            while (getmoduledata.Read())
+            if (!this.IsPostBack)
             {
-                DropDownListFilterModule.Items.Add(getmoduledata.GetString(1) + " / " + getmoduledata.GetString(0));
-            }
-            connect.Close();
+                //DropDownListFilterModule.Items.Add("Please Select a Module To filter By:");
+                DropDownListFilterModule.Items.Insert(0, "Please Select a Module to Filter By:");
+                string getModule = "SELECT moduleCode, moduleTitle FROM [Module] WHERE userID=" + Session["userID"] + "ORDER BY moduleTitle"; //Session["userID"] is intialised upon login.
+                SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
 
-            /*
-            DropDownListFilterBuilding.Items.Add("Please Select a Park To filter By");
-            string getBuilding = "SELECT park FROM [Park] "; 
-            SqlCommand getBuildingSql = new SqlCommand(getPark, connect11);
-            SqlDataReader getbuildingdata = getParkSql.ExecuteReader();
-            while (getbuildingdata.Read())
-            {
-                DropDownListFilterBuilding.Items.Add(getbuildingdata.GetString(0));
-            }*/
-            
+
+
+                connect.Open();
+                SqlCommand getModuleSql = new SqlCommand(getModule, connect);
+                SqlDataReader getmoduledata = getModuleSql.ExecuteReader();
+                while (getmoduledata.Read())
+                {
+                    ListItem moduleItem = new ListItem(getmoduledata.GetString(1) + " / " + getmoduledata.GetString(0), getmoduledata.GetString(0));
+                    DropDownListFilterModule.Items.Add(moduleItem);
+                }
+                connect.Close();
+            }           
         }
             
 
         protected void DropDownListFilterModule_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegenerateSchedule();
+        }
+
+        private void RegenerateSchedule()
         {
             string[,] schedule = { { "", "", "", "", "", "", "", "", "", "" },
                                  { "", "", "", "", "", "", "", "", "", "" },
@@ -82,8 +84,34 @@ FROM [request]
 inner join BookedRoom on BookedRoom.requestID = request.requestID
 inner join room on BookedRoom.roomID = room.roomid
 inner join Building on building.buildingID = room.buildingID
+inner join Park ON park.parkid = building.parkid
 inner join Week on week.weekID = request.weekID
-WHERE week1 = 1 ";
+";
+
+            // add the week where clause
+            getschedule += "WHERE Week" + DropDownListFilterWeek.SelectedValue + " = 1 ";
+           
+            if (DropDownListFilterModule.SelectedIndex != 0)
+                getschedule += "AND Request.moduleCode = '" + DropDownListFilterModule.SelectedValue + "' ";
+
+            if (DropDownListFilterPark.SelectedIndex != 0)
+                getschedule += "AND Park.ParkID = '" + DropDownListFilterPark.SelectedValue + "' ";
+
+            if(DropDownListFilterModule.SelectedIndex == 0 && DropDownListFilterPart.SelectedIndex > 0)
+            {
+
+                getschedule += "AND Charindex('" + DropDownListFilterPart.SelectedItem.Text + "',moduleCode) = 3";
+            }
+
+            if (DropDownListFilterYear.SelectedIndex != 0)
+                 getschedule += "AND Request.Year = '" + DropDownListFilterYear.SelectedValue + "' ";
+
+            if (RadioButtonListFilterSemester.SelectedIndex != 0)
+                getschedule += "AND Request.Semester = '" + RadioButtonListFilterSemester.SelectedValue + "' ";
+
+            if (RadioButtonListFilterStatus.SelectedIndex != 0)
+                getschedule += "AND Request.Status = '" + RadioButtonListFilterStatus.SelectedItem.Text + "' ";
+
             SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect2.Open();
             SqlCommand getscheduleSql = new SqlCommand(getschedule, connect2);
@@ -160,39 +188,35 @@ WHERE week1 = 1 ";
 
         protected void DropDownListFilterPark_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            RegenerateSchedule();
         }
+        
         protected void DropDownListFilterWeek_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            RegenerateSchedule();
         }
         protected void DropDownListFilterYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            RegenerateSchedule();
         }
         protected void DropDownListFilterPart_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            RegenerateSchedule();
         }
 
-        protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ButtonRefreshSearch_Click(object sender, EventArgs e)
+       protected void ButtonRefreshSearch_Click(object sender, EventArgs e)
         {
 
         }
 
         protected void RadioButtonListFilterSemester_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            RegenerateSchedule();
         }
 
         protected void RadioButtonListFilterStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            RegenerateSchedule();
         }
     }
 }

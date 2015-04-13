@@ -63,22 +63,22 @@
             </div>
             <div class="row">
                 <div class="text-center center col-md-4 col-sm-4">
-                    <asp:DropDownList class="form-control" ID="DropDownListFilterModule" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListFilterModule_SelectedIndexChanged">
+                    <asp:DropDownList class="form-control" ID="DropDownListFilterModule" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListFilterModule_SelectedIndexChanged" >
                     </asp:DropDownList>
                 </div>
                 
                 <div class="text-center center col-md-4 col-sm-4">
                     <asp:RadioButtonList class="center" ID="RadioButtonListFilterSemester" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonListFilterSemester_SelectedIndexChanged">
-                        <asp:ListItem class="btn btn-primary" Selected="True">All</asp:ListItem>
-                        <asp:ListItem class="btn btn-primary">1</asp:ListItem>
-                        <asp:ListItem class="btn btn-primary">2</asp:ListItem>
+                        <asp:ListItem value="0" class="btn btn-primary" Selected="True">All</asp:ListItem>
+                        <asp:ListItem value="1" class="btn btn-primary">1</asp:ListItem>
+                        <asp:ListItem value="2" class="btn btn-primary">2</asp:ListItem>
                     </asp:RadioButtonList>
                 </div>
                 <div class="text-center center col-md-4 col-sm-4">
                     <asp:RadioButtonList class="center" ID="RadioButtonListFilterStatus" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonListFilterStatus_SelectedIndexChanged">
-                        <asp:ListItem class="btn btn-primary" Selected="True">ALL</asp:ListItem>
-                        <asp:ListItem class="btn btn-primary">Pending</asp:ListItem>
-                        <asp:ListItem class="btn btn-primary">Accepted</asp:ListItem>
+                        <asp:ListItem value="0" class="btn btn-primary" Selected="True">ALL</asp:ListItem>
+                        <asp:ListItem value="1" class="btn btn-primary">Pending</asp:ListItem>
+                        <asp:ListItem value="2" class="btn btn-primary">Accepted</asp:ListItem>
                     </asp:RadioButtonList>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="text-center col-md-3 col-sm-3">
                      <asp:DropDownList class="form-control" ID="DropDownListFilterWeek" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterWeek_SelectedIndexChanged">
-                        <asp:ListItem Value="0">Any</asp:ListItem>
+                        
                         <asp:ListItem Value="1">1</asp:ListItem>
                         <asp:ListItem Value="2">2</asp:ListItem>
                         <asp:ListItem Value="3">3</asp:ListItem>
@@ -134,15 +134,15 @@
                         <asp:ListItem Value="1">A</asp:ListItem>
                         <asp:ListItem Value="2">B</asp:ListItem>
                         <asp:ListItem Value="3">C</asp:ListItem>
-                        <asp:ListItem Value="4">D</asp:ListItem>
                      </asp:DropDownList>
 
                 </div>
                 <div class="text-center col-md-3 col-sm-3">
                      <asp:DropDownList class="form-control" ID="DropDownListFilterYear" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterYear_SelectedIndexChanged">
                         <asp:ListItem Value="0">Any</asp:ListItem>
-                        <asp:ListItem Value="1">2012/2013</asp:ListItem>
-                        <asp:ListItem Value="2">2013/2014</asp:ListItem>
+                         <asp:ListItem Value="2014">2013/2014</asp:ListItem>
+                        <asp:ListItem Value="2013">2012/2013</asp:ListItem>
+                        
                      </asp:DropDownList>
                      <asp:Button ID="Button1" runat="server" onclick="ButtonRefreshSearch_Click" Text="Search" Visible="False" />
 
