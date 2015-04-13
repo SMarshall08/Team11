@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Team11 {
-    
-    
-    public partial class acceptRequests2 {
-        
+namespace Team11
+{
+
+
+    public partial class acceptRequests2
+    {
+
         /// <summary>
         /// referenceLabel control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label referenceLabel;
-        
+
         /// <summary>
         /// tableDiv control.
         /// </summary>
@@ -29,9 +31,25 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl tableDiv;
+
+        /// <summary>
+        /// scriptDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl scriptDiv;
+
+        /// <summary>
+        /// buttonDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl buttonDiv;
-        
+
         /// <summary>
         /// acceptRequestedRoom control.
         /// </summary>
@@ -40,7 +58,7 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button acceptRequestedRoom;
-        
+
         /// <summary>
         /// changeRequestedRoom control.
         /// </summary>
@@ -49,7 +67,7 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button changeRequestedRoom;
-        
+
         /// <summary>
         /// rejectRequestedRoom control.
         /// </summary>
@@ -58,5 +76,25 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button rejectRequestedRoom;
+
+        /// <summary>
+        /// filterEditFacilities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filterRooms;
+
+        /// <summary>
+        /// editFacilitiesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList listOfRooms;
+
+        
     }
 }
