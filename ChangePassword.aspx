@@ -49,7 +49,7 @@
                     <h3>Current Password:</h3>
                 </div>
                 <div class="text-center col-md-8 col-sm-8">
-                   <asp:TextBox ID="CurrentPassTextBox" runat="server" Width="130px"></asp:TextBox>
+                   <asp:TextBox ID="CurrentPassTextBox" runat="server" Width="130px" ></asp:TextBox>
                 </div>
             </div>
             <div class="row">
@@ -57,7 +57,7 @@
                     <h3>New Password:</h3>
                 </div>
                 <div class="text-center col-md-8 col-sm-8">
-                   <asp:TextBox ID="NewPassTextBox" runat="server" Width="130px"></asp:TextBox>
+                   <asp:TextBox ID="NewPassTextBox" runat="server" Width="130px" TextMode="Password"></asp:TextBox>
                 </div>
             </div>
             <div class="row">
@@ -65,7 +65,7 @@
                     <h3>Confirm New Password:</h3>
                 </div>
                 <div class="text-center col-md-8 col-sm-8">
-                    <asp:TextBox ID="NewPassTextBox2" runat="server" Width="130px"></asp:TextBox>
+                    <asp:TextBox ID="NewPassTextBox2" runat="server" Width="130px" TextMode="Password"></asp:TextBox>
                 </div>
             </div>
             <div class="row">

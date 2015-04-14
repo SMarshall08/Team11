@@ -13,7 +13,9 @@ namespace Team11
 {
     public partial class ChangePassword : System.Web.UI.Page
     {
+
         int userID = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             userID = Convert.ToInt32(Session["userID"]);
@@ -28,18 +30,18 @@ namespace Team11
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["myConnectionString"].ToString())){
                 conn.Open();
                 // look up the users password so it can be compared to the entered value
+    
                 string checkpassword = String.Format("Select password from [User] where userId={0}", userID);
                 SqlCommand passwordCmd = new SqlCommand(checkpassword, conn);
                 // Gets rid of the space if there is one e.g. by habit putting a space at the end
                 string password = passwordCmd.ExecuteScalar().ToString().Replace(" ", "");
                 conn.Close();
-
-                        
                 
                 if (password == CurrentPassTextBox.Text){
                        
 
-                    if (NewPassTextBox.Text == NewPassTextBox2.Text){
+                    if (NewPassTextBox.Text == NewPassTextBox2.Text)
+                    {
                         if (NewPassTextBox.Text.Length >= 6 && NewPassTextBox.Text.Length <= 14)
                         {
                             //SQL Updating password goes into here
@@ -59,6 +61,7 @@ namespace Team11
                                 conn.Close();
 
                                 ErrorLabel.Text = "Your password has been updated.";
+                                CurrentPassTextBox.Text = "";
                             }
                             catch
                             {
