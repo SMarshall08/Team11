@@ -77,6 +77,7 @@
     <Content Include="EditRequest.aspx" />
     <Content Include="Facilities.aspx" />
     <Content Include="Preference.aspx" />
+    <Content Include="Manage.aspx" />
     <None Include="Resources\favicon.png" />
     <None Include="Resources\logo2.jpg" />
     <Content Include="Schedule.aspx" />
@@ -253,6 +254,13 @@
     </Compile>
     <Compile Include="ViewRequest.aspx.designer.cs">
       <DependentUpon>ViewRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

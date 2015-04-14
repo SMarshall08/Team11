@@ -46,6 +46,7 @@
                     <li><a href="Schedule.aspx">Schedule</a></li>
                     <li><a href="AddEditModule.aspx">Modules</a></li>
                     <li><a href="Preference.aspx">Preferences</a></li>
+                    <li><a href="Manage.aspx">Manage</a></li>
                     <li><a href="Admin.aspx">Admin</a></li>
                     <li><a href="Default.aspx">Logout</a></li>
                   
