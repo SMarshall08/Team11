@@ -34,7 +34,7 @@
                     </div>
                     <div class="text-center col-md-8 col-sm-8">
                         <asp:TextBox class="form-control" ID="TextBoxModuleCode" runat="server"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBoxModuleCode" ErrorMessage="Please enter a valid Module Code" ValidationExpression="^1[3-4][A-Z]{2}[A-D][0-9]{3}$"></asp:RegularExpressionValidator>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBoxModuleCode" ErrorMessage="Please enter a valid Module Code" ValidationExpression="^[A-Z]{2}[A-D][0-9]{3}$"></asp:RegularExpressionValidator>
                     </div>
                 </div>
                 <div class="row">
