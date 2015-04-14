@@ -40,13 +40,34 @@ namespace Team11
                        
 
                     if (NewPassTextBox.Text == NewPassTextBox2.Text){
-                        if (NewPassTextBox.Text.Length >= 6){
+                        if (NewPassTextBox.Text.Length >= 6 && NewPassTextBox.Text.Length <= 14)
+                        {
                             //SQL Updating password goes into here
-                            ErrorLabel.Text = "Password has been updated. (Hasn't really, UPDATE SQL not in yet)";
+                            try
+                            {
+                                string newpassword = NewPassTextBox.Text;
+                                string updatePasswordQuery = "";
+                                updatePasswordQuery = String.Format(@"
+                            Update [team11].[team11].[User]
+                            SET password='" + newpassword + "' WHERE [User].userID="+userID);
+                                                  //newpassword,
+                                                  //userID);
+
+                                SqlCommand updatePasswordSQL = new SqlCommand(updatePasswordQuery, conn);
+                                conn.Open();
+                                updatePasswordSQL.ExecuteNonQuery();
+                                conn.Close();
+
+                                ErrorLabel.Text = "Your password has been updated.";
+                            }
+                            catch
+                            {
+                                ErrorLabel.Text = "An error occourred - your password has not been changed.";
+                            }
                         }
                         else{
                             //***Error for when not longer than 6 chars***
-                            ErrorLabel.Text = "Error - Your new password is not longer than 6 characters.";
+                            ErrorLabel.Text = "Error - Your new password is not between 6 and 14 characters.";
                         }
                     }
                     else{
