@@ -62,11 +62,16 @@ namespace Team11
 
         }
 
-        //when the selected value in the rooms dropdown box changes
+        //when the selected value in the available rooms dropdown box changes
         protected void DropDownListRooms_SelectedIndexChanged(object sender, EventArgs e)
         {
             //roomavailibility();
         }
 
+        //when the selected value in the private rooms dropdown box changes
+        protected void DropDownListPrivateRooms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //roomavailibility();
+        }
     }
 }

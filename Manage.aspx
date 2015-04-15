@@ -150,28 +150,43 @@
 
     <!-- BY Depratment -->
     <div id="divByRoom" runat="server" visible="false">
-
         <div class="canister">
 
+
             <div class="canistertitle">
-                <h2>Add Private Room</h2>
+                <h2>Add/Remove Private Room</h2>
             </div>
 
             <div class="canistercontainer">
                 <div class="row">
-                    <div class="text-center center col-md-4 col-sm-4">
-                        <h3>Room</h3>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>Available Rooms</h3>
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>Private Rooms</h3>
                     </div>
                 </div><!-- ./row -->
 
+
                 <div class="row">
-                    <div class="text-center center col-md-4 col-sm-4">
+                    <div class="text-center center col-md-6 col-sm-6">
                         <asp:DropDownList class="form-control" ID="DropDownListRooms" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListRooms_SelectedIndexChanged">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <asp:DropDownList class="form-control" ID="DropDownListPrivateRooms" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListPrivateRooms_SelectedIndexChanged">
                         </asp:DropDownList>
                     </div>
                 </div><!-- ./row -->
 
-
+                <div class="row">
+                    <div class="text-center col-md-12 col-sm-12 none">
+                        <asp:RadioButtonList class="center none" ID="RadioButtonList1" runat="server" AutoPostBack="true" onselectedindexchanged="RadioButtonListView_SelectedIndexChanged" >
+                            <asp:ListItem class="none btn btn-primary">Make Room Private</asp:ListItem>
+                            <asp:ListItem class="none btn btn-primary">Remove Room from Private</asp:ListItem>
+                        </asp:RadioButtonList>
+                    </div>
+                </div>
 
             </div><!-- ./canistercontainer -->
         </div><!-- ./canister -->
