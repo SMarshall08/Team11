@@ -152,10 +152,26 @@
     <div id="divByRoom" runat="server" visible="false">
 
         <div class="canister">
+
             <div class="canistertitle">
-                <h2>Depratment</h2>
+                <h2>Add Private Room</h2>
             </div>
+
             <div class="canistercontainer">
+                <div class="row">
+                    <div class="text-center center col-md-4 col-sm-4">
+                        <h3>Room</h3>
+                    </div>
+                </div><!-- ./row -->
+
+                <div class="row">
+                    <div class="text-center center col-md-4 col-sm-4">
+                        <asp:DropDownList class="form-control" ID="DropDownListRooms" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListRooms_SelectedIndexChanged">
+                        </asp:DropDownList>
+                    </div>
+                </div><!-- ./row -->
+
+
 
             </div><!-- ./canistercontainer -->
         </div><!-- ./canister -->
