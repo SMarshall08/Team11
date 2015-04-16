@@ -40,6 +40,15 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.DropDownList DropDownListRooms;
         
         /// <summary>
+        /// MakePrivate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList MakePrivate;
+        
+        /// <summary>
         /// DropDownListPrivateRooms control.
         /// </summary>
         /// <remarks>
@@ -49,13 +58,13 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.DropDownList DropDownListPrivateRooms;
         
         /// <summary>
-        /// RadioButtonList1 control.
+        /// RemovePrivate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList1;
+        protected global::System.Web.UI.WebControls.RadioButtonList RemovePrivate;
         
         /// <summary>
         /// divByDate control.

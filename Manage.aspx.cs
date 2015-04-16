@@ -23,14 +23,14 @@ namespace Team11
             userID = Convert.ToInt32(Session["userID"]);
 
 
-            //fill dropdown box with rooms
+            //fill dropdown box with available rooms
             if (!IsPostBack)
             {
                 SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                 connect.Open();
 
                 //Find all rooms
-                string findrooms = "SELECT  Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID =" + userID;
+                string findrooms = "SELECT  Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID =" + userID + "AND Room.private <> 1 ORDER BY Room.roomName";
                 SqlCommand roomscommand = new SqlCommand(findrooms, connect);
                 SqlDataReader rooms = roomscommand.ExecuteReader();
 
@@ -38,6 +38,26 @@ namespace Team11
                 while (rooms.Read())
                 {
                     DropDownListRooms.Items.Add(rooms.GetString(0).ToString());
+                }
+                connect.Close();
+                //roomavailibility();
+            }
+
+            //fill dropdown box with private rooms
+            if (!IsPostBack)
+            {
+                SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                connect.Open();
+
+                //Find all rooms
+                string findrooms = "SELECT roomName FROM Room WHERE (private = 1) ORDER BY Room.roomName";
+                SqlCommand roomscommand = new SqlCommand(findrooms, connect);
+                SqlDataReader rooms = roomscommand.ExecuteReader();
+
+                //Add the results to the dropdownlist
+                while (rooms.Read())
+                {
+                    DropDownListPrivateRooms.Items.Add(rooms.GetString(0).ToString());
                 }
                 connect.Close();
                 //roomavailibility();
@@ -73,5 +93,18 @@ namespace Team11
         {
             //roomavailibility();
         }
+
+        //when the 'Make Room Private' button is clicked
+        protected void RadioButtonListMakePrivate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        //when the 'Remove Room from Private' button is clicked
+        protected void RadioButtonListRemovePrivate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
     }
 }
