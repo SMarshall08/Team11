@@ -79,7 +79,7 @@ h1
 
 div.navbar
 {
-    width:1080px;
+    width:90%;
     height:60px;
     background-color:#330066;
     border-radius:5px;
@@ -93,14 +93,14 @@ div.navbar ul
     margin:0;
     padding:0;
     list-style-type:none;
-    width:1080px;
+    width:90%;
     text-align:center;
 }
 div.navbar ul li 
 {
     display:inline;
     float:left;
-    width:100px;
+    width:8%;
     text-align:center;
     height:60px;
     font-size:12pt;
@@ -140,7 +140,7 @@ div.navbar ul li:first-child:hover
 div.navbar ul li:last-child 
 {
     border-right:none; 
-    width:119px;  
+    width:118px;  
 }
 div.navbar ul li:last-child:hover 
 {
