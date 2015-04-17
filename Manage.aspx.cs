@@ -26,41 +26,50 @@ namespace Team11
             //fill dropdown box with available rooms
             if (!IsPostBack)
             {
-                SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                connect.Open();
+                //Find all rooms and their ID
+                string availableRoomSQL = "SELECT  Room.roomName, Room.roomID FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID =" + userID + "AND Room.private <> 1 ORDER BY Room.roomName";
+                SqlConnection availableRoomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                SqlCommand availableRoomCmd = new SqlCommand(availableRoomSQL, availableRoomConnection);
+                SqlDataReader availableRoomReader;
 
-                //Find all rooms
-                string findrooms = "SELECT  Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID =" + userID + "AND Room.private <> 1 ORDER BY Room.roomName";
-                SqlCommand roomscommand = new SqlCommand(findrooms, connect);
-                SqlDataReader rooms = roomscommand.ExecuteReader();
+                DropDownListRooms.Items.Clear();
+                ListItem newItem2 = new ListItem();
 
-                //Add the results to the dropdownlist
-                while (rooms.Read())
+                availableRoomConnection.Open();
+                availableRoomReader = availableRoomCmd.ExecuteReader();
+                //add/set the values to the dropdown box
+                while (availableRoomReader.Read())
                 {
-                    DropDownListRooms.Items.Add(rooms.GetString(0).ToString());
+                    newItem2 = new ListItem();
+                    newItem2.Text = availableRoomReader["roomName"].ToString();
+                    newItem2.Value = availableRoomReader["roomID"].ToString();
+                    DropDownListRooms.Items.Add(newItem2);
                 }
-                connect.Close();
-                //roomavailibility();
+                availableRoomReader.Close();
             }
 
             //fill dropdown box with private rooms
             if (!IsPostBack)
             {
-                SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                connect.Open();
+                string privateRoomSQL = "SELECT Room.roomName, Room.roomID FROM Room WHERE (private = 1) ORDER BY Room.roomName";
+                SqlConnection privateRoomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                SqlCommand privateRoomCmd = new SqlCommand(privateRoomSQL, privateRoomConnection);
+                SqlDataReader privateRoomReader;
 
-                //Find all rooms
-                string findrooms = "SELECT roomName FROM Room WHERE (private = 1) ORDER BY Room.roomName";
-                SqlCommand roomscommand = new SqlCommand(findrooms, connect);
-                SqlDataReader rooms = roomscommand.ExecuteReader();
+                DropDownListPrivateRooms.Items.Clear();
+                ListItem newItem2 = new ListItem();
 
-                //Add the results to the dropdownlist
-                while (rooms.Read())
+                privateRoomConnection.Open();
+                privateRoomReader = privateRoomCmd.ExecuteReader();
+                //add/set the values to the dropdown box
+                while (privateRoomReader.Read())
                 {
-                    DropDownListPrivateRooms.Items.Add(rooms.GetString(0).ToString());
+                    newItem2 = new ListItem();
+                    newItem2.Text = privateRoomReader["roomName"].ToString();
+                    newItem2.Value = privateRoomReader["roomID"].ToString();
+                    DropDownListPrivateRooms.Items.Add(newItem2);
                 }
-                connect.Close();
-                //roomavailibility();
+                privateRoomReader.Close();
             }
         }
 
@@ -97,12 +106,27 @@ namespace Team11
         //when the 'Make Room Private' button is clicked
         protected void RadioButtonListMakePrivate_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            string selectedAvailableRoomID = DropDownListRooms.SelectedItem.Value;
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            connect.Open();
+            string roomString = "UPDATE Room SET private=1 WHERE roomID= " + selectedAvailableRoomID;
+            SqlCommand roomCommand = new SqlCommand(roomString, connect);
+            roomCommand.ExecuteNonQuery();
+
+            Response.Redirect(Request.RawUrl);
         }
 
         //when the 'Remove Room from Private' button is clicked
         protected void RadioButtonListRemovePrivate_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string selectedPrivateRoomID = DropDownListPrivateRooms.SelectedItem.Value;
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            connect.Open();
+            string roomString = "UPDATE Room SET private=0 WHERE roomID= " + selectedPrivateRoomID;
+            SqlCommand roomCommand = new SqlCommand(roomString, connect);
+            roomCommand.ExecuteNonQuery();
+
+            Response.Redirect(Request.RawUrl);
             
         }
 
