@@ -89,3 +89,8 @@ input[type=radio], input[type=checkbox]
     padding-left: 4px;
     padding-right: 4px;
 }
+div.navbar ul li:nth-child(2) 
+{
+    border-left:1px solid white;   
+    background-color:#8A2BE2;
+}
