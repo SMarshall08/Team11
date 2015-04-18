@@ -63,3 +63,8 @@ input[type=radio], input[type=checkbox]
 {
     display:none;   
 }
+div.navbar ul li:nth-child(5) 
+{
+    border-left:1px solid white;   
+    background-color:#8A2BE2;
+}
