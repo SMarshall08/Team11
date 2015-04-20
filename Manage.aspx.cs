@@ -13,7 +13,6 @@ namespace Team11
 {
     public partial class Manage : System.Web.UI.Page
     {
-        string moduleCode = "";
         int userID = 0;
 
         //pageLoad
@@ -79,13 +78,13 @@ namespace Team11
             //Search preference by Room or Date, hide the unselected one
             if (this.RadioButtonListView.SelectedIndex == 0)
             {
-                this.divByRoom.Visible = true;
-                this.divByDate.Visible = false;
+                this.divByDepartment.Visible = true;
+                this.divByCentral.Visible = false;
             }
             else
             {
-                this.divByRoom.Visible = false;
-                this.divByDate.Visible = true;
+                this.divByDepartment.Visible = false;
+                this.divByCentral.Visible = true;
                // this.divBookingByRoom.Visible = false;
             }
 

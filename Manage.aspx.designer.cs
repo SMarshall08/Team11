@@ -22,13 +22,13 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListView;
         
         /// <summary>
-        /// divByRoom control.
+        /// divByDepartment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByRoom;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByDepartment;
         
         /// <summary>
         /// DropDownListRooms control.
@@ -67,12 +67,12 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.RadioButtonList RemovePrivate;
         
         /// <summary>
-        /// divByDate control.
+        /// divByCentral control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByDate;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByCentral;
     }
 }

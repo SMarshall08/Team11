@@ -3,8 +3,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link rel="Stylesheet" type="text/css" href="Styles/CreateRequest.css" />
-    <link rel="Stylesheet" type="text/css" href="Styles/Availability.css"/>    
+    <link rel="Stylesheet" type="text/css" href="Styles/Manage.css" />
 
         <script type="text/javascript" language="javascript">
             $(document).ready(function () {
@@ -149,7 +148,7 @@
 
 
     <!-- BY Depratment -->
-    <div id="divByRoom" runat="server" visible="false">
+    <div id="divByDepartment" runat="server" visible="false">
         <div class="canister">
 
 
@@ -201,12 +200,12 @@
 
             </div><!-- ./canistercontainer -->
         </div><!-- ./canister -->
-    </div>
+    </div><!-- ./BY Depratment -->
 
 
     <!-- BY Central -->
     
-    <div id="divByDate" runat="server" visible="false">
+    <div id="divByCentral" runat="server" visible="false">
         
         <div class="canister">
             <div class="canistertitle">
@@ -214,7 +213,19 @@
             </div>
             <div class="canistercontainer">
 
+                <!--Add/Delete Facility-->
+                <!--Add/Delete Facility-->
+                <!--Add/Delete Facility-->
+                <div class="row">
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>Add Facility</h3>
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>Delete Facility</h3>
+                    </div>
+                </div><!-- ./row -->
+
             </div><!-- ./canistercontainer -->
         </div><!-- ./canister -->        
-    </div>
+    </div><!-- ./BY Central -->
 </asp:Content>
