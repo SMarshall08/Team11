@@ -209,7 +209,7 @@
         
         <div class="canister">
             <div class="canistertitle">
-                <h2>Central</h2>
+                <h2>Add/Delete Facility</h2>
             </div>
             <div class="canistercontainer">
 
@@ -225,7 +225,27 @@
                     </div>
                 </div><!-- ./row -->
 
+                <div class="row">
+                    <div class="text-center center col-md-6 col-sm-6">
+                        
+                        <asp:TextBox id="facilityText" runat="server" />
+                        <asp:RadioButtonList class="center" ID="addFacility" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonListaddFacility_SelectedIndexChanged">
+                            <asp:ListItem class="btn btn-primary">Add Facility</asp:ListItem>
+                        </asp:RadioButtonList>
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>---------</h3>
+                    </div>
+                </div><!-- ./row -->
+
+                
+                
+
             </div><!-- ./canistercontainer -->
         </div><!-- ./canister -->        
     </div><!-- ./BY Central -->
+
+    <div id="scriptDiv" runat="server"> <%--This div is where script tags will be placed. --%>
+
+    </div>
 </asp:Content>

@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.Configuration;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace Team11
 {
@@ -85,7 +86,6 @@ namespace Team11
             {
                 this.divByDepartment.Visible = false;
                 this.divByCentral.Visible = true;
-               // this.divBookingByRoom.Visible = false;
             }
 
         }
@@ -127,6 +127,26 @@ namespace Team11
 
             Response.Redirect(Request.RawUrl);
             
+        }
+
+        //when the 'Add Facility' button is pressed
+        protected void RadioButtonListaddFacility_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string facility = facilityText.Text.ToString();
+            if (facility == "")
+            {
+                scriptDiv.InnerHtml = "<script>alert(\"You have not entered a facility to add.\")</script>";
+            }
+            else
+            {
+                SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                connect2.Open();
+                string addFacilityString = "Insert into Facility (facilityName) VALUES ('" + facility + "')";
+                SqlCommand addFacilityCommand = new SqlCommand(addFacilityString, connect2);
+                addFacilityCommand.ExecuteNonQuery();
+                Response.Redirect(Request.RawUrl);
+            }
+
         }
 
     }
