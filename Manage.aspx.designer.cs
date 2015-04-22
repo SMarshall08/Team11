@@ -46,7 +46,7 @@ namespace Team11 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList MakePrivate;
+        protected global::System.Web.UI.WebControls.CheckBoxList MakePrivate;
         
         /// <summary>
         /// DropDownListPrivateRooms control.
@@ -64,7 +64,7 @@ namespace Team11 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RemovePrivate;
+        protected global::System.Web.UI.WebControls.CheckBoxList RemovePrivate;
         
         /// <summary>
         /// divByCentral control.
@@ -91,7 +91,25 @@ namespace Team11 {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList addFacility;
+        protected global::System.Web.UI.WebControls.CheckBoxList addFacility;
+        
+        /// <summary>
+        /// facilityList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList facilityList;
+        
+        /// <summary>
+        /// deleteFacility control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList deleteFacility;
         
         /// <summary>
         /// scriptDiv control.

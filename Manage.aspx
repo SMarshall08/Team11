@@ -169,20 +169,20 @@
 
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
-                        <asp:DropDownList class="form-control" ID="DropDownListRooms" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListRooms_SelectedIndexChanged">
+                        <asp:DropDownList class="form-control" ID="DropDownListRooms" runat="server" AutoPostBack="true" >
                         </asp:DropDownList>
                         <br /> 
-                        <asp:RadioButtonList class="center" ID="MakePrivate" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonListMakePrivate_SelectedIndexChanged">
+                        <asp:CheckBoxList class="center" ID="MakePrivate" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListMakePrivate_SelectedIndexChanged">
                             <asp:ListItem class="btn btn-primary">Make Room Private</asp:ListItem>
-                        </asp:RadioButtonList>
+                        </asp:CheckBoxList>
                     </div>
                     <div class="text-center center col-md-6 col-sm-6">
                         <asp:DropDownList class="form-control" ID="DropDownListPrivateRooms" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListPrivateRooms_SelectedIndexChanged">
                         </asp:DropDownList>
                         <br />
-                        <asp:RadioButtonList class="center" ID="RemovePrivate" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonListRemovePrivate_SelectedIndexChanged">
+                        <asp:CheckBoxList class="center" ID="RemovePrivate" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListRemovePrivate_SelectedIndexChanged">
                             <asp:ListItem class="btn btn-primary">Remove Room from Private</asp:ListItem>
-                        </asp:RadioButtonList>
+                        </asp:CheckBoxList>
                     </div>
                 </div><!-- ./row -->
 
@@ -228,13 +228,19 @@
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
                         
-                        <asp:TextBox id="facilityText" runat="server" />
-                        <asp:RadioButtonList class="center" ID="addFacility" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonListaddFacility_SelectedIndexChanged">
+                        <%--<asp:TextBox id="facilityText" runat="server" />--%>
+                        <asp:TextBox class="form-control" ID="facilityText" runat="server" AutoPostBack="True" Text="" ></asp:TextBox>
+                        <asp:CheckBoxList class="center" ID="addFacility" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListaddFacility_SelectedIndexChanged">
                             <asp:ListItem class="btn btn-primary">Add Facility</asp:ListItem>
-                        </asp:RadioButtonList>
+                        </asp:CheckBoxList>
                     </div>
                     <div class="text-center center col-md-6 col-sm-6">
-                        <h3>---------</h3>
+                        <asp:DropDownList class="form-control" ID="facilityList" runat="server" AutoPostBack="true">
+                            <%--Facilities will be taken from db and placed into this tag. --%>
+                        </asp:DropDownList>
+                        <asp:CheckBoxList class="center" ID="deleteFacility" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListdeleteFacility_SelectedIndexChanged">
+                            <asp:ListItem class="btn btn-primary">Delete Facility</asp:ListItem>
+                        </asp:CheckBoxList>
                     </div>
                 </div><!-- ./row -->
 
