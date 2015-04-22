@@ -37,28 +37,33 @@
                     <label>Password</label>
                 </div>
                 <div class="col-md-12">
-                    <asp:TextBox ID="TextBoxPassword" class="form-control" runat="server" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox ID="TextBoxPassword" class="form-control" runat="server" TextMode="Password" validationgroup="PersonalInfoGroup"></asp:TextBox>
                 </div>
                 <div class="clearfix"></div>
                 <div class="text-center col-md-6 col-sm-6">
-                <asp:Button ID="ButtonLogin" runat="server" style="width:100%; margin-top:5px;" class="btn btn-success" onclick="ButtonLogin_Click" 
-                        Text="Login" />
+                <asp:Button ID="ButtonLogin" runat="server" style="width:100%; margin-top:5px;" class="btn btn-success" validationgroup="PersonalInfoGroup"
+                     onclick="ButtonLogin_Click" Text="Login" />
                 </div>
                 <div class="text-center col-md-6 col-sm-6">
-                    <button style="width:100%; margin-top:5px;" class="btn btn-info">Forgot Password?</button>
+                    <asp:Button ID="ButtonForgot" runat="server" OnClick="ButtonForgot_Click" Text="Forgot Password?" style="width:100%; margin-top:5px;" 
+                        class="btn btn-info"/>
                 </div>
             </div>
         </div>
     </div>
     <div class="center text-center container">
+        <br/>
+        <asp:Label ID="LabelHint" runat="server" Text=""></asp:Label>
+        <br/>
     <asp:Label class="center errormessage" style="color:red;" ID="incorrect" Text="" runat="server"></asp:Label>
     
     </div>
     <div class="errorcontainer text-center col-md-12">
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
             ErrorMessage="Error: Please Enter a Valid Password" class="errormessage" 
-            ControlToValidate="TextBoxPassword">
+            ControlToValidate="TextBoxPassword" validationgroup="PersonalInfoGroup">
         </asp:RequiredFieldValidator>
         
     </div>
-</asp:Content>
+                    
+                </asp:Content>

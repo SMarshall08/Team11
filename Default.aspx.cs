@@ -92,5 +92,27 @@ namespace Team11
                     incorrect.Text = "Username is incorrect";
             }
         }
+
+        protected void ButtonForgot_Click(object sender, EventArgs e)
+        {
+           //POA 
+           //Sort out session/UserID
+           //Query DB for get + display hint
+
+            int userID = Convert.ToInt32(DropDownListDept.SelectedValue);
+
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["myConnectionString"].ToString()))
+            {
+                conn.Open();
+                // look up the users password so it can be compared to the entered value
+
+                string getHint = String.Format("Select hint from [User] where userId={0}", userID);
+                SqlCommand hintCmd = new SqlCommand(getHint, conn);
+                // Gets rid of the space if there is one e.g. by habit putting a space at the end
+                string hint = hintCmd.ExecuteScalar().ToString();
+                conn.Close();
+                LabelHint.Text = "Hint: " + hint;
+            }
+        }
     }
 }
