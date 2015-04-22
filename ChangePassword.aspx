@@ -69,6 +69,14 @@
                 </div>
             </div>
             <div class="row">
+                <div class="text-center col-md-4 col-sm-4">
+                    <h3>Enter New Hint:</h3>
+                </div>
+                <div class="text-center col-md-8 col-sm-8">
+                    <asp:TextBox ID="HintTextBox" runat="server" Width="60%" TextMode="MultiLine" ></asp:TextBox>
+                </div>
+            </div>
+            <div class="row">
                 <div class="text-center col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
                     <asp:Button class="btn btn-success btn-block" ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" />
                 </div>

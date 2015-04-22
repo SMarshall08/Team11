@@ -44,28 +44,48 @@ namespace Team11
                     {
                         if (NewPassTextBox.Text.Length >= 6 && NewPassTextBox.Text.Length <= 14)
                         {
-                            //SQL Updating password goes into here
-                            try
+                            if (HintTextBox.Text.Length >= 6 && NewPassTextBox.Text.Length <= 100)
                             {
-                                string newpassword = NewPassTextBox.Text;
-                                string updatePasswordQuery = "";
-                                updatePasswordQuery = String.Format(@"
+                                //SQL Updating password goes into here
+                                try
+                                {
+                                    string newpassword = NewPassTextBox.Text;
+                                    string updatePasswordQuery = "";
+                                    updatePasswordQuery = String.Format(@"
                             Update [team11].[team11].[User]
-                            SET password='" + newpassword + "' WHERE [User].userID="+userID);
-                                                  //newpassword,
-                                                  //userID);
+                            SET password='" + newpassword + "' WHERE [User].userID=" + userID);
+                                    //newpassword,
+                                    //userID);
 
-                                SqlCommand updatePasswordSQL = new SqlCommand(updatePasswordQuery, conn);
-                                conn.Open();
-                                updatePasswordSQL.ExecuteNonQuery();
-                                conn.Close();
+                                    SqlCommand updatePasswordSQL = new SqlCommand(updatePasswordQuery, conn);
+                                    conn.Open();
+                                    updatePasswordSQL.ExecuteNonQuery();
+                                    conn.Close();
+                                    //-----------------------------------------------------------------------------------------------
+                                    string hint = HintTextBox.Text;
+                                    string updateHintQuery = "";
+                                    updateHintQuery = String.Format(@"
+                            Update [team11].[team11].[User]
+                            SET hint='" + hint + "' WHERE [User].userID=" + userID);
+                                    //newpassword,
+                                    //userID);
 
-                                ErrorLabel.Text = "Your password has been updated.";
-                                CurrentPassTextBox.Text = "";
+                                    SqlCommand updateHintSQL = new SqlCommand(updateHintQuery, conn);
+                                    conn.Open();
+                                    updateHintSQL.ExecuteNonQuery();
+                                    conn.Close();
+
+                                    ErrorLabel.Text = "Your password and hint have been updated.";
+                                    CurrentPassTextBox.Text = "";
+                                    HintTextBox.Text = "";
+                                }
+                                catch
+                                {
+                                    ErrorLabel.Text = "An error occourred - your password and hint have not been changed.";
+                                }
                             }
-                            catch
-                            {
-                                ErrorLabel.Text = "An error occourred - your password has not been changed.";
+                            else {
+                                ErrorLabel.Text = "Error - Your hint is not between 6 and 100 characters.";
                             }
                         }
                         else{

@@ -94,6 +94,15 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.TextBox NewPassTextBox2;
         
         /// <summary>
+        /// HintTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox HintTextBox;
+        
+        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
