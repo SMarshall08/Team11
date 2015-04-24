@@ -21,14 +21,25 @@
         </asp:DropDownList>
         <asp:Button id="deleteFacility" Text="Delete Facility" runat="server" />
         <br />
+
+
+        <%--Delete Pool Room --%>
        <asp:TextBox ID="filterPool" runat="server" placeholder="Type to filter list."
-         onkeyup = "FilterItems(this.value)"></asp:TextBox> <asp:DropDownList id="poolDropDownList" runat="server"> 
+         onkeyup = "FilterItems(this.value)"></asp:TextBox> 
+        <asp:DropDownList id="poolDropDownList" runat="server"> 
             
-        </asp:DropDownList><asp:Button id="removePoolRoom" Text="Remove Pool Room" runat="server" /><br />
-       <asp:TextBox ID="filterRoom" runat="server" placeholder="Type to filter list."
+        </asp:DropDownList>
+        <asp:Button id="removePoolRoom" Text="Remove Pool Room" runat="server" />
+        <br />
+
+
+
+         <%--Add Pool Room --%>
+        <asp:TextBox ID="filterRoom" runat="server" placeholder="Type to filter list."
          onkeyup = "FilterItems2(this.value)"></asp:TextBox>  <asp:DropDownList id="roomDropDownList" runat="server"> 
             
-        </asp:DropDownList> <asp:Button id="addPoolRoom" Text="Add Pool Room" runat="server" /><br />
+        </asp:DropDownList> 
+        <asp:Button id="addPoolRoom" Text="Add Pool Room" runat="server" /><br />
         <asp:TextBox ID="filterEditFacilities" runat="server" placeholder="Type to filter list."
          onkeyup = "FilterItems3(this.value)"></asp:TextBox>  <asp:DropDownList id="editFacilitiesList" runat="server"> 
             
