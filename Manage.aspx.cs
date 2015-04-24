@@ -73,7 +73,6 @@ namespace Team11
                 privateRoomReader.Close();
             }
 
-            //fill dropdown box with facilities
             if (!Page.IsPostBack)
             {
                 string listSQL = "SELECT facilityID,facilityName FROM Facility";
@@ -98,35 +97,6 @@ namespace Team11
                     facilityList.Items.Add(newItem);
                 }
                 reader.Close();
-                facilityText.Text = string.Empty;//Clear the text from the textbox used to add facilities
-            }
-
-            //fill dropdown box with pool rooms
-            if (!Page.IsPostBack)
-            {
-                string poolSQL = "SELECT roomID,roomName FROM Room WHERE pool=1";
-
-                SqlConnection poolConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
-                SqlCommand poolCmd = new SqlCommand(poolSQL, poolConnection);
-                SqlDataReader poolReader;
-
-                poolDropDownList.Items.Clear();
-
-                ListItem newItem2 = new ListItem();
-                /*newItem2.Text = "Choose a pool room";
-                newItem2.Value = "test";
-                poolDropDownList.Items.Add(newItem2);
-                */
-                poolConnection.Open();
-                poolReader = poolCmd.ExecuteReader();
-                while (poolReader.Read())
-                {
-                    newItem2 = new ListItem();
-                    newItem2.Text = poolReader["roomName"].ToString();
-                    newItem2.Value = poolReader["roomID"].ToString();
-                    poolDropDownList.Items.Add(newItem2);
-                }
-                poolReader.Close();
             }
         }
 
@@ -137,16 +107,26 @@ namespace Team11
             if (this.RadioButtonListView.SelectedIndex == 0)
             {
                 this.divByDepartment.Visible = true;
-                this.divByCentralFacility.Visible = false;
-                this.divByCentralPoolRoom.Visible = false;
+                this.divByCentral.Visible = false;
             }
             else
             {
                 this.divByDepartment.Visible = false;
-                this.divByCentralFacility.Visible = true;
-                this.divByCentralPoolRoom.Visible = true;
+                this.divByCentral.Visible = true;
             }
 
+        }
+
+        //when the selected value in the available rooms dropdown box changes
+        protected void DropDownListRooms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //roomavailibility();
+        }
+
+        //when the selected value in the private rooms dropdown box changes
+        protected void DropDownListPrivateRooms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //roomavailibility();
         }
 
         //when the 'Make Room Private' button is clicked
@@ -200,7 +180,6 @@ namespace Team11
 
         }
 
-        //when the 'Delete Facility' button is pressed
         protected void CheckBoxListdeleteFacility_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedFacility = facilityList.SelectedItem.Value;

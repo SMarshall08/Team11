@@ -67,13 +67,13 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.CheckBoxList RemovePrivate;
         
         /// <summary>
-        /// divByCentralFacility control.
+        /// divByCentral control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByCentralFacility;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByCentral;
         
         /// <summary>
         /// facilityText control.
@@ -110,42 +110,6 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList deleteFacility;
-        
-        /// <summary>
-        /// divByCentralPoolRoom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByCentralPoolRoom;
-        
-        /// <summary>
-        /// filterPool control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox filterPool;
-        
-        /// <summary>
-        /// poolDropDownList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList poolDropDownList;
-        
-        /// <summary>
-        /// removePoolRoom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList removePoolRoom;
         
         /// <summary>
         /// scriptDiv control.

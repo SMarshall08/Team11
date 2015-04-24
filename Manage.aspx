@@ -147,9 +147,7 @@
     </div><!-- ./canister -->
 
 
-    <!-- BY Depratment --><!-- BY Depratment --><!-- BY Depratment -->
-    <!-- BY Depratment --><!-- BY Depratment --><!-- BY Depratment -->
-    <!-- BY Depratment --><!-- BY Depratment --><!-- BY Depratment -->
+    <!-- BY Depratment -->
     <div id="divByDepartment" runat="server" visible="false">
         <div class="canister">
 
@@ -179,7 +177,7 @@
                         </asp:CheckBoxList>
                     </div>
                     <div class="text-center center col-md-6 col-sm-6">
-                        <asp:DropDownList class="form-control" ID="DropDownListPrivateRooms" runat="server" AutoPostBack="true" >
+                        <asp:DropDownList class="form-control" ID="DropDownListPrivateRooms" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListPrivateRooms_SelectedIndexChanged">
                         </asp:DropDownList>
                         <br />
                         <asp:CheckBoxList class="center" ID="RemovePrivate" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListRemovePrivate_SelectedIndexChanged">
@@ -205,16 +203,9 @@
     </div><!-- ./BY Depratment -->
 
 
-    <!-- BY Central --><!-- BY Central --><!-- BY Central -->
-    <!-- BY Central --><!-- BY Central --><!-- BY Central -->
-    <!-- BY Central --><!-- BY Central --><!-- BY Central -->
-    <!-- BY Central --><!-- BY Central --><!-- BY Central -->
-
-    <!--Add/Delete Facility-->
-    <!--Add/Delete Facility-->
-    <!--Add/Delete Facility-->
-    <div id="divByCentralFacility" runat="server" visible="false">
-        
+    <!-- BY Central -->
+    
+    <div id="divByCentral" runat="server" visible="false">
         
         <div class="canister">
             <div class="canistertitle">
@@ -222,12 +213,15 @@
             </div>
             <div class="canistercontainer">
 
+                <!--Add/Delete Facility-->
+                <!--Add/Delete Facility-->
+                <!--Add/Delete Facility-->
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
-                        <h3>Enter Facility to Add</h3>
+                        <h3>Add Facility</h3>
                     </div>
                     <div class="text-center center col-md-6 col-sm-6">
-                        <h3>Choose Facility to Delete</h3>
+                        <h3>Delete Facility</h3>
                     </div>
                 </div><!-- ./row -->
 
@@ -250,85 +244,14 @@
                     </div>
                 </div><!-- ./row -->
 
-            </div><!-- ./canistercontainer -->
-        </div><!-- ./canister -->        
-    </div><!-- ./ByCentralFacility -->
-
-
-    <!--Add/Delete Pool Rooms-->
-    <!--Add/Delete Pool Rooms-->
-    <!--Add/Delete Pool Rooms-->
-    <div id="divByCentralPoolRoom" runat="server" visible="false">
-        
-        <div class="canister">
-            <div class="canistertitle">
-                <h2>Add/Delete Pool Rooms</h2>
-            </div>
-            <div class="canistercontainer">
-
-                <div class="row">
-                    <div class="text-center center col-md-6 col-sm-6">
-                        <h3>Choose Room to Delete</h3>
-                    </div>
-                    <div class="text-center center col-md-6 col-sm-6">
-                        <h3>Choose Room to Add</h3>
-                    </div>
-                </div><!-- ./row -->
-                <div class="row">
-                    <div class="text-center center col-md-6 col-sm-6">
-                        <asp:TextBox class="form-control" ID="filterPool" runat="server" AutoPostBack="True" Text="" placeholder="Type to filter list..." onkeyup = "FilterItems(this.value)"></asp:TextBox>
-                        <asp:DropDownList class="form-control" ID="poolDropDownList" runat="server" AutoPostBack="true">
-                            <%--Pool rooms will be taken from db and placed into this tag. --%>
-                        </asp:DropDownList>
-                        <asp:CheckBoxList class="center" ID="removePoolRoom" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" ><%--onselectedindexchanged="CheckBoxListdeleteFacility_SelectedIndexChanged"--%>
-                            <asp:ListItem class="btn btn-primary">Delete Pool Room</asp:ListItem>
-                        </asp:CheckBoxList>
-                    </div>
-                    <div class="text-center center col-md-6 col-sm-6">
-                        
-                        <%--<asp:TextBox id="facilityText" runat="server" />--%>
-                        
-                    </div>
-                </div><!-- ./row -->
-
+                
+                
 
             </div><!-- ./canistercontainer -->
         </div><!-- ./canister -->        
-    </div><!-- ./ByCentralPoolRoom -->
+    </div><!-- ./BY Central -->
 
-    <div id="scriptDiv" runat="server"> 
-        <%--This div is where script tags will be placed. --%>
+    <div id="scriptDiv" runat="server"> <%--This div is where script tags will be placed. --%>
+
     </div>
-
-    <script type = "text/javascript">//This script tag is for filtering drop down lists for both pool rooms and non-pool rooms.
-        var ddlText, ddlValue, ddl, ddlText2, ddlValue2, ddl2, ddlText3, ddlValue3, ddl3;
-        function CacheItems() {
-            ddlText = new Array();
-            ddlValue = new Array();
-            ddl = document.getElementById("<%=poolDropDownList.ClientID %>");
-            
-            for (var i = 0; i < ddl.options.length; i++) {
-                ddlText[ddlText.length] = ddl.options[i].text;
-                ddlValue[ddlValue.length] = ddl.options[i].value;
-            }
-        }
-
-        //filter the pool rooms
-        function FilterItems(value) {
-            ddl.options.length = 0;
-            for (var i = 0; i < ddlText.length; i++) {
-                if (ddlText[i].toLowerCase().indexOf(value) != -1) {
-                    AddItem(ddlText[i], ddlValue[i]);
-                }
-            }
-        }
-        function AddItem(text, value) {
-            var opt = document.createElement("option");
-            opt.text = text;
-            opt.value = value;
-            ddl.options.add(opt);
-        }
-
-        window.onload = CacheItems;
-    </script>
 </asp:Content>
