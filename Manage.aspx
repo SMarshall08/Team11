@@ -235,7 +235,7 @@
                     <div class="text-center center col-md-6 col-sm-6">
                         
                         <%--<asp:TextBox id="facilityText" runat="server" />--%>
-                        <asp:TextBox class="form-control" ID="facilityText" runat="server" AutoPostBack="True" Text="" ></asp:TextBox>
+                        <asp:TextBox class="form-control" ID="facilityText" runat="server" AutoPostBack="True" Text="" placeholder="Enter Facility..."></asp:TextBox>
                         <asp:CheckBoxList class="center" ID="addFacility" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListaddFacility_SelectedIndexChanged">
                             <asp:ListItem class="btn btn-primary">Add Facility</asp:ListItem>
                         </asp:CheckBoxList>
@@ -268,26 +268,30 @@
 
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
-                        <h3>Choose Room to Delete</h3>
+                        <h3>Choose Room to Add</h3>
                     </div>
                     <div class="text-center center col-md-6 col-sm-6">
-                        <h3>Choose Room to Add</h3>
+                        <h3>Choose Room to Remove</h3>
                     </div>
                 </div><!-- ./row -->
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
-                        <asp:TextBox class="form-control" ID="filterPool" runat="server" AutoPostBack="True" Text="" placeholder="Type to filter list..." onkeyup = "FilterItems(this.value)"></asp:TextBox>
-                        <asp:DropDownList class="form-control" ID="poolDropDownList" runat="server" AutoPostBack="true">
-                            <%--Pool rooms will be taken from db and placed into this tag. --%>
+                        <asp:TextBox class="form-control" ID="filterRoom" runat="server" AutoPostBack="False" Text="" placeholder="Type to filter list..." onkeyup = "FilterItems2(this.value)" ></asp:TextBox>
+                        <asp:DropDownList class="form-control" ID="roomDropDownList" runat="server" AutoPostBack="true">
+                            <%--Non-Pool rooms will be taken from db and placed into this tag. --%>
                         </asp:DropDownList>
-                        <asp:CheckBoxList class="center" ID="removePoolRoom" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" ><%--onselectedindexchanged="CheckBoxListdeleteFacility_SelectedIndexChanged"--%>
-                            <asp:ListItem class="btn btn-primary">Delete Pool Room</asp:ListItem>
+                        <asp:CheckBoxList class="center" ID="addPoolRoom" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListaddPoolRoom_SelectedIndexChanged" >
+                            <asp:ListItem class="btn btn-primary">Add Pool Room</asp:ListItem>
                         </asp:CheckBoxList>
                     </div>
                     <div class="text-center center col-md-6 col-sm-6">
-                        
-                        <%--<asp:TextBox id="facilityText" runat="server" />--%>
-                        
+                        <asp:TextBox class="form-control" ID="filterPool" runat="server" AutoPostBack="False" Text="" placeholder="Type to filter list..." onkeyup = "FilterItems(this.value)"></asp:TextBox>
+                        <asp:DropDownList class="form-control" ID="poolDropDownList" runat="server" AutoPostBack="True">
+                            <%--Pool rooms will be taken from db and placed into this tag. --%>
+                        </asp:DropDownList>
+                        <asp:CheckBoxList class="center" ID="removePoolRoom" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListremovePoolRoom_SelectedIndexChanged" >
+                            <asp:ListItem class="btn btn-primary">Remove Pool Room</asp:ListItem>
+                        </asp:CheckBoxList>
                     </div>
                 </div><!-- ./row -->
 
@@ -303,6 +307,7 @@
     <script type = "text/javascript">//This script tag is for filtering drop down lists for both pool rooms and non-pool rooms.
         var ddlText, ddlValue, ddl, ddlText2, ddlValue2, ddl2, ddlText3, ddlValue3, ddl3;
         function CacheItems() {
+            //ddl
             ddlText = new Array();
             ddlValue = new Array();
             ddl = document.getElementById("<%=poolDropDownList.ClientID %>");
@@ -310,6 +315,15 @@
             for (var i = 0; i < ddl.options.length; i++) {
                 ddlText[ddlText.length] = ddl.options[i].text;
                 ddlValue[ddlValue.length] = ddl.options[i].value;
+            }
+            //dd2
+            ddlText2 = new Array();
+            ddlValue2 = new Array();
+            ddl2 = document.getElementById("<%=roomDropDownList.ClientID %>");
+
+            for (var i = 0; i < ddl2.options.length; i++) {
+                ddlText2[ddlText2.length] = ddl2.options[i].text;
+                ddlValue2[ddlValue2.length] = ddl2.options[i].value;
             }
         }
 
@@ -327,6 +341,23 @@
             opt.text = text;
             opt.value = value;
             ddl.options.add(opt);
+        }
+
+        //filter the non-pool rooms
+        function FilterItems2(value) {
+            ddl2.options.length = 0;
+            for (var i = 0; i < ddlText2.length; i++) {
+                if (ddlText2[i].toLowerCase().indexOf(value) != -1) {
+                    AddItem2(ddlText2[i], ddlValue2[i]);
+                }
+            }
+
+        }
+        function AddItem2(text, value) {
+            var opt2 = document.createElement("option");
+            opt2.text = text;
+            opt2.value = value;
+            ddl2.options.add(opt2);
         }
 
         window.onload = CacheItems;

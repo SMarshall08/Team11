@@ -101,6 +101,34 @@ namespace Team11
                 facilityText.Text = string.Empty;//Clear the text from the textbox used to add facilities
             }
 
+
+            //fill dropdown box with non-pool rooms
+            if (!Page.IsPostBack)
+            {
+                string roomSQL = "SELECT roomID,roomName FROM Room WHERE pool=0";
+
+                SqlConnection roomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                SqlCommand roomCmd = new SqlCommand(roomSQL, roomConnection);
+                SqlDataReader roomReader;
+                roomDropDownList.Items.Clear();
+
+                ListItem newItem3 = new ListItem();
+                /*newItem3.Text = "Choose a non-pool room";
+                newItem3.Value = "test";
+                roomDropDownList.Items.Add(newItem3);
+                */
+                roomConnection.Open();
+                roomReader = roomCmd.ExecuteReader();
+                while (roomReader.Read())
+                {
+                    newItem3 = new ListItem();
+                    newItem3.Text = roomReader["roomName"].ToString();
+                    newItem3.Value = roomReader["roomID"].ToString();
+                    roomDropDownList.Items.Add(newItem3);
+                }
+                roomReader.Close();
+            }
+
             //fill dropdown box with pool rooms
             if (!Page.IsPostBack)
             {
@@ -127,7 +155,9 @@ namespace Team11
                     poolDropDownList.Items.Add(newItem2);
                 }
                 poolReader.Close();
+                poolConnection.Close();
             }
+
         }
 
         //When department or central button is pressed
@@ -195,7 +225,7 @@ namespace Team11
                 addFacilityCommand.ExecuteNonQuery();
                 connect2.Close();
                 //Response.Redirect(Request.RawUrl);
-                reLoadElements("central");
+                reLoadElements("centralFacility");
             }
 
         }
@@ -211,9 +241,40 @@ namespace Team11
             deleteFacilityCommand.ExecuteNonQuery();
             //Response.Redirect(Request.RawUrl);
             connect2.Close();
-            reLoadElements("central");
+            reLoadElements("centralFacility");
             
         }
+
+        //when the 'Add Pool Room' button is pressed
+        protected void CheckBoxListaddPoolRoom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedRoom = roomDropDownList.SelectedItem.Value;
+            SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            connect2.Open();
+            string roomString = "UPDATE Room SET pool=1 WHERE roomID=" + selectedRoom;
+            SqlCommand roomCommand = new SqlCommand(roomString, connect2);
+            roomCommand.ExecuteNonQuery();
+            connect2.Close();
+            //Response.Redirect(Request.RawUrl);
+            reLoadElements("centralPoolRoom");
+        }
+
+        //when the 'Delete Pool Room' button is pressed
+        protected void CheckBoxListremovePoolRoom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedPoolRoom = poolDropDownList.SelectedItem.Value;
+            SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            connect2.Open();
+            string poolString = "UPDATE Room SET pool=0 WHERE roomID=" + selectedPoolRoom;
+            SqlCommand poolCommand = new SqlCommand(poolString, connect2);
+            poolCommand.ExecuteNonQuery();
+            connect2.Close();
+            //Response.Redirect(Request.RawUrl);
+            reLoadElements("centralPoolRoom");
+        }
+
+
+        
 
         //reLoadElements//reLoadElements//reLoadElements
         //reLoadElements//reLoadElements//reLoadElements
@@ -222,6 +283,8 @@ namespace Team11
         //This Function will reload particualar things on the page so the whole page does not have to be reloaded to refill values
         protected void reLoadElements(string managerType) //the parameter determines which elements will be loaded. either on the central section or the departmental section
         {
+
+            //Reload the elements in the 'Add/Remove Private Room' container
             if (managerType=="department")
             {
                 //Find all rooms and their ID
@@ -246,6 +309,7 @@ namespace Team11
                 availableRoomReader.Close();
             }
 
+            //Reload the elements in the 'Add/Remove Private Room' container
             if (managerType == "department")
             {
                 string privateRoomSQL = "SELECT Room.roomName, Room.roomID FROM Room WHERE (private = 1) ORDER BY Room.roomName";
@@ -269,7 +333,8 @@ namespace Team11
                 privateRoomReader.Close();
             }
 
-            if (managerType == "central")
+            //Reload the elements in the 'Add/Delete Facility' container
+            if (managerType == "centralFacility")
             {
                 string listSQL = "SELECT facilityID,facilityName FROM Facility";
 
@@ -295,6 +360,64 @@ namespace Team11
                 reader.Close();
                 facilityText.Text = string.Empty;//Clear the text from the textbox used to add facilities
             }
+
+            //Reload the elements in the 'Add/Delete Pool Rooms' container
+            if (managerType == "centralPoolRoom")
+            {
+                //reload pool non-room dropdown box
+                string roomSQL = "SELECT roomID,roomName FROM Room WHERE pool=0";
+
+                SqlConnection roomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                SqlCommand roomCmd = new SqlCommand(roomSQL, roomConnection);
+                SqlDataReader roomReader;
+                roomDropDownList.Items.Clear();
+
+                ListItem newItem3 = new ListItem();
+                /*newItem3.Text = "Choose a non-pool room";
+                newItem3.Value = "test";
+                roomDropDownList.Items.Add(newItem3);
+                */
+                roomConnection.Open();
+                roomReader = roomCmd.ExecuteReader();
+                while (roomReader.Read())
+                {
+                    newItem3 = new ListItem();
+                    newItem3.Text = roomReader["roomName"].ToString();
+                    newItem3.Value = roomReader["roomID"].ToString();
+                    roomDropDownList.Items.Add(newItem3);
+                }
+                roomReader.Close();
+                filterRoom.Text = string.Empty;
+
+                //reload pool room dropdown box
+                string poolSQL = "SELECT roomID,roomName FROM Room WHERE pool=1";
+
+                SqlConnection poolConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                SqlCommand poolCmd = new SqlCommand(poolSQL, poolConnection);
+                SqlDataReader poolReader;
+
+                poolDropDownList.Items.Clear();
+
+                ListItem newItem2 = new ListItem();
+                /*newItem2.Text = "Choose a pool room";
+                newItem2.Value = "test";
+                poolDropDownList.Items.Add(newItem2);
+                */
+                poolConnection.Open();
+                poolReader = poolCmd.ExecuteReader();
+                while (poolReader.Read())
+                {
+                    newItem2 = new ListItem();
+                    newItem2.Text = poolReader["roomName"].ToString();
+                    newItem2.Value = poolReader["roomID"].ToString();
+                    poolDropDownList.Items.Add(newItem2);
+                }
+                poolReader.Close();
+                poolConnection.Close();
+                filterPool.Text = string.Empty;
+
+            }
+
         }
 
     }

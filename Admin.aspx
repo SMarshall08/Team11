@@ -36,10 +36,16 @@
 
          <%--Add Pool Room --%>
         <asp:TextBox ID="filterRoom" runat="server" placeholder="Type to filter list."
-         onkeyup = "FilterItems2(this.value)"></asp:TextBox>  <asp:DropDownList id="roomDropDownList" runat="server"> 
+         onkeyup = "FilterItems2(this.value)"></asp:TextBox>  
+        <asp:DropDownList id="roomDropDownList" runat="server"> 
             
         </asp:DropDownList> 
         <asp:Button id="addPoolRoom" Text="Add Pool Room" runat="server" /><br />
+
+
+
+
+        <%--Edit Room Facilities --%>
         <asp:TextBox ID="filterEditFacilities" runat="server" placeholder="Type to filter list."
          onkeyup = "FilterItems3(this.value)"></asp:TextBox>  <asp:DropDownList id="editFacilitiesList" runat="server"> 
             
