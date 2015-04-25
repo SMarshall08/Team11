@@ -66,7 +66,7 @@
                 <asp:Parameter Name="moduleTitle" Type="String" />
             </InsertParameters>
             <SelectParameters>
-                <asp:Parameter DefaultValue="1" Name="userID" Type="Int32" />
+                <asp:sessionParameter Name="userID" SessionField="userID" Type="Int32" />
             </SelectParameters>
             <UpdateParameters>
                 <asp:Parameter Name="moduleCode" Type="String" />
@@ -114,7 +114,7 @@
             <asp:Parameter Name="moduleTitle" Type="String" />
         </InsertParameters>
         <SelectParameters>
-            <asp:Parameter DefaultValue="1" Name="userID" Type="Int32" />
+                <asp:sessionParameter Name="userID" SessionField="userID" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
 

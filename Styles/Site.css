@@ -44,7 +44,7 @@ h1
     padding: 10px 0px 0px 0px;
     width: 100%;
     height:60px;
-    background-color:#330066;
+    background-color:#415f69;
     text-align:center;
     border-top-left-radius:3px;
     border-top-right-radius:3px;
@@ -103,7 +103,7 @@ div.navbar ul li
     width:8%;
     text-align:center;
     height:60px;
-    font-size:12pt;
+    font-size:11.5pt;
     padding-top:17px;
     border-right:1px solid white;
     margin-top:-1px;
@@ -224,4 +224,49 @@ input.passwordEntry
 div.accountInfo
 {
     width: 42%;
+}
+span.btn > label {
+    width: 100%;
+    height: 100%;
+}
+.btn-primary {
+    background-color: #415f69;
+    border-color: #000000;
+    color: #fff;
+}
+.btn-danger {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: #fff;
+}
+.btn-success {
+    background-color: #cc0066;
+    border-color: #cc0066;
+    color: #fff;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open,
+.dropdown-toggle.btn-primary {
+    background-color:#330066;
+    border-color: #000000;
+    color: #fff;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.open,
+.dropdown-toggle.btn-success {
+    background-color:#330066;
+    border-color: #000000;
+    color: #fff;
+}
+.btn-info {
+    background-color:#330066;
+    border-color: #000000;
+    color: #fff;
 }

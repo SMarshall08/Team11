@@ -13,9 +13,10 @@ namespace Team11
 {
     public partial class AddEditModule : System.Web.UI.Page
     {
+        int userID = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            userID = Convert.ToInt32(Session["userID"]);
         }
 
         protected void Button1_Click(object sender, EventArgs e)

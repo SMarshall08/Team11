@@ -47,20 +47,7 @@ namespace Team11
 
                 // populate the list of module codes as "code : name"
                 SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-                connect.Open();
-                string modulesql = String.Format("Select moduleCode, moduleTitle from [Module] where userID={0}", userID);
-                SqlCommand modulecommand = new SqlCommand(modulesql, connect);
-                SqlDataReader modules = modulecommand.ExecuteReader();
-                
-                while (modules.Read())
-                {
-                    string modulecode = modules.GetString(0);
-                    string modulename = modules.GetString(1);
-                    string module = String.Format("{0} : {1}", modulecode, modulename);
-                    DropDownListModules.Items.Add(module);
-
-                }
-                connect.Close();
+                PopulateModuleList(connect);
 
                 // read the user's preferences and then set up the display accordingly 
                 connect.Open();
@@ -131,6 +118,34 @@ namespace Team11
                 // clear the room list button
                 RadioButtonListParks_SelectedIndexChanged(null, null);
             }
+        }
+
+        private void PopulateModuleList(SqlConnection connect)
+        {
+            DropDownListModules.Items.Clear();
+            connect.Open();
+            string modulesql = String.Format(@"
+SELECT moduleCode, moduleTitle 
+FROM [Module] 
+WHERE userID={0}", userID);
+            if (DropDownListPart.SelectedIndex > 0)
+            {
+
+                modulesql += "AND Charindex('" + DropDownListPart.SelectedItem.Text + "',moduleCode) = 3";
+            }
+
+            SqlCommand modulecommand = new SqlCommand(modulesql, connect);
+            SqlDataReader modules = modulecommand.ExecuteReader();
+
+            while (modules.Read())
+            {
+                string modulecode = modules.GetString(0);
+                string modulename = modules.GetString(1);
+                string module = String.Format("{0} : {1}", modulecode, modulename);
+                DropDownListModules.Items.Add(module);
+
+            }
+            connect.Close();
         }
 
         /// <summary>
@@ -1556,6 +1571,17 @@ namespace Team11
         {
             clearEverything();
             RebuildListOfRooms();
+        }
+
+        protected void DropDownListPart_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            PopulateModuleList(connect);
+        }
+
+        protected void DropDownListModules_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 

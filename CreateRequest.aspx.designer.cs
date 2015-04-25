@@ -22,6 +22,15 @@ namespace Team11 {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl deptName;
         
         /// <summary>
+        /// DropDownListPart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListPart;
+        
+        /// <summary>
         /// DropDownListModules control.
         /// </summary>
         /// <remarks>

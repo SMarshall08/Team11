@@ -8,7 +8,7 @@
     <title>Timetabling System</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="Resources/favicon.png" />
+    <link rel="icon" type="image/png" href="Resources/lulogo.png" />
 
     <!-- Google Font -->
     <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css" />
@@ -48,7 +48,7 @@
         <div class="navbar">
             <!--<div class="center">-->
                 <ul class="auto-style1">
-                    <li><img alt="Loughborough University Logo" class="navlogo" src="Resources/logo2.jpg" /></li>
+                    <li><img alt="Loughborough University Logo" class="navlogo" src="Resources/lulogo-internal.jpg" /></li>
                     <li><a href="CreateRequest.aspx">Request</a></li>
                     <li><a href="ViewRequest.aspx">View Request</a></li>
                     <li><a href="Availibility.aspx">Ad Hoc</a></li>
