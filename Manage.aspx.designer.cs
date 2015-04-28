@@ -175,6 +175,60 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.CheckBoxList removePoolRoom;
         
         /// <summary>
+        /// divByCentralEditRoom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByCentralEditRoom;
+        
+        /// <summary>
+        /// filterEditFacilities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filterEditFacilities;
+        
+        /// <summary>
+        /// editFacilitiesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList editFacilitiesList;
+        
+        /// <summary>
+        /// editFacilities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList editFacilities;
+        
+        /// <summary>
+        /// divByCentralRespond control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByCentralRespond;
+        
+        /// <summary>
+        /// respondButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList respondButton;
+        
+        /// <summary>
         /// scriptDiv control.
         /// </summary>
         /// <remarks>

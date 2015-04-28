@@ -158,6 +158,34 @@ namespace Team11
                 poolConnection.Close();
             }
 
+            //fill dropdown box  Room to Edit
+            if (!Page.IsPostBack)
+            {
+                string allRoomsSQL = "SELECT roomID,roomName FROM Room";
+
+                SqlConnection allRoomsConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                SqlCommand allRoomsCmd = new SqlCommand(allRoomsSQL, allRoomsConnection);
+                SqlDataReader allReader;
+                editFacilitiesList.Items.Clear();
+
+                ListItem newItem4 = new ListItem();
+                /*newItem4.Text = "Choose a room";
+                newItem4.Value = "test";
+                editFacilitiesList.Items.Add(newItem4);
+                */
+                allRoomsConnection.Open();
+                allReader = allRoomsCmd.ExecuteReader();
+                while (allReader.Read())
+                {
+                    newItem4 = new ListItem();
+                    newItem4.Text = allReader["roomName"].ToString();
+                    newItem4.Value = allReader["roomID"].ToString();
+                    editFacilitiesList.Items.Add(newItem4);
+                }
+                allReader.Close();
+                allRoomsConnection.Close();
+
+            }
         }
 
         //When department or central button is pressed
@@ -169,12 +197,16 @@ namespace Team11
                 this.divByDepartment.Visible = true;
                 this.divByCentralFacility.Visible = false;
                 this.divByCentralPoolRoom.Visible = false;
+                this.divByCentralEditRoom.Visible = false;
+                this.divByCentralRespond.Visible = false;
             }
             else
             {
                 this.divByDepartment.Visible = false;
                 this.divByCentralFacility.Visible = true;
                 this.divByCentralPoolRoom.Visible = true;
+                this.divByCentralEditRoom.Visible = true;
+                this.divByCentralRespond.Visible = true;
             }
 
         }
@@ -273,6 +305,18 @@ namespace Team11
             reLoadElements("centralPoolRoom");
         }
 
+        //when the 'Edit Facility' button is pressed
+        protected void CheckBoxListeditFacilities_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedRoomToEdit = editFacilitiesList.SelectedItem.Value;
+            Session["selectedRoomToEdit"] = selectedRoomToEdit;
+            Response.Redirect("Facilities.aspx");
+        }
+        //when the 'Respond to request' button is pressed
+        protected void CheckBoxListRespond_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Response.Redirect("acceptRequests.aspx");
+        }
 
         
 

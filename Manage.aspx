@@ -262,7 +262,7 @@
         
         <div class="canister">
             <div class="canistertitle">
-                <h2>Add/Delete Pool Rooms</h2>
+                <h2>Add/Remove Pool Rooms</h2>
             </div>
             <div class="canistercontainer">
 
@@ -300,6 +300,73 @@
         </div><!-- ./canister -->        
     </div><!-- ./ByCentralPoolRoom -->
 
+    <!--Edit Room Facilitys-->
+    <!--Edit Room Facilitys-->
+    <!--Edit Room Facilitys-->
+    <div id="divByCentralEditRoom" runat="server" visible="false">
+        
+        <div class="canister">
+            <div class="canistertitle">
+                <h2>Edit Room Facility</h2>
+            </div>
+            <div class="canistercontainer">
+
+                <div class="row">
+                    <div class="text-center center col-md-3 col-sm-3">
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>Choose Room to Edit</h3>
+                    </div>
+                </div><!-- ./row -->
+
+                <div class="row">
+                    <div class="text-center center col-md-3 col-sm-3">
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <asp:TextBox class="form-control" ID="filterEditFacilities" runat="server" AutoPostBack="False" Text="" placeholder="Type to filter list..."  onkeyup = "FilterItems3(this.value)"></asp:TextBox>
+                        <asp:DropDownList class="form-control" ID="editFacilitiesList" runat="server" AutoPostBack="true">
+                            <%--Non-Pool rooms will be taken from db and placed into this tag. --%>
+                        </asp:DropDownList>
+                        <asp:CheckBoxList class="center" ID="editFacilities" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListeditFacilities_SelectedIndexChanged" >
+                            <asp:ListItem class="btn btn-primary">Edit Facility</asp:ListItem>
+                        </asp:CheckBoxList>
+                    </div>
+                    <div class="text-center center col-md-3 col-sm-3">
+                    </div>
+                </div><!-- ./row -->
+                
+
+            </div><!-- ./canistercontainer -->
+        </div><!-- ./canister -->        
+    </div><!-- ./ByCentralPoolRoom -->
+
+    <!--Respond to Booking Requests-->
+    <!--Respond to Booking Requests-->
+    <!--Respond to Booking Requests-->
+    <div id="divByCentralRespond" runat="server" visible="false">
+        
+        <div class="canister">
+            <div class="canistertitle">
+                <h2>Respond to Booking Requests</h2>
+            </div>
+            <div class="canistercontainer">
+
+                <div class="row">
+                    <div class="text-center center col-md-3 col-sm-3">
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <asp:CheckBoxList class="center" ID="respondButton" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListRespond_SelectedIndexChanged" >
+                            <asp:ListItem class="btn btn-primary">Click here to respond to requests</asp:ListItem>
+                        </asp:CheckBoxList>
+                    </div>
+                </div><!-- ./row -->
+
+                
+
+            </div><!-- ./canistercontainer -->
+        </div><!-- ./canister -->        
+    </div><!-- ./ByCentralPoolRoom -->
+
     <div id="scriptDiv" runat="server"> 
         <%--This div is where script tags will be placed. --%>
     </div>
@@ -324,6 +391,15 @@
             for (var i = 0; i < ddl2.options.length; i++) {
                 ddlText2[ddlText2.length] = ddl2.options[i].text;
                 ddlValue2[ddlValue2.length] = ddl2.options[i].value;
+            }
+            //dd3
+            ddlText3 = new Array();
+            ddlValue3 = new Array();
+            ddl3 = document.getElementById("<%=editFacilitiesList.ClientID %>");
+
+            for (var i = 0; i < ddl3.options.length; i++) {
+                ddlText3[ddlText3.length] = ddl3.options[i].text;
+                ddlValue3[ddlValue3.length] = ddl3.options[i].value;
             }
         }
 
@@ -358,6 +434,21 @@
             opt2.text = text;
             opt2.value = value;
             ddl2.options.add(opt2);
+        }
+        //filter the edit facilites
+        function FilterItems3(value) {
+            ddl3.options.length = 0;
+            for (var i = 0; i < ddlText3.length; i++) {
+                if (ddlText3[i].toLowerCase().indexOf(value) != -1) {
+                    AddItem3(ddlText3[i], ddlValue3[i]);
+                }
+            }
+        }
+        function AddItem3(text, value) {
+            var opt3 = document.createElement("option");
+            opt3.text = text;
+            opt3.value = value;
+            ddl3.options.add(opt3);
         }
 
         window.onload = CacheItems;
