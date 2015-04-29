@@ -165,7 +165,7 @@
         <asp:Label ID="parkLabel" runat="server" Text="Label"></asp:Label>
         </div>
 
-        <div style="position:absolute; background-color:white; margin-top:-10px;" class="marg canister">
+        <div style="background-color:white; margin-top:-10px;   margin-left: auto; margin-right: auto;" class="marg canister">
             <div class="canistertitle">
                 <h2>Booking Details</h2>
             </div>
