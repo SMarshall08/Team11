@@ -1,6 +1,6 @@
 .canister 
 {
-   width:80%;
+   width:80% !important;
    margin: 10px auto 0 auto;
    border:2px solid #CC0066;
    border-top-left-radius:15px;

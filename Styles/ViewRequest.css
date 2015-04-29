@@ -27,9 +27,20 @@
     font-size:10pt;
    
 }
-table 
+table
 {
     margin-top:30px;   
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: transparent;
+
+   
+}
+#MainContent_ViewTable{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
 }
 table th 
 {
@@ -46,10 +57,7 @@ tr:nth-child(even)
 {
     background-color:#E0E0E0 ;   
 }
-#requestDetails, 
-{
-    
-}
+
 .none input[type=radio], .none input[type=checkbox]
 {
      -webkit-appearance:none;
