@@ -30,7 +30,9 @@
                     <!-- bind the drop down of user names to the department data source -- display the department names, but return the userId -->
                     <asp:DropDownList ID="DropDownListDept" runat="server" 
                         DataSourceID="SqlDataSource1" DataTextField="deptCode" 
-                        DataValueField="userId" class="form-control text-center select">
+                        DataValueField="userId" class="form-control text-center select" 
+                        AutoPostBack="True" 
+        onselectedindexchanged="DropDownChange">
                     </asp:DropDownList>
                 </div>
                 <div class="text-center col-md-12">

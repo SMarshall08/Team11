@@ -29,6 +29,10 @@ namespace Team11
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void DropDownChange(object sender, EventArgs e)
+        {
+            LabelHint.Text = "";
+        }
         protected void ButtonLogin_Click(object sender, EventArgs e)
         {
             // Connect to database - put it in a using so that it gets cleaned up properly
@@ -95,9 +99,7 @@ namespace Team11
 
         protected void ButtonForgot_Click(object sender, EventArgs e)
         {
-           //POA 
-           //Sort out session/UserID
-           //Query DB for get + display hint
+           
 
             int userID = Convert.ToInt32(DropDownListDept.SelectedValue);
 
