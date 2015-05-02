@@ -40,8 +40,24 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+<div class="canister none">
+    <div class="canistertitle none">
+        <h2>Schedule By Module / Staff</h2>
+    </div>
+    <div class="canistercontainer none">
+        <div class="row">
+            <div class="text-center col-md-12 col-sm-12 none">
+                <asp:RadioButtonList class="center none" ID="RadioButtonListView" runat="server" AutoPostBack="true" onselectedindexchanged="RadioButtonListView_SelectedIndexChanged" RepeatDirection="Horizontal">
+                        <asp:ListItem class="none btn btn-primary">Module</asp:ListItem>
+                        <asp:ListItem class="none btn btn-primary">Staff</asp:ListItem>
+                    </asp:RadioButtonList>
+            </div>
+        </div>
+    </div>
+</div>
     
-   
+<div id="divByModule" runat="server" visible="false">   
 <div id="SearchBar" runat="server">
 
      <div class="canister">
@@ -152,10 +168,133 @@
         </div>
     </div>
         </div>
+    
         <div>
             
             <div runat="server" id="ViewTable" style="margin-top: 0px"></div>
             
 
         </div>
+    </div>
+
+    <div id="divByStaff" runat="server" visible="false">   
+<div id="SearchBarStaff" runat="server">
+
+     <div class="canister">
+        <div class="canistertitle">
+            <h2>Filter Results</h2>
+        </div>
+        <div class="canistercontainer">
+            <div class="row">
+                <div class="text-center center col-md-4 col-sm-4">
+                    <h2>Staff</h2>
+                </div>
+               
+                <div class="text-center center col-md-4 col-sm-4">
+                    <h2>Semester</h2>
+                </div>
+                <div class="text-center center col-md-4 col-sm-4">
+                    <h2>Status</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center center col-md-4 col-sm-4">
+                    <asp:DropDownList class="form-control" ID="DropDownListFilterStaff" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListFilterModule_SelectedIndexChanged" >
+                    </asp:DropDownList>
+                </div>
+                
+                <div class="text-center center col-md-4 col-sm-4">
+                    <asp:RadioButtonList class="center" ID="RadioButtonListFilterSemesterStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonListFilterSemesterStaff_SelectedIndexChanged">
+                        <asp:ListItem value="0" class="btn btn-primary" Selected="True">All</asp:ListItem>
+                        <asp:ListItem value="1" class="btn btn-primary">1</asp:ListItem>
+                        <asp:ListItem value="2" class="btn btn-primary">2</asp:ListItem>
+                    </asp:RadioButtonList>
+                </div>
+                <div class="text-center center col-md-4 col-sm-4">
+                    <asp:RadioButtonList class="center" ID="RadioButtonListFilterStatusStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonListFilterStatusStaff_SelectedIndexChanged">
+                        <asp:ListItem value="0" class="btn btn-primary" Selected="True">ALL</asp:ListItem>
+                        <asp:ListItem value="1" class="btn btn-primary">Pending</asp:ListItem>
+                        <asp:ListItem value="2" class="btn btn-primary">Accepted</asp:ListItem>
+                    </asp:RadioButtonList>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center col-md-3 col-sm-3">
+                    <h3>Park</h3>
+                </div>
+                <div class="text-center col-md-3 col-sm-3">
+                    <h3>Week</h3>
+                </div>
+                
+                 <div class="text-center col-md-3 col-sm-3">
+                    <h3>Part</h3>
+                </div>
+                <div class="text-center col-md-3 col-sm-3">
+                    <h3>Year</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center col-md-3 col-sm-3">
+                     <asp:DropDownList class="form-control" ID="DropDownListFilterParkStaff" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterParkStaff_SelectedIndexChanged">
+                        <asp:ListItem Value="0">Any</asp:ListItem>
+                        <asp:ListItem Value="1">Central</asp:ListItem>
+                        <asp:ListItem Value="2">East</asp:ListItem>
+                        <asp:ListItem Value="3">West</asp:ListItem>
+                    </asp:DropDownList>
+         
+                </div>
+                <div class="text-center col-md-3 col-sm-3">
+                     <asp:DropDownList class="form-control" ID="DropDownListFilterWeekStaff" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterWeekStaff_SelectedIndexChanged">
+                        
+                        <asp:ListItem Value="1">1</asp:ListItem>
+                        <asp:ListItem Value="2">2</asp:ListItem>
+                        <asp:ListItem Value="3">3</asp:ListItem>
+                        <asp:ListItem Value="4">4</asp:ListItem>
+                        <asp:ListItem Value="5">5</asp:ListItem>
+                        <asp:ListItem Value="6">6</asp:ListItem>
+                        <asp:ListItem Value="7">7</asp:ListItem>
+                        <asp:ListItem Value="8">8</asp:ListItem>
+                        <asp:ListItem Value="9">9</asp:ListItem>
+                        <asp:ListItem Value="10">10</asp:ListItem>
+                        <asp:ListItem Value="11">11</asp:ListItem>
+                        <asp:ListItem Value="12">12</asp:ListItem>
+                        <asp:ListItem Value="13">13</asp:ListItem>
+                        <asp:ListItem Value="14">14</asp:ListItem>
+                        <asp:ListItem Value="15">15</asp:ListItem>
+                        
+                    </asp:DropDownList>
+                </div>
+                 <div class="text-center col-md-3 col-sm-3">
+                     <asp:DropDownList class="form-control" ID="DropDownListFilterPartStaff" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterPartStaff_SelectedIndexChanged">
+                        <asp:ListItem Value="0">Any</asp:ListItem>
+                        <asp:ListItem Value="1">A</asp:ListItem>
+                        <asp:ListItem Value="2">B</asp:ListItem>
+                        <asp:ListItem Value="3">C</asp:ListItem>
+                     </asp:DropDownList>
+
+                </div>
+                <div class="text-center col-md-3 col-sm-3">
+                     <asp:DropDownList class="form-control" ID="DropDownListFilterYearStaff" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterYearStaff_SelectedIndexChanged">
+                        <asp:ListItem Value="0">Any</asp:ListItem>
+                         <asp:ListItem Value="2014">2013/2014</asp:ListItem>
+                        <asp:ListItem Value="2013">2012/2013</asp:ListItem>
+                        
+                     </asp:DropDownList>
+                     <asp:Button ID="Button2" runat="server" onclick="ButtonRefreshSearch_Click" Text="Search" Visible="False" />
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+        </div>
+    
+        <div>
+            
+            <div runat="server" id="ViewTableStaff" style="margin-top: 0px"></div>
+            
+
+        </div>
+    </div>
+
     </asp:Content>

@@ -45,10 +45,10 @@ namespace Team11
                 //DropDownListFilterModule.Items.Add("Please Select a Module To filter By:");
                 DropDownListFilterModule.Items.Insert(0, "Please Select a Module to Filter By:");
                 string getModule = "SELECT moduleCode, moduleTitle FROM [Module] WHERE userID=" + Session["userID"] + "ORDER BY moduleTitle"; //Session["userID"] is intialised upon login.
+
+                DropDownListFilterStaff.Items.Insert(0, "Please Select a Staff Member to Filter By:");
+
                 SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-
-
-
                 connect.Open();
                 SqlCommand getModuleSql = new SqlCommand(getModule, connect);
                 SqlDataReader getmoduledata = getModuleSql.ExecuteReader();
@@ -58,7 +58,41 @@ namespace Team11
                     DropDownListFilterModule.Items.Add(moduleItem);
                 }
                 connect.Close();
+
+                string getStaff = @"
+               SELECT FirstName, LastName, Staff.StaffID
+FROM Staff 
+WHERE Staff.userID =" + Session["userID"] + "ORDER BY LastName";
+
+                SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                connect2.Open();
+                SqlCommand getStaffSql = new SqlCommand(getStaff, connect2);
+                SqlDataReader getstaffdata = getStaffSql.ExecuteReader();
+                while (getstaffdata.Read())
+                {
+                    ListItem StaffItem = new ListItem(getstaffdata.GetString(0) + "  " + getstaffdata.GetString(1), getstaffdata.GetInt32(2).ToString());
+                    DropDownListFilterStaff.Items.Add(StaffItem);
+                }
+                connect2.Close();
             }           
+        }
+
+        protected void RadioButtonListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Search preference by Room or Date, hide the unselected one
+            if (this.RadioButtonListView.SelectedIndex == 0)
+            {
+                this.divByModule.Visible = true;
+                this.divByStaff.Visible = false;
+                
+            }
+            else
+            {
+                this.divByModule.Visible = false;
+                this.divByStaff.Visible = true;
+                
+            }
+
         }
             
 
@@ -66,6 +100,11 @@ namespace Team11
         {
             RegenerateSchedule();
         }
+        /*
+        protected void DropDownListFilterStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegenerateSchedule2();
+        }*/
 
         private void RegenerateSchedule()
         {
@@ -182,6 +221,117 @@ inner join Week on week.weekID = request.weekID
             ViewTable.Controls.Clear();
             ViewTable.Controls.Add(myTable);
         }
+        
+        private void RegenerateSchedule2()
+        {
+            string[,] schedule = { { "", "", "", "", "", "", "", "", "", "" },
+                                 { "", "", "", "", "", "", "", "", "", "" },
+                                 { "", "", "", "", "", "", "", "", "", "" },
+                                 { "", "", "", "", "", "", "", "", "", "" },
+                                 { "", "", "", "", "", "", "", "", "", "" }
+                                 };
+
+            // query the schedule
+            //while ()
+            string getschedule2 = @"
+SELECT day, buildingName, roomName, request.moduleCode , periodStart, periodEnd
+FROM [request] 
+inner join BookedRoom on BookedRoom.requestID = request.requestID
+inner join room on BookedRoom.roomID = room.roomid
+inner join Building on building.buildingID = room.buildingID
+inner join Park ON park.parkid = building.parkid
+inner join Week on week.weekID = request.weekID
+inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
+";
+
+            // add the week where clause
+            getschedule2 += "WHERE Week" + DropDownListFilterWeekStaff.SelectedValue + " = 1 ";
+
+            if (DropDownListFilterStaff.SelectedIndex != 0)
+                getschedule2 += "AND moduleStaff.staffID = " + DropDownListFilterStaff.SelectedValue + " ";
+
+            if (DropDownListFilterPark.SelectedIndex != 0)
+                getschedule2 += "AND Park.ParkID = '" + DropDownListFilterParkStaff.SelectedValue + "' ";
+
+            if (DropDownListFilterYearStaff.SelectedIndex != 0)
+                getschedule2 += "AND Request.Year = '" + DropDownListFilterYearStaff.SelectedValue + "' ";
+
+            if (RadioButtonListFilterSemesterStaff.SelectedIndex != 0)
+                getschedule2 += "AND Request.Semester = '" + RadioButtonListFilterSemesterStaff.SelectedValue + "' ";
+
+            if (RadioButtonListFilterStatusStaff.SelectedIndex != 0)
+                getschedule2 += "AND Request.Status = '" + RadioButtonListFilterStatusStaff.SelectedItem.Text + "' ";
+
+            SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            connect2.Open();
+            SqlCommand getschedule2Sql = new SqlCommand(getschedule2, connect2);
+            SqlDataReader getSchedule2Data = getschedule2Sql.ExecuteReader();
+            while (getSchedule2Data.Read())
+            {
+                string dayName = getSchedule2Data.GetString(getSchedule2Data.GetOrdinal("day"));
+                string buildingName = getSchedule2Data.GetString(getSchedule2Data.GetOrdinal("buildingName"));
+                string roomName = getSchedule2Data.GetString(getSchedule2Data.GetOrdinal("roomName"));
+                string moduleCode = getSchedule2Data.GetString(getSchedule2Data.GetOrdinal("moduleCode"));
+
+                // switch statement to translate day name to day index
+                int day = 0;
+                switch (dayName)
+                {
+                    case "Monday":
+                        day = 0;
+                        break;
+                    case "Tuesday":
+                        day = 1;
+                        break;
+                    case "Wednesday":
+                        day = 2;
+                        break;
+                    case "Thursday":
+                        day = 3;
+                        break;
+                    case "Friday":
+                        day = 4;
+                        break;
+                }
+
+                int period = getSchedule2Data.GetInt32(getSchedule2Data.GetOrdinal("periodStart"));
+                schedule[day, period] = schedule[day, period] + buildingName + ": " + roomName + ": " + moduleCode + "\r";
+
+            }
+
+            HtmlTable myTable = new HtmlTable();
+            myTable.Border = 1;
+            myTable.ID = "ScheduleTable";
+            HtmlTableRow row = new HtmlTableRow();
+            HtmlTableCell cell = new HtmlTableCell("th");
+            cell.InnerText = "Day";
+            row.Cells.Add(cell);
+            for (int period = 1; period <= 9; period++)
+            {
+                cell = new HtmlTableCell("th");
+                cell.InnerText = period.ToString();
+                row.Cells.Add(cell);
+            }
+            myTable.Rows.Add(row);
+
+            string[] dayNames = { "Monday", "Tuesday", "wednesday", "Thursday", "Friday" };
+            for (int day = 0; day <= 4; day++)
+            {
+                row = new HtmlTableRow();
+                cell = new HtmlTableCell("th");
+                cell.InnerText = dayNames[day];
+                row.Cells.Add(cell);
+                for (int period = 1; period <= 9; period++)
+                {
+                    cell = new HtmlTableCell("td");
+                    cell.InnerText = schedule[day, period];
+                    row.Cells.Add(cell);
+                }
+                myTable.Rows.Add(row);
+            }
+            ViewTableStaff.Controls.Clear();
+            ViewTableStaff.Controls.Add(myTable);
+        }
 
         
 
@@ -190,18 +340,41 @@ inner join Week on week.weekID = request.weekID
         {
             RegenerateSchedule();
         }
+
+        
         
         protected void DropDownListFilterWeek_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule();
         }
+
         protected void DropDownListFilterYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule();
         }
+
+        
         protected void DropDownListFilterPart_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule();
+        }
+
+        protected void DropDownListFilterParkStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegenerateSchedule2();
+        }
+        protected void DropDownListFilterWeekStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegenerateSchedule2();
+        }
+        protected void DropDownListFilterYearStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegenerateSchedule2();
+        }
+
+        protected void DropDownListFilterPartStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegenerateSchedule2();
         }
 
        protected void ButtonRefreshSearch_Click(object sender, EventArgs e)
@@ -213,10 +386,20 @@ inner join Week on week.weekID = request.weekID
         {
             RegenerateSchedule();
         }
+        
 
         protected void RadioButtonListFilterStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule();
+        }
+        
+        protected void RadioButtonListFilterSemesterStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegenerateSchedule2();
+        }
+        protected void RadioButtonListFilterStatusStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegenerateSchedule2();
         }
     }
 }
