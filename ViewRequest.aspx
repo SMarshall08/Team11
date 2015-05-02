@@ -275,7 +275,7 @@
            
 
     </div>
-            <div runat="server" id="ViewTable" style="margin-top: 0px; overflow: scroll;">hello</div>
+            <div runat="server" id="ViewTable" style="margin-top: 0px; overflow: scroll; height: 450px;">hello</div>
             
     
     
