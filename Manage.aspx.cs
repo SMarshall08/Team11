@@ -52,7 +52,7 @@ namespace Team11
             //fill dropdown box with private rooms
             if (!IsPostBack)
             {
-                string privateRoomSQL = "SELECT Room.roomName, Room.roomID FROM Room WHERE (private = 1) ORDER BY Room.roomName";
+                string privateRoomSQL = "SELECT Room.roomName, Room.roomID FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID = " + userID + " AND Room.private <> 0 ORDER BY Room.roomName";
                 SqlConnection privateRoomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
                 SqlCommand privateRoomCmd = new SqlCommand(privateRoomSQL, privateRoomConnection);
                 SqlDataReader privateRoomReader;
@@ -189,6 +189,7 @@ namespace Team11
         }
 
         //When department or central button is pressed
+        //controls which part is visible to central/departmental admin.
         protected void RadioButtonListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Search preference by Room or Date, hide the unselected one

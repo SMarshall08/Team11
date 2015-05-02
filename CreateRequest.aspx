@@ -118,25 +118,25 @@
                 <div class="clearfix"></div>
 
                 <div class="row modulerow">
-                    <div class="text-center col-md-4 col-sm-4 department">
+                    <div class="text-center col-md-3 col-sm-3 department">
                         <h3 style="margin-top:-0px;">Department</h3>
                     </div>
-                    <div class="text-center col-md-4 col-sm-4 part">
+                    <div class="text-center col-md-3 col-sm-3 part">
                         <h3 style="margin-top:0px;">Part</h3>
                     </div>
-                    <div class="text-center col-md-4 col-sm-4 module" >
+                    <div class="text-center col-md-3 col-sm-3 module" >
                         <h3 style="margin-top:0px;">Module</h3>
                     </div>
-                    <div class="text-center col-md-4 col-sm-4 capacity">
+                    <div class="text-center col-md-3 col-sm-3 capacity">
                         <h3 style="margin-top:-0px;">Capacity</h3>
                     </div>
                 </div><!-- ./row -->
 
                 <div class="row modulerow">
-                    <div class="text-center col-md-4 col-sm-4 department">
+                    <div class="text-center col-md-3 col-sm-3 department">
                         <label id="deptName" class="form-control" runat="server" style="font-size:12px;"></label>
                     </div>
-                    <div class="text-center col-md-4 col-sm-4 part">
+                    <div class="text-center col-md-3 col-sm-3 part">
                         <asp:DropDownList class="form-control" ID="DropDownListPart" runat="server" OnSelectedIndexChanged="DropDownListPart_SelectedIndexChanged" AutoPostBack="True">
                             <asp:ListItem Value="0">Any</asp:ListItem>
                             <asp:ListItem Value="1">A</asp:ListItem>
@@ -146,11 +146,11 @@
                             <asp:ListItem Value="5">P</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                    <div class="text-center col-md-4 col-sm-4 module">
+                    <div class="text-center col-md-3 col-sm-3 module">
                         <asp:DropDownList class="form-control" ID="DropDownListModules" runat="server" OnSelectedIndexChanged="DropDownListModules_SelectedIndexChanged"></asp:DropDownList>
                     </div>
                     
-                    <div class="text-center col-md-4 col-sm-4 capacity">
+                    <div class="text-center col-md-3 col-sm-3 capacity">
                         <asp:TextBox class="form-control" ID="TextBoxCapacity" runat="server" AutoPostBack="True" ontextchanged="TextBoxCapacity_TextChanged" ></asp:TextBox>
                     </div>
                 </div><!-- ./row -->

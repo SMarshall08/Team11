@@ -190,7 +190,9 @@ where [Room].roomName='{0}' and [Week].week1={1}", selectedroom, selectedweek);
         }
 
 
-        //Find available rooms (by date)
+        //Find available rooms (by DATE)
+        //Find available rooms (by DATE)
+        //Find available rooms (by DATE)
         protected void ButtonFindRooms_Click(object sender, EventArgs e)
         {
             DropDownListRoomsByDate.Items.Clear();
@@ -237,11 +239,11 @@ where [Room].roomName='{0}' and [Week].week1={1}", selectedroom, selectedweek);
 
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect.Open();
-            string findroomsql = "SELECT roomName FROM [Room]";
+            string findroomsql = "SELECT roomName FROM [Room] WHERE (private = 0)";
             for (int y = 0; y < days.Count; y++)
             {
                 if (y == 0)
-                    findroomsql += "WHERE (RoomID NOT IN(SELECT roomID FROM [BookedRoom] INNER JOIN [Request] ON [BookedRoom].requestID = [Request].requestID INNER JOIN [Week] ON [Request].weekID = [Week].weekID WHERE [Request].day ='" + days[y] + "' AND (([Request].periodStart = " + periods[y] + ") OR ([Request].periodEnd = " + periods[y] + ")) AND [Week].week" + week + " = 1))";
+                    findroomsql += "AND (RoomID NOT IN(SELECT roomID FROM [BookedRoom] INNER JOIN [Request] ON [BookedRoom].requestID = [Request].requestID INNER JOIN [Week] ON [Request].weekID = [Week].weekID WHERE [Request].day ='" + days[y] + "' AND (([Request].periodStart = " + periods[y] + ") OR ([Request].periodEnd = " + periods[y] + ")) AND [Week].week" + week + " = 1))";
                 else
                     findroomsql += "AND (RoomID NOT IN(SELECT roomID FROM [BookedRoom] INNER JOIN [Request] ON [BookedRoom].requestID = [Request].requestID INNER JOIN [Week] ON [Request].weekID = [Week].weekID WHERE [Request].day ='" + days[y] + "' AND (([Request].periodStart = " + periods[y] + ") OR ([Request].periodEnd = " + periods[y] + ")) AND [Week].week" + week + " = 1))";
              }
@@ -252,6 +254,21 @@ where [Room].roomName='{0}' and [Week].week1={1}", selectedroom, selectedweek);
                 DropDownListRoomsByDate.Items.Add(rooms.GetString(0).ToString());
             }
             connect.Close();
+
+            //Add the user's department's private roooms at the bottom of the dropdown box
+            SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            connect2.Open();
+            string findroomsql2 = "SELECT Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID = " + userID + " AND Room.private <> 0";
+            SqlCommand roomcommand2 = new SqlCommand(findroomsql2, connect2);
+            SqlDataReader rooms2 = roomcommand2.ExecuteReader();
+            //add a non-selectable title at the bottom of the rooms dropwdown to seperate other private rooms from the rest
+            DropDownListRoomsByDate.Items.Add("Private Rooms");
+            DropDownListRoomsByDate.Items.FindByText("Private Rooms").Attributes.Add( "disabled", "disabled" );
+            while (rooms2.Read())
+            {
+                DropDownListRoomsByDate.Items.Add(rooms2.GetString(0).ToString());
+            }
+            connect2.Close();
         }
 
         //Book buttons
