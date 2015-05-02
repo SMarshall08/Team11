@@ -134,6 +134,7 @@
                 <div class="clearfix"></div>
 
                 <div class="row modulerow">
+                    <br />
                     <div class="text-center col-md-4 col-sm-4 ">
                         <h3 style="margin-top:-0px;">Department</h3>
                     </div>
@@ -157,7 +158,7 @@
                         <asp:TextBox class="form-control" ID="TextBoxCapacity" runat="server" AutoPostBack="True" ontextchanged="TextBoxCapacity_TextChanged" ></asp:TextBox>
                     </div>
                 </div><!-- ./row -->
-            
+            <br />
             </div><!-- ./canister -->
             
             <div class="clearfix"></div>
