@@ -129,7 +129,9 @@
                     <asp:Button class="btn btn-success btn-block" ID="ButtonSave" runat="server" onclick="ButtonSave_Click" Text="Save" />
                 </div>
             </div>
+
         </div><!-- ./canistercontainer -->
+        <asp:Label class="center errormessage" style="color:red;" ID="ErrorLabel" Text="" runat="server"></asp:Label>
     </div><!-- ./canister -->
    
 
