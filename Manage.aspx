@@ -132,13 +132,13 @@
     
     <div class="canister none">
         <div class="canistertitle none">
-            <h2>Manage as Depratment / Central</h2>
+            <h2>Manage as Department / Central</h2>
         </div>
         <div class="canistercontainer none">
             <div class="row">
                 <div class="text-center col-md-12 col-sm-12 none">
                     <asp:RadioButtonList class="center none" ID="RadioButtonListView" runat="server" AutoPostBack="true" onselectedindexchanged="RadioButtonListView_SelectedIndexChanged" RepeatDirection="Horizontal">
-                        <asp:ListItem class="none btn btn-primary">Depratment</asp:ListItem>
+                        <asp:ListItem class="none btn btn-primary">Department</asp:ListItem>
                         <asp:ListItem class="none btn btn-primary">Central</asp:ListItem>
                     </asp:RadioButtonList>
                 </div>
