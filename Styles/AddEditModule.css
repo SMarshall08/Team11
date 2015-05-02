@@ -1,6 +1,6 @@
 .canister 
 {
-   width:1080px;
+   width:80%;
    margin: 10px auto 0 auto;
    border:2px solid #CC0066;
    border-top-left-radius:15px;
@@ -38,7 +38,7 @@
 .tablecontainer 
 {
     margin:10px auto 0px auto;   
-    width:880px;
+    width:80%;
 }
 div.navbar ul li:nth-child(6) 
 {
