@@ -42,9 +42,9 @@ table th
 }
 table td 
 {
-    text-align:center;   
-    color: black;
-    font-size: 10pt;
+    text-align:center !important;   
+    color: black !important;
+    font-size: 10pt !important;
 }
 
 tr:nth-child(even)

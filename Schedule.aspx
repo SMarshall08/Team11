@@ -28,6 +28,28 @@
                 $("#MainContent_RadioButtonListFilterStatus_2").parent().addClass("btn btn-danger");
             };
 
+         //Semester
+            if ($("#MainContent_RadioButtonListFilterSemester_0").is(":checked")) {
+                $("#MainContent_RadioButtonListFilterSemester_0").parent().addClass("btn btn-danger");
+            };
+            if ($("#MainContent_RadioButtonListFilterSemester_1").is(":checked")) {
+                $("#MainContent_RadioButtonListFilterSemester_1").parent().addClass("btn btn-danger");
+            };
+            if ($("#MainContent_RadioButtonListFilterSemester_2").is(":checked")) {
+                $("#MainContent_RadioButtonListFilterSemester_2").parent().addClass("btn btn-danger");
+            };
+
+         //Status
+            if ($("#MainContent_RadioButtonListFilterStatusStaff_0").is(":checked")) {
+                $("#MainContent_RadioButtonListFilterStatusStaff_0").parent().addClass("btn btn-danger");
+            };
+            if ($("#MainContent_RadioButtonListFilterStatusStaff_1").is(":checked")) {
+                $("#MainContent_RadioButtonListFilterStatusStaff_1").parent().addClass("btn btn-danger");
+            };
+            if ($("#MainContent_RadioButtonListFilterStatusStaff_2").is(":checked")) {
+                $("#MainContent_RadioButtonListFilterStatusStaff_2").parent().addClass("btn btn-danger");
+            };
+
     });
     </script>
 
@@ -48,10 +70,10 @@
     <div class="canistercontainer none">
         <div class="row">
             <div class="text-center col-md-12 col-sm-12 none">
-                <asp:RadioButtonList class="center none" ID="RadioButtonListView" runat="server" AutoPostBack="true" onselectedindexchanged="RadioButtonListView_SelectedIndexChanged" RepeatDirection="Horizontal">
+                <asp:RadioButtonList ID="RadioButtonScheduleView" runat="server" AutoPostBack="true" onselectedindexchanged="RadioButtonScheduleView_SelectedIndexChanged" RepeatDirection="Horizontal">
                         <asp:ListItem class="none btn btn-primary">Module</asp:ListItem>
                         <asp:ListItem class="none btn btn-primary">Staff</asp:ListItem>
-                    </asp:RadioButtonList>
+                </asp:RadioButtonList>
             </div>
         </div>
     </div>

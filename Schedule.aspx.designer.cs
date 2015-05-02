@@ -13,13 +13,13 @@ namespace Team11 {
     public partial class Schedule {
         
         /// <summary>
-        /// RadioButtonListView control.
+        /// RadioButtonScheduleView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListView;
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonScheduleView;
         
         /// <summary>
         /// divByModule control.

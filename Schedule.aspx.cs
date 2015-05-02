@@ -21,8 +21,6 @@ namespace Team11
     {
         List<string> moduleslist = new List<string>();
         List<string> roomslist = new List<string>();
-        int prefPeriod = 0;
-        int prefhr24 = 0;
         List<int> requests = new List<int>();
         List<string> park = new List<string>();
         List<string> building = new List<string>();
@@ -77,10 +75,10 @@ WHERE Staff.userID =" + Session["userID"] + "ORDER BY LastName";
             }           
         }
 
-        protected void RadioButtonListView_SelectedIndexChanged(object sender, EventArgs e)
+        protected void RadioButtonScheduleView_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Search preference by Room or Date, hide the unselected one
-            if (this.RadioButtonListView.SelectedIndex == 0)
+            if (this.RadioButtonScheduleView.SelectedIndex == 0)
             {
                 this.divByModule.Visible = true;
                 this.divByStaff.Visible = false;
@@ -100,11 +98,15 @@ WHERE Staff.userID =" + Session["userID"] + "ORDER BY LastName";
         {
             RegenerateSchedule();
         }
-        /*
+        
         protected void DropDownListFilterStaff_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule2();
-        }*/
+        }
+        protected void DropDownListFilterPartStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegenerateSchedule2();
+        }
 
         private void RegenerateSchedule()
         {
@@ -184,7 +186,7 @@ inner join Week on week.weekID = request.weekID
                 }
 
                 int period = getScheduleData.GetInt32(getScheduleData.GetOrdinal("periodStart"));
-                schedule[day, period] = schedule[day, period] + buildingName + ": " + roomName + ": " + moduleCode + "\r";
+                schedule[day, period] = schedule[day, period] + "Building Name: " + buildingName + " Room Name: " + roomName + " Module Code: " + moduleCode + "\r\n";
                
             }
 
@@ -341,8 +343,6 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
             RegenerateSchedule();
         }
 
-        
-        
         protected void DropDownListFilterWeek_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule();
@@ -353,7 +353,6 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
             RegenerateSchedule();
         }
 
-        
         protected void DropDownListFilterPart_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule();
@@ -372,10 +371,6 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
             RegenerateSchedule2();
         }
 
-        protected void DropDownListFilterPartStaff_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RegenerateSchedule2();
-        }
 
        protected void ButtonRefreshSearch_Click(object sender, EventArgs e)
         {
