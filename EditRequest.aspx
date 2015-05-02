@@ -147,7 +147,8 @@
 
                 <div class="row modulerow">
                     <div class="text-center col-md-4 col-sm-4">
-                        <label class="form-control">Computer Science</label>
+                        <!--<label class="form-control">Computer Science</label>-->
+                        <asp:Label class="form-control" ID="Label1" runat="server" Text="Department:"></asp:Label>
                     </div>
                     <div class="text-center col-md-4 col-sm-4">
                         <asp:DropDownList class="form-control" ID="DropDownList1" runat="server"></asp:DropDownList>

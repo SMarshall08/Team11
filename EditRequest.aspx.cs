@@ -22,6 +22,20 @@ namespace Team11
             // read the userid from the querystring
             userID = Convert.ToInt32(Session["userID"]);
 
+            //Gets the department name for the label
+            using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["myConnectionString"].ToString()))
+            {
+                conn.Open();
+                // look up the users password so it can be compared to the entered value
+
+                string getDeptName = String.Format("Select deptCode from [User] where userId={0}", userID);
+                SqlCommand deptNameCmd = new SqlCommand(getDeptName, conn);
+                // Gets rid of the space if there is one e.g. by habit putting a space at the end
+                string deptName = deptNameCmd.ExecuteScalar().ToString();
+                conn.Close();
+                Label1.Text = deptName;
+            }
+            
             requestid = Convert.ToInt32(Request.QueryString["request"]);
             if (!IsPostBack)
             {
@@ -105,6 +119,7 @@ namespace Team11
                 }
                 connect.Close();
 
+                /*Original code - redone by ben below this comment
                 //Sets the module title to the one from the request we are editing.
                 connect.Open();
                 string modnamesql = "Select moduleID from [Module] where moduleCode='" + modcode + "'";
@@ -113,11 +128,30 @@ namespace Team11
                 int moduleTitle = 1;
                 if (modulereader.Read())
                 {
-                    moduleTitle = modulereader.GetInt32(0);
+                    moduleTitle = modulereader.GetInt32(3);
                 }
                 DropDownList1.SelectedIndex = moduleTitle - 1;
 
                 connect.Close();
+                */
+
+                //Sets the module title to the one from the request we are editing.
+                using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["myConnectionString"].ToString()))
+                {
+                    conn.Open();
+                    // look up the users password so it can be compared to the entered value
+
+                    string modnamesql = String.Format("Select moduleID from [Module] where moduleCode='" + modcode + "'");
+                    SqlCommand modcommand = new SqlCommand(modnamesql, conn);
+                    // Gets rid of the space if there is one e.g. by habit putting a space at the end
+                    string moduleTitle = modcommand.ExecuteScalar().ToString();
+                    conn.Close();
+                    int moduleID = Int32.Parse(moduleTitle);
+                    DropDownList1.SelectedIndex = moduleID - 1;
+
+                }
+                
+
 
                 //Facilities
                 List<int> facilitiesIDs = new List<int>();
