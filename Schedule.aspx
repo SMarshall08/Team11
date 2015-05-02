@@ -221,7 +221,7 @@
             </div>
             <div class="row">
                 <div class="text-center center col-md-4 col-sm-4">
-                    <asp:DropDownList class="form-control" ID="DropDownListFilterStaff" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListFilterModule_SelectedIndexChanged" >
+                    <asp:DropDownList class="form-control" ID="DropDownListFilterStaff" runat="server" AutoPostBack="true" onselectedindexchanged="DropDownListFilterStaff_SelectedIndexChanged" >
                     </asp:DropDownList>
                 </div>
                 

@@ -44,7 +44,6 @@ namespace Team11
                 DropDownListFilterModule.Items.Insert(0, "Please Select a Module to Filter By:");
                 string getModule = "SELECT moduleCode, moduleTitle FROM [Module] WHERE userID=" + Session["userID"] + "ORDER BY moduleTitle"; //Session["userID"] is intialised upon login.
 
-                DropDownListFilterStaff.Items.Insert(0, "Please Select a Staff Member to Filter By:");
 
                 SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                 connect.Open();
@@ -56,6 +55,7 @@ namespace Team11
                     DropDownListFilterModule.Items.Add(moduleItem);
                 }
                 connect.Close();
+                DropDownListFilterStaff.Items.Insert(0, "Please Select a Staff Member to Filter By:");
 
                 string getStaff = @"
                SELECT FirstName, LastName, Staff.StaffID
@@ -72,7 +72,7 @@ WHERE Staff.userID =" + Session["userID"] + "ORDER BY LastName";
                     DropDownListFilterStaff.Items.Add(StaffItem);
                 }
                 connect2.Close();
-            }           
+            }
         }
 
         protected void RadioButtonScheduleView_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,23 +82,23 @@ WHERE Staff.userID =" + Session["userID"] + "ORDER BY LastName";
             {
                 this.divByModule.Visible = true;
                 this.divByStaff.Visible = false;
-                
+
             }
             else
             {
                 this.divByModule.Visible = false;
                 this.divByStaff.Visible = true;
-                
+
             }
 
         }
-            
+
 
         protected void DropDownListFilterModule_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule();
         }
-        
+
         protected void DropDownListFilterStaff_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule2();
@@ -131,21 +131,21 @@ inner join Week on week.weekID = request.weekID
 
             // add the week where clause
             getschedule += "WHERE Week" + DropDownListFilterWeek.SelectedValue + " = 1 ";
-           
+
             if (DropDownListFilterModule.SelectedIndex != 0)
                 getschedule += "AND Request.moduleCode = '" + DropDownListFilterModule.SelectedValue + "' ";
 
             if (DropDownListFilterPark.SelectedIndex != 0)
                 getschedule += "AND Park.ParkID = '" + DropDownListFilterPark.SelectedValue + "' ";
 
-            if(DropDownListFilterModule.SelectedIndex == 0 && DropDownListFilterPart.SelectedIndex > 0)
+            if (DropDownListFilterModule.SelectedIndex == 0 && DropDownListFilterPart.SelectedIndex > 0)
             {
 
                 getschedule += "AND Charindex('" + DropDownListFilterPart.SelectedItem.Text + "',moduleCode) = 3";
             }
 
             if (DropDownListFilterYear.SelectedIndex != 0)
-                 getschedule += "AND Request.Year = '" + DropDownListFilterYear.SelectedValue + "' ";
+                getschedule += "AND Request.Year = '" + DropDownListFilterYear.SelectedValue + "' ";
 
             if (RadioButtonListFilterSemester.SelectedIndex != 0)
                 getschedule += "AND Request.Semester = '" + RadioButtonListFilterSemester.SelectedValue + "' ";
@@ -187,7 +187,7 @@ inner join Week on week.weekID = request.weekID
 
                 int period = getScheduleData.GetInt32(getScheduleData.GetOrdinal("periodStart"));
                 schedule[day, period] = schedule[day, period] + "Building Name: " + buildingName + " Room Name: " + roomName + " Module Code: " + moduleCode + "\r\n";
-               
+
             }
 
             HtmlTable myTable = new HtmlTable();
@@ -223,7 +223,7 @@ inner join Week on week.weekID = request.weekID
             ViewTable.Controls.Clear();
             ViewTable.Controls.Add(myTable);
         }
-        
+
         private void RegenerateSchedule2()
         {
             string[,] schedule = { { "", "", "", "", "", "", "", "", "", "" },
@@ -257,6 +257,13 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
 
             if (DropDownListFilterYearStaff.SelectedIndex != 0)
                 getschedule2 += "AND Request.Year = '" + DropDownListFilterYearStaff.SelectedValue + "' ";
+
+            if (DropDownListFilterPartStaff.SelectedIndex > 0)
+            {
+
+                getschedule2 += "AND Charindex('" + DropDownListFilterPartStaff.SelectedItem.Text + "',Request.moduleCode) = 3";
+            }
+
 
             if (RadioButtonListFilterSemesterStaff.SelectedIndex != 0)
                 getschedule2 += "AND Request.Semester = '" + RadioButtonListFilterSemesterStaff.SelectedValue + "' ";
@@ -335,7 +342,7 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
             ViewTableStaff.Controls.Add(myTable);
         }
 
-        
+
 
 
         protected void DropDownListFilterPark_SelectedIndexChanged(object sender, EventArgs e)
@@ -372,7 +379,7 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
         }
 
 
-       protected void ButtonRefreshSearch_Click(object sender, EventArgs e)
+        protected void ButtonRefreshSearch_Click(object sender, EventArgs e)
         {
 
         }
@@ -381,13 +388,13 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
         {
             RegenerateSchedule();
         }
-        
+
 
         protected void RadioButtonListFilterStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule();
         }
-        
+
         protected void RadioButtonListFilterSemesterStaff_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegenerateSchedule2();
