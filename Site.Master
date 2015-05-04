@@ -51,7 +51,7 @@
          
          <!-- Navbar
          --------------------------------------------------------->
-       <!-- <div class="navbar">
+        <!-- <div class="navbar">
             <!--<div class="center"> -->
                <!-- <ul class="auto-style1">
                     <li><img alt="Loughborough University Logo" class="navlogo" src="Resources/lulogo-internal.jpg" /></li>
@@ -69,7 +69,17 @@
             <!--</div>-->    
        <!-- </div> -->
 
-<nav class="navbar navbar-inverse">
+<script type="text/javascript">
+$(document).ready(function () {
+    var url = window.location;
+    $('ul.nav a[href="' + url + '"]').parent().addClass('active');
+    $('ul.nav a').filter(function () {
+        return this.href == url;
+    }).parent().addClass('active').parent().parent().addClass('active');
+});
+</script>
+
+<nav class="navbar navbar-custom">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -77,12 +87,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <!-- <a class="navbar-brand" href="#">WebSiteName</a> -->
+      <a class="navbar-brand" href="#"> 
+          <img alt="Loughborough University Logo" class="navlogo" src="Resources/lulogo-internal.jpg" />
+      </a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><img alt="Loughborough University Logo" class="navlogo" src="Resources/lulogo-internal.jpg" /></li>
-        <li class="active"><a href="CreateRequest.aspx">Request</a></li>
+        <li><a href="CreateRequest.aspx">Request</a></li>
         <li><a href="ViewRequest.aspx">View Request</a></li>
         <li><a href="Availibility.aspx">Ad Hoc</a></li>
         <li><a href="Schedule.aspx">Schedule</a></li>
