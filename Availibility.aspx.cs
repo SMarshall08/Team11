@@ -30,13 +30,28 @@ namespace Team11
                 string findrooms = "Select roomName from [Room]";
                 SqlCommand roomscommand = new SqlCommand(findrooms, connect);
                 SqlDataReader rooms = roomscommand.ExecuteReader();
-
+                DropDownListRooms.Items.Clear();
                 //Add the results to the dropdownlist
                 while (rooms.Read())
                 {
                     DropDownListRooms.Items.Add(rooms.GetString(0).ToString());
                 }
                 connect.Close();
+                //Add the user's department's private roooms at the bottom of the dropdown box
+                SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                connect2.Open();
+                string findroomsql2 = "SELECT Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID = " + userID + " AND Room.private <> 0";
+                SqlCommand roomcommand2 = new SqlCommand(findroomsql2, connect2);
+                SqlDataReader rooms2 = roomcommand2.ExecuteReader();
+                //add a non-selectable title at the bottom of the rooms dropwdown to seperate other private rooms from the rest
+                DropDownListRooms.Items.Add("Private Rooms");
+                DropDownListRooms.Items.FindByText("Private Rooms").Attributes.Add("disabled", "disabled");
+                while (rooms2.Read())
+                {
+                    DropDownListRooms.Items.Add(rooms2.GetString(0).ToString());
+                }
+                connect2.Close();
+                DropDownListRooms.Items.FindByText("Private Rooms").Attributes.Add("disabled", "disabled");
                 roomavailibility();
             }
         }
@@ -104,7 +119,27 @@ namespace Team11
                 DropDownListRooms.Items.Add(rooms.GetString(0).ToString());
             }
             connect.Close();
+
+
+            //Add the user's department's private roooms at the bottom of the dropdown box
+            SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            connect2.Open();
+            string findroomsql2 = "SELECT Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID = " + userID + " AND Room.private <> 0";
+            SqlCommand roomcommand2 = new SqlCommand(findroomsql2, connect2);
+            SqlDataReader rooms2 = roomcommand2.ExecuteReader();
+            //add a non-selectable title at the bottom of the rooms dropwdown to seperate other private rooms from the rest
+            DropDownListRooms.Items.Add("Private Rooms");
+            DropDownListRooms.Items.FindByText("Private Rooms").Attributes.Add( "disabled", "disabled" );
+            while (rooms2.Read())
+            {
+                DropDownListRooms.Items.Add(rooms2.GetString(0).ToString());
+            }
+            connect2.Close();
+
+
         }
+
+
 
         public void roomavailibility()
         {
