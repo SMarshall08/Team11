@@ -140,6 +140,7 @@ div.navbar ul li:first-child:hover
     background-color: rgba(65, 95, 105, 1);
     border-width: 1px;
     border-radius: 4px;
+    height: 60px;
 }
 .navbar-custom .navbar-nav>li>a {
     color: rgba(255, 255, 255, 1);
@@ -265,19 +266,19 @@ span.btn > label {
     height: 100%;
 }
 .btn-primary {
-    background-color: #415f69;
-    border-color: #000000;
-    color: #fff;
+    background-color: #415f69 !important;
+    border-color: #000000 !important;
+    color: #fff !important;
 }
 .btn-danger {
-    background-color: #d9534f;
-    border-color: #d43f3a;
-    color: #fff;
+    background-color: #d9534f !important;
+    border-color: #d43f3a !important;
+    color: #fff !important;
 }
 .btn-success {
-    background-color: #cc0066;
-    border-color: #cc0066;
-    color: #fff;
+    background-color: #cc0066 !important;
+    border-color: #cc0066 !important;
+    color: #fff !important;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -285,9 +286,9 @@ span.btn > label {
 .btn-primary.active,
 .open,
 .dropdown-toggle.btn-primary {
-    background-color:#330066;
-    border-color: #000000;
-    color: #fff;
+    background-color:#330066 !important;
+    border-color: #000000 !important;
+    color: #fff !important;
 }
 
 .btn-success:hover,
@@ -296,12 +297,32 @@ span.btn > label {
 .btn-success.active,
 .open,
 .dropdown-toggle.btn-success {
-    background-color:#330066;
-    border-color: #000000;
-    color: #fff;
+    background-color:#330066 !important;
+    border-color: #000000 !important;
+    color: #fff !important;
 }
 .btn-info {
-    background-color:#330066;
-    border-color: #000000;
-    color: #fff;
+    background-color:#330066 !important;
+    border-color: #000000 !important;
+    color: #fff !important;
+}
+
+.nav > li > a{
+    height: 60px !important;
+}
+
+.navbar-nav{
+    height:60px !important;
+}
+.navbar-brand{
+    height:60px !important;
+}
+.navbar-header{
+    height: 60px !important;
+}
+.container-fluid {
+    height: 60px !important;
+}
+.navbar-custom {
+    height: 60px !important;
 }
