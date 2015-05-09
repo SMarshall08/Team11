@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Manage.aspx.cs" Inherits="Team11.Manage" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Manage.aspx.cs" Inherits="Team11.Manage" %>
 
 
 
@@ -366,10 +366,53 @@
             </div><!-- ./canistercontainer -->
         </div><!-- ./canister -->        
     </div><!-- ./ByCentralPoolRoom -->
+    <div id="divByCentralRounds" runat="server" visible="false">
+        
+        <div class="canister">
+            <div class="canistertitle">
+                <h2>Rounds<asp:Label ID="roundsLabel" runat="server"></asp:Label></h2>
+            </div>
+            <div class="canistercontainer">
+
+                <div class="row">
+                    <div class="text-center center col-md-3 col-sm-3">
+                        
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        
+                        <asp:DropDownList id="Rounds"
+                     runat="server">
+
+                  <asp:ListItem Selected="True" Value="1"> 1 </asp:ListItem>
+                  <asp:ListItem Value="2"> 2 </asp:ListItem>
+                  <asp:ListItem Value="3"> 3 </asp:ListItem>
+                  <asp:ListItem Value="4"> 4 </asp:ListItem>
+                  <asp:ListItem Value="5"> 5 </asp:ListItem>
+
+               </asp:DropDownList>
+                        <asp:Button id="roundButton" Text="Manually change round" runat="server" />
+                       <br />
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                            <ContentTemplate>
+                        <asp:Calendar id="CalendarRound" runat="server" AutoPostback="false" ></asp:Calendar> 
+                               </ContentTemplate> 
+                                </asp:UpdatePanel>                      
+                        
+                        <br /><asp:Button id="roundDateButton" Text="Set a date for the round to progress" runat="server" />
+                       
+                    </div>
+                </div><!-- ./row -->
+
+                
+
+            </div><!-- ./canistercontainer -->
+        </div><!-- ./canister -->        
+    </div><!-- ./ByCentralPoolRoom -->
 
     <div id="scriptDiv" runat="server"> 
         <%--This div is where script tags will be placed. --%>
     </div>
+   
 
     <script type = "text/javascript">//This script tag is for filtering drop down lists for both pool rooms and non-pool rooms.
         var ddlText, ddlValue, ddl, ddlText2, ddlValue2, ddl2, ddlText3, ddlValue3, ddl3;
