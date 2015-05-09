@@ -27,19 +27,24 @@
     font-size:10pt;
    
 }
-table 
+able 
 {
-    margin-top:30px;   
+    margin-top:30px; 
+    color:White ;
+    width: 100%;
 }
 table th 
 {
     color:White;   
     background-color:#CC0066;
     text-align:center;
+    width:10%;
 }
 table td 
 {
-    text-align:center;   
+    text-align:center !important;   
+    color: black !important;
+    font-size: 10pt !important;
 }
 
 tr:nth-child(even)
