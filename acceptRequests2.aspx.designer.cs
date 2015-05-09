@@ -60,15 +60,6 @@ namespace Team11
         protected global::System.Web.UI.WebControls.Button acceptRequestedRoom;
 
         /// <summary>
-        /// changeRequestedRoom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button changeRequestedRoom;
-
-        /// <summary>
         /// rejectRequestedRoom control.
         /// </summary>
         /// <remarks>
@@ -78,7 +69,16 @@ namespace Team11
         protected global::System.Web.UI.WebControls.Button rejectRequestedRoom;
 
         /// <summary>
-        /// filterEditFacilities control.
+        /// changeRequestedRoom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button changeRequestedRoom;
+
+        /// <summary>
+        /// filterRooms control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -87,7 +87,7 @@ namespace Team11
         protected global::System.Web.UI.WebControls.TextBox filterRooms;
 
         /// <summary>
-        /// editFacilitiesList control.
+        /// listOfRooms control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
@@ -95,6 +95,58 @@ namespace Team11
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList listOfRooms;
 
-        
+        /// <summary>
+        /// filterRooms2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filterRooms2;
+
+        /// <summary>
+        /// listOfRooms2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList listOfRooms2;
+
+        /// <summary>
+        /// filterRooms3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filterRooms3;
+
+        /// <summary>
+        /// listOfRooms3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList listOfRooms3;
+
+        /// <summary>
+        /// filterRooms4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filterRooms4;
+
+        /// <summary>
+        /// listOfRooms4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList listOfRooms4;
     }
 }

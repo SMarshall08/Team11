@@ -284,13 +284,16 @@ WHERE [Request].requestID = " + requests[request];
             cell5.InnerText = "Requested Room(s)";
             row.Cells.Add(cell5);
             HtmlTableCell cell6 = new HtmlTableCell("th");
-            cell6.InnerText = header1;
+            string returnedHeaderText = SetHeaderTitle(header1);
+            cell6.InnerText = returnedHeaderText;
             row.Cells.Add(cell6);
             HtmlTableCell cell7 = new HtmlTableCell("th");
-            cell7.InnerText = header2;
+            returnedHeaderText = SetHeaderTitle(header2);
+            cell7.InnerText = returnedHeaderText;
             row.Cells.Add(cell7);
             HtmlTableCell cell8 = new HtmlTableCell("th");
-            cell8.InnerText = header3;
+            returnedHeaderText = SetHeaderTitle(header3);
+            cell8.InnerText = returnedHeaderText;
             row.Cells.Add(cell8);
             HtmlTableCell cell9 = new HtmlTableCell("th");
             cell9.InnerText = "Status";
@@ -341,6 +344,38 @@ WHERE [Request].requestID = " + requests[request];
             }
         }
 
+        private string SetHeaderTitle(string header)
+        {
+           string returnedHeaderTitle = "Error";
+            switch (header)
+            {
+                case "facilities":
+                    returnedHeaderTitle = "Facilities";
+                    return returnedHeaderTitle; 
+                case "park":
+                    returnedHeaderTitle = "Park";
+                    return returnedHeaderTitle; 
+                case "altrooms":
+                    returnedHeaderTitle = "Alt Rooms";
+                    return returnedHeaderTitle; 
+                case "building":
+                    returnedHeaderTitle = "Building";
+                    return returnedHeaderTitle; 
+                case "semester":
+                    returnedHeaderTitle = "Semester";
+                    return returnedHeaderTitle; 
+                case "year":
+                    returnedHeaderTitle = "Year";
+                    return returnedHeaderTitle; 
+                case "numberstudents":
+                    returnedHeaderTitle = "N.o. Students";
+                    return returnedHeaderTitle;
+                default:
+                    return returnedHeaderTitle;
+            }
+            
+        }
+
         private void SetHeader(string header, int request, HtmlTableRow row2)
         {
             HtmlTableCell cellx = new HtmlTableCell();
@@ -364,7 +399,7 @@ WHERE [Request].requestID = " + requests[request];
                 case "year":
                     cellx.InnerText = Convert.ToString(year[request]);
                     break;
-                case "numerstudents":
+                case "numberstudents":
                     cellx.InnerText = Convert.ToString(capacity[request]);
                     break;
             }

@@ -13,8 +13,14 @@ namespace Team11
     public partial class acceptRequests2 : System.Web.UI.Page
     {
         int userID = 0;
+        int numberOfRooms = 0;
+        string tempString = "";
         string room = "";
         string roomID = "";
+        string room1 = "", room2 = "", room3 = "", room4 = "";
+        string roomID1 = "", roomID2 = "", roomID3 = "", roomID4 = "";
+        List<string> roomIDs = new List<string>();
+        List<string> roomNames = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             userID = Convert.ToInt32(Session["userID"]);
@@ -27,7 +33,7 @@ namespace Team11
             bool userIsAdmin = (trimmedAdmin == "yes");
             if (!userIsAdmin)
             {
-
+                
                 tableDiv.InnerHtml = "You are not currently logged in as an admin. If you wish to use this page, you must be logged in as an admin.";
                 buttonDiv.InnerHtml = "";
             }
@@ -45,11 +51,17 @@ namespace Team11
                     {
 
                         listOfRooms.Items.Clear();
+                        listOfRooms2.Items.Clear();
+                        listOfRooms3.Items.Clear();
+                        listOfRooms4.Items.Clear();
 
                         ListItem newItem = new ListItem();
                         newItem.Text = "Choose a room";
                         newItem.Value = "test";
                         listOfRooms.Items.Add(newItem);
+                        listOfRooms2.Items.Add(newItem);
+                        listOfRooms3.Items.Add(newItem);
+                        listOfRooms4.Items.Add(newItem);
 
                         allRoomsConnection.Open();
                         allReader = allRoomsCmd.ExecuteReader();
@@ -59,6 +71,9 @@ namespace Team11
                             newItem.Text = allReader["roomName"].ToString();
                             newItem.Value = allReader["roomID"].ToString();
                             listOfRooms.Items.Add(newItem);
+                            listOfRooms2.Items.Add(newItem);
+                            listOfRooms3.Items.Add(newItem);
+                            listOfRooms4.Items.Add(newItem);
                         }
                         allReader.Close();
                     }
@@ -139,9 +154,45 @@ namespace Team11
                 while (reader3.Read())
                 {
                     roomID = reader3["roomID"].ToString();
+                    if (!(roomID == "")) { roomIDs.Add(roomID); }
+
+
                 }
+
                 reader3.Close();
-                string roomSQL2 = "SELECT * FROM Room WHERE roomID =" + roomID;
+                numberOfRooms = roomIDs.Count;
+                if (numberOfRooms == 1)
+                {
+                    listOfRooms2.Attributes.Add("disabled", "disabled"); filterRooms2.Enabled = false;
+                    listOfRooms3.Attributes.Add("disabled", "disabled"); filterRooms3.Enabled = false;
+                    listOfRooms4.Attributes.Add("disabled", "disabled"); filterRooms4.Enabled = false;
+
+                }
+                if (numberOfRooms == 2)
+                {
+                    listOfRooms3.Attributes.Add("disabled", "disabled"); filterRooms3.Enabled = false;
+                    listOfRooms4.Attributes.Add("disabled", "disabled"); filterRooms4.Enabled = false;
+                }
+                if (numberOfRooms == 3)
+                {
+
+                    listOfRooms4.Attributes.Add("disabled", "disabled"); filterRooms4.Enabled = false;
+
+                }
+
+                string roomSQL2 = "";
+                if (numberOfRooms > 1)
+                {
+
+                    if (numberOfRooms == 2) { roomID1 = roomIDs[0]; roomID2 = roomIDs[1]; roomSQL2 = "SELECT * FROM Room WHERE roomID =" + roomID1 + " OR roomID=" + roomID2; }
+                    if (numberOfRooms == 3) { roomID1 = roomIDs[0]; roomID2 = roomIDs[1]; roomID3 = roomIDs[2]; roomSQL2 = "SELECT * FROM Room WHERE roomID =" + roomID1 + " OR roomID=" + roomID2 + " OR roomID=" + roomID3; }
+                    if (numberOfRooms == 4) { roomID1 = roomIDs[0]; roomID2 = roomIDs[1]; roomID3 = roomIDs[2]; roomID4 = roomIDs[3]; roomSQL2 = "SELECT * FROM Room WHERE roomID =" + roomID1 + " OR roomID=" + roomID2 + " OR roomID=" + roomID3 + " OR roomID=" + roomID4; }
+
+                }
+                else
+                {
+                    roomSQL2 = "SELECT * FROM Room WHERE roomID =" + roomID;
+                }
                 if (!(roomID == ""))
                 {
                     SqlCommand cmd4 = new SqlCommand(roomSQL2, Connection);
@@ -149,10 +200,45 @@ namespace Team11
 
                     while (reader4.Read())
                     {
+                        if (numberOfRooms > 1) {
+                        tempString = reader4["roomName"].ToString();
+                        roomNames.Add(tempString);
+                        
+                        }else{
                         room = reader4["roomName"].ToString();
-                    }
+                        }
+                        }
                 }
 
+                if (numberOfRooms > 1) {
+                    if (numberOfRooms == 2)
+                    {
+                        room1 = roomNames[0];
+                        room2 = roomNames[1];
+
+                        room = room1 + " and " + room2;
+                    }
+                    if (numberOfRooms == 3)
+                    {
+                        room1 = roomNames[0];
+                        room2 = roomNames[1];
+                        room3 = roomNames[2];
+
+                        room = room1 + ", " + room2 + " and " + room3;
+                    }
+                    if (numberOfRooms == 4)
+                    {
+                        room1 = roomNames[0];
+                        room2 = roomNames[1];
+                        room3 = roomNames[2];
+                        room4 = roomNames[3];
+
+                        room = room1 + ", " + room2 + " ," + room3 + " and " + room4;
+                    }
+                    
+                
+                
+                }
 
 
 
@@ -208,31 +294,91 @@ namespace Team11
         }
         protected void changeRequestedRoomFunction(Object sender, EventArgs e)
         {
-
-            string selectedRoom = listOfRooms.SelectedItem.Value;
-            if (selectedRoom == "test") {
-
-                scriptDiv.InnerHtml = "<script>alert(\"You have not selected a room. Please select a room from the drop down list (that is the room that will be booked for this request).\");</script>";
-            
-            }
-            else
+            if (numberOfRooms < 2)
             {
+                string selectedRoom = listOfRooms.SelectedItem.Value;
+                if (selectedRoom == "test")
+                {
+
+                    scriptDiv.InnerHtml = "<script>alert(\"You have not selected a room. Please select a room from the drop down list (that is the room that will be booked for this request).\");</script>";
+
+                }
+                else
+                {
+                    string url = Request.Url.Query; ///Gets url
+                    Match match = Regex.Match(url, @"=(.*)"); ///Gets reference from url
+                    string reference = match.Groups[1].Value;
+
+                    SqlConnection acceptConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                    acceptConnect.Open();
+                    string acceptString = "UPDATE Request SET status='Accepted' WHERE requestID=" + reference;
+                    SqlCommand acceptCommand = new SqlCommand(acceptString, acceptConnect);
+                    acceptCommand.ExecuteNonQuery();
+                    string bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + selectedRoom + ")";
+                    SqlCommand bookRoomCommand = new SqlCommand(bookRoomSQL, acceptConnect);
+                    bookRoomCommand.ExecuteNonQuery();
+                    scriptDiv.InnerHtml = "<script>alert(\"Request successfully accepted.\");</script>";
+                    Response.Redirect("acceptRequests.aspx");
+                }
+            }
+            else {
+                bool roomsHaveBeenSelected = true;
+                string bookRoomSQL = "";
                 string url = Request.Url.Query; ///Gets url
                 Match match = Regex.Match(url, @"=(.*)"); ///Gets reference from url
                 string reference = match.Groups[1].Value;
+                if (numberOfRooms == 2) {
+                    string selectedRoom1 = listOfRooms.SelectedItem.Value;
+                    string selectedRoom2 = listOfRooms2.SelectedItem.Value;
+                    if (selectedRoom1 == "test" || selectedRoom2 == "test") { roomsHaveBeenSelected = false; }
+                    else { 
+                    bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + selectedRoom1 +"),(" + reference + "," + selectedRoom2 + ")";
+                    
+                    }
+                
+                }
+                if (numberOfRooms == 3)
+                {
+                    string selectedRoom1 = listOfRooms.SelectedItem.Value;
+                    string selectedRoom2 = listOfRooms2.SelectedItem.Value;
+                    string selectedRoom3 = listOfRooms3.SelectedItem.Value;
+                    if (selectedRoom1 == "test" || selectedRoom2 == "test"|| selectedRoom3=="test") { roomsHaveBeenSelected = false; }
+                    else
+                    {
+                        bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + selectedRoom1 + "),(" + reference + "," + selectedRoom2 + "),(" + reference + "," + selectedRoom3 + ")";
 
-                SqlConnection acceptConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
-                acceptConnect.Open();
-                string acceptString = "UPDATE Request SET status='Accepted' WHERE requestID=" + reference;
-                SqlCommand acceptCommand = new SqlCommand(acceptString, acceptConnect);
-                acceptCommand.ExecuteNonQuery();
-                string bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + selectedRoom + ")";
-                SqlCommand bookRoomCommand = new SqlCommand(bookRoomSQL, acceptConnect);
-                bookRoomCommand.ExecuteNonQuery();
-                scriptDiv.InnerHtml = "<script>alert(\"Request successfully accepted.\");</script>";
-                Response.Redirect("acceptRequests.aspx");
+                    }
+
+                }
+                if (numberOfRooms == 4)
+                {
+                    string selectedRoom1 = listOfRooms.SelectedItem.Value;
+                    string selectedRoom2 = listOfRooms2.SelectedItem.Value;
+                    string selectedRoom3 = listOfRooms3.SelectedItem.Value;
+                    string selectedRoom4 = listOfRooms4.SelectedItem.Value;
+                    if (selectedRoom1 == "test" || selectedRoom2 == "test" || selectedRoom3 == "test"||selectedRoom4=="test") { roomsHaveBeenSelected = false; }
+                    else
+                    {
+                        bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + selectedRoom1 + "),(" + reference + "," + selectedRoom2 + "),(" + reference + "," + selectedRoom3 + "),(" + reference + "," + selectedRoom4 + ")";
+
+                    }
+
+                }
+                if (roomsHaveBeenSelected)
+                {
+                    SqlConnection acceptConnect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                    acceptConnect.Open();
+                    string acceptString = "UPDATE Request SET status='Accepted' WHERE requestID=" + reference;
+                    SqlCommand acceptCommand = new SqlCommand(acceptString, acceptConnect);
+                    acceptCommand.ExecuteNonQuery();
+                    SqlCommand bookRoomCommand = new SqlCommand(bookRoomSQL, acceptConnect);
+                    bookRoomCommand.ExecuteNonQuery();
+                    scriptDiv.InnerHtml = "<script>alert(\"Request successfully accepted.\");</script>";
+                    Response.Redirect("acceptRequests.aspx");
+                }
+                else { scriptDiv.InnerHtml = "<script>alert(\"Since the request was for " + numberOfRooms.ToString() + " rooms, you must allocate exactly "+numberOfRooms.ToString() + " rooms.\");</script>"; }
+            
             }
-
         }
         protected void acceptRequestedRoomFunction(Object sender, EventArgs e)
         {
@@ -246,6 +392,7 @@ namespace Team11
             }
             else
             {
+                string bookRoomSQL = "";
                 string url = Request.Url.Query; ///Gets url
                 Match match = Regex.Match(url, @"=(.*)"); ///Gets reference from url
                 string reference = match.Groups[1].Value;
@@ -255,7 +402,30 @@ namespace Team11
                 string acceptString = "UPDATE Request SET status='Accepted' WHERE requestID=" + reference;
                 SqlCommand acceptCommand = new SqlCommand(acceptString, acceptConnect);
                 acceptCommand.ExecuteNonQuery();
-                string bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + roomID + ")";
+                if (numberOfRooms == 1)
+                {
+                    bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + roomID + ")";
+                }
+
+
+                if (numberOfRooms == 2) {
+                    bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + roomID1 + "),(" + reference + ", " + roomID2 + ")";            
+                
+                }
+                if (numberOfRooms == 3)
+                {
+                    bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + roomID1 + "),(" + reference + ", " + roomID2 + "),(" + reference + ", " + roomID3 + ")";
+
+                }
+                if (numberOfRooms == 4)
+                {
+                    bookRoomSQL = "INSERT INTO BookedRoom VALUES (" + reference + "," + roomID1 + "),(" + reference + ", " + roomID2 + "),(" + reference + ", " + roomID3 + "),(" + reference + ", " + roomID4 + ")";
+
+                }
+
+
+
+
                 SqlCommand bookRoomCommand = new SqlCommand(bookRoomSQL, acceptConnect);
                 bookRoomCommand.ExecuteNonQuery();
                 scriptDiv.InnerHtml = "<script>alert(\"Request successfully accepted.\");</script>";
