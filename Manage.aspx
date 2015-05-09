@@ -213,6 +213,48 @@
     <!--Add/Delete Facility-->
     <!--Add/Delete Facility-->
     <!--Add/Delete Facility-->
+    <!--
+    <div id="divByModuleStaff" runat="server" visible="false">
+        
+        <div class="canister">
+            <div class="canistertitle">
+                <h2>Add/Delete Staff from Modules</h2>
+            </div>
+            <div class="canistercontainer">
+
+                <div class="row">
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>Choose Staff to Add to Module</h3>
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>Choose Staff to Delete from Module</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="text-center center col-md-6 col-sm-6">
+                        
+                        
+                        <asp:DropDownList class="form-control" ID="DropDownListFilterAddDeptStaff" runat="server" AutoPostBack="true">Please Select a Department</asp:DropDownList>
+                        <asp:DropDownList class="form-control" ID="DropDownListFilterAddStaffDept" runat="server" AutoPostBack="true">Please Select a Department</asp:DropDownList>
+
+                        <asp:CheckBoxList class="center" ID="CheckBoxListAddStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListaddFacility_SelectedIndexChanged">
+                            <asp:ListItem class="btn btn-primary">Add Staff</asp:ListItem>
+                        </asp:CheckBoxList>
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <asp:DropDownList class="form-control" ID="DropDownList" runat="server" AutoPostBack="true></asp:DropDownList>
+                        <asp:CheckBoxList class="center" ID="CheckBoxList2" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListdeleteFacility_SelectedIndexChanged">
+                            <asp:ListItem class="btn btn-primary">Delete Facility</asp:ListItem>
+                        </asp:CheckBoxList>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+               
+    </div>
+    -->
     <div id="divByCentralFacility" runat="server" visible="false">
         
         
@@ -403,7 +445,9 @@
                     </div>
                 </div><!-- ./row -->
 
-                
+                <div>
+
+                </div>
 
             </div><!-- ./canistercontainer -->
         </div><!-- ./canister -->        

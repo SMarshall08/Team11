@@ -43,7 +43,7 @@ namespace Team11
             {
                
                 //Find all rooms and their ID
-                string availableRoomSQL = "SELECT  Room.roomName, Room.roomID FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID =" + userID + "AND Room.private <> 1 ORDER BY Room.roomName";
+                string availableRoomSQL = "SELECT  Room.roomName, Room.roomID FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptCode = [User].deptCode AND [User].userID =" + userID + "AND Room.private <> 1 ORDER BY Room.roomName";
                 SqlConnection availableRoomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
                 SqlCommand availableRoomCmd = new SqlCommand(availableRoomSQL, availableRoomConnection);
                 SqlDataReader availableRoomReader;
@@ -67,7 +67,7 @@ namespace Team11
             //fill dropdown box with private rooms
             if (!IsPostBack)
             {
-                string privateRoomSQL = "SELECT Room.roomName, Room.roomID FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID = " + userID + " AND Room.private <> 0 ORDER BY Room.roomName";
+                string privateRoomSQL = "SELECT Room.roomName, Room.roomID FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptCode = [User].deptCode AND [User].userID = " + userID + " AND Room.private <> 0 ORDER BY Room.roomName";
                 SqlConnection privateRoomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
                 SqlCommand privateRoomCmd = new SqlCommand(privateRoomSQL, privateRoomConnection);
                 SqlDataReader privateRoomReader;
@@ -375,7 +375,7 @@ namespace Team11
             if (managerType=="department")
             {
                 //Find all rooms and their ID
-                string availableRoomSQL = "SELECT  Room.roomName, Room.roomID FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID =" + userID + "AND Room.private <> 1 ORDER BY Room.roomName";
+                string availableRoomSQL = "SELECT  Room.roomName, Room.roomID FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptCode = [User].deptCode AND [User].userID =" + userID + "AND Room.private <> 1 ORDER BY Room.roomName";
                 SqlConnection availableRoomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
                 SqlCommand availableRoomCmd = new SqlCommand(availableRoomSQL, availableRoomConnection);
                 SqlDataReader availableRoomReader;

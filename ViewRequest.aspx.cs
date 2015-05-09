@@ -512,7 +512,7 @@ WHERE [Request].requestID = " + requests[request];
                 }
                 connect.Close();
                 connect.Open();
-                string deptdetails = "SELECT deptCode FROM [User] WHERE userID =" + Session["userID"];
+                string deptdetails = "SELECT deptName FROM [User] WHERE userID =" + Session["userID"];
                 SqlCommand departmentcommand = new SqlCommand(deptdetails, connect);
                 //Retrieve the request details and store them in appropriate Variables
                 SqlDataReader departmentdetails = departmentcommand.ExecuteReader();

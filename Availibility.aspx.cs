@@ -258,7 +258,7 @@ where [Room].roomName='{0}' and [Week].week1={1}", selectedroom, selectedweek);
             //Add the user's department's private roooms at the bottom of the dropdown box
             SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect2.Open();
-            string findroomsql2 = "SELECT Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID = " + userID + " AND Room.private <> 0";
+            string findroomsql2 = "SELECT Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptCode = [User].deptCode AND [User].userID = " + userID + " AND Room.private <> 0";
             SqlCommand roomcommand2 = new SqlCommand(findroomsql2, connect2);
             SqlDataReader rooms2 = roomcommand2.ExecuteReader();
             //add a non-selectable title at the bottom of the rooms dropwdown to seperate other private rooms from the rest
@@ -1387,7 +1387,7 @@ where [Room].roomName='{0}' and [Week].week1={1}", selectedroom, selectedweek);
             }
             connect.Close();
             connect.Open();
-            string deptdetails = String.Format("SELECT deptName FROM [User] WHERE userID = {0}", userID);
+            string deptdetails = String.Format("SELECT deptCode FROM [User] WHERE userID = {0}", userID);
             SqlCommand departmentcommand = new SqlCommand(deptdetails, connect);
             //Retrieve the request details and store them in appropriate Variables
             SqlDataReader departmentdetails = departmentcommand.ExecuteReader();

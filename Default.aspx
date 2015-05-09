@@ -15,7 +15,7 @@
          -->
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:myConnectionString %>" 
-        SelectCommand="SELECT [deptCode], [userId] FROM [User] order by [deptCode]"></asp:SqlDataSource>
+        SelectCommand="SELECT [deptName], [userId] FROM [User] order by [deptName]"></asp:SqlDataSource>
     
     <div class="canister">
         <div class="canistertitle blue">
@@ -29,10 +29,10 @@
                 <div class="col-md-12">
                     <!-- bind the drop down of user names to the department data source -- display the department names, but return the userId -->
                     <asp:DropDownList ID="DropDownListDept" runat="server" 
-                        DataSourceID="SqlDataSource1" DataTextField="deptCode" 
+                        DataSourceID="SqlDataSource1" DataTextField="deptName" 
                         DataValueField="userId" class="form-control text-center select" 
                         AutoPostBack="True" 
-        onselectedindexchanged="DropDownChange">
+                        onselectedindexchanged="DropDownChange">
                     </asp:DropDownList>
                 </div>
                 <div class="text-center col-md-12">

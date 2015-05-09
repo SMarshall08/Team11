@@ -26,7 +26,7 @@ namespace Team11
         {
             // read the userid from the querystring
             userID = Convert.ToInt32(Session["userID"]);
-            string fillDeptName = string.Format("SELECT deptCode from [User] where userID={0}", Session["userID"]);
+            string fillDeptName = string.Format("SELECT deptName from [User] where userID={0}", Session["userID"]);
             SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect2.Open();
 
@@ -131,7 +131,7 @@ WHERE userID={0}", userID);
             if (DropDownListPart.SelectedIndex > 0)
             {
 
-                modulesql += "AND Charindex('" + DropDownListPart.SelectedItem.Text + "',moduleCode) = 3";
+                modulesql += "AND Substring (moduleCode, 3,1 ) = '" + DropDownListPart.SelectedItem.Text + "'";
             }
 
             SqlCommand modulecommand = new SqlCommand(modulesql, connect);

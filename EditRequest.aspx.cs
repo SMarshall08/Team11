@@ -28,7 +28,7 @@ namespace Team11
                 conn.Open();
                 // look up the users password so it can be compared to the entered value
 
-                string getDeptName = String.Format("Select deptCode from [User] where userId={0}", userID);
+                string getDeptName = String.Format("Select deptName from [User] where userId={0}", userID);
                 SqlCommand deptNameCmd = new SqlCommand(getDeptName, conn);
                 // Gets rid of the space if there is one e.g. by habit putting a space at the end
                 string deptName = deptNameCmd.ExecuteScalar().ToString();
