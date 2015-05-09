@@ -40,7 +40,7 @@ namespace Team11
                 //Add the user's department's private roooms at the bottom of the dropdown box
                 SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                 connect2.Open();
-                string findroomsql2 = "SELECT Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID = " + userID + " AND Room.private <> 0";
+                string findroomsql2 = "SELECT Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptCode = [User].deptCode AND [User].userID = " + userID + " AND Room.private <> 0";
                 SqlCommand roomcommand2 = new SqlCommand(findroomsql2, connect2);
                 SqlDataReader rooms2 = roomcommand2.ExecuteReader();
                 //add a non-selectable title at the bottom of the rooms dropwdown to seperate other private rooms from the rest
@@ -53,6 +53,24 @@ namespace Team11
                 connect2.Close();
                 DropDownListRooms.Items.FindByText("Private Rooms").Attributes.Add("disabled", "disabled");
                 roomavailibility();
+
+
+                //fill dropownbox with module names
+                SqlConnection connect3 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                connect3.Open();
+
+                string findModules = "SELECT [moduleTitle] FROM [Module] WHERE [Module].userID = "+ userID ;
+                SqlCommand modulescommand = new SqlCommand(findModules, connect3);
+                SqlDataReader modules = modulescommand.ExecuteReader();
+                DropDownListModuleByRoom.Items.Clear();
+                DropDownListModulesByDate.Items.Clear();
+                //Add the results to the dropdownlist
+                while (modules.Read())
+                {
+                    DropDownListModuleByRoom.Items.Add(modules.GetString(0).ToString());
+                    DropDownListModulesByDate.Items.Add(modules.GetString(0).ToString());
+                }
+                connect3.Close();
             }
         }
         protected void RadioButtonListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -124,7 +142,7 @@ namespace Team11
             //Add the user's department's private roooms at the bottom of the dropdown box
             SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect2.Open();
-            string findroomsql2 = "SELECT Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID = " + userID + " AND Room.private <> 0";
+            string findroomsql2 = "SELECT Room.roomName FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptCode = [User].deptCode AND [User].userID = " + userID + " AND Room.private <> 0";
             SqlCommand roomcommand2 = new SqlCommand(findroomsql2, connect2);
             SqlDataReader rooms2 = roomcommand2.ExecuteReader();
             //add a non-selectable title at the bottom of the rooms dropwdown to seperate other private rooms from the rest
