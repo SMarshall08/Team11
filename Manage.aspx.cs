@@ -201,7 +201,183 @@ namespace Team11
                 allRoomsConnection.Close();
 
             }
+
+            //Fill module staff container
+            if (!Page.IsPostBack)
+            {
+                string DeptSQL = "SELECT deptName FROM [User]";
+                string StaffSQL = "SELECT FirstName, LastName, Staff.StaffID FROM Staff";
+                string ModuleSQL = "SELECT moduleCode, moduleTitle, moduleID FROM Module ORDER BY userID";
+            
+                SqlConnection staffDeptConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                //SqlCommand staffCmd = new SqlCommand(StaffSQL, staffConnection);
+                staffDeptConnection.Open();
+                SqlCommand getdeptCmd = new SqlCommand(DeptSQL, staffDeptConnection);
+
+                SqlDataReader getdeptData = getdeptCmd.ExecuteReader();             
+                      
+                while (getdeptData.Read())
+                {
+                    ListItem DeptItem = new ListItem (getdeptData.GetString(0),getdeptData.GetString(0));
+                    DropDownListFilterAddDeptStaff.Items.Add(DeptItem);
+                    DropDownListFilterDeleteDeptStaff.Items.Add(DeptItem);
+
+                }
+                getdeptData.Close();
+                staffDeptConnection.Close();
+
+                SqlConnection staffModuleConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                staffModuleConnection.Open();
+                
+                SqlCommand getModuleCmd = new SqlCommand(ModuleSQL, staffModuleConnection);
+                SqlDataReader getModuleData = getModuleCmd.ExecuteReader();
+                 
+
+                while (getModuleData.Read())
+                {
+                    ListItem ModuleItem = new ListItem(getModuleData.GetString(0) + ":" + getModuleData.GetString(1), getModuleData.GetString(2));
+                    DropDownListFilterAddStaffDept.Items.Add(ModuleItem);
+                    DropDownListFilterDeleteStaffDept.Items.Add(ModuleItem);
+                }
+                getModuleData.Close();
+                staffModuleConnection.Close();
+
+                SqlConnection staffConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                staffConnection.Open();
+                SqlCommand getStaffCmd = new SqlCommand(StaffSQL, staffConnection);
+                SqlDataReader getStaffData = getStaffCmd.ExecuteReader();
+                 
+
+                while (getStaffData.Read())
+                {
+                    ListItem StaffItem = new ListItem(getStaffData.GetString(0) + " " + getStaffData.GetString(1), getStaffData.GetInt32(2).ToString());
+                    DropDownListFilterAddModuleStaff.Items.Add(StaffItem);
+                    DropDownListFilterDeleteModuleStaff.Items.Add(StaffItem);
+                }
+                getStaffData.Close();
+                staffConnection.Close();
+                
+
+                DropDownListFilterAddDeptStaff.Items.Insert(0, "Please Select a Department to Filter By:");
+                DropDownListFilterDeleteDeptStaff.Items.Insert(0, "Please Select a Department to Filter By:");
+
+                DropDownListFilterAddStaffDept.Items.Insert(0, "Please Select a Module to Filter By:");
+                DropDownListFilterDeleteStaffDept.Items.Insert(0, "Please Select a Module to Filter By:");
+
+                DropDownListFilterAddModuleStaff.Items.Insert(0, "Please Select a Staff Member");
+                DropDownListFilterDeleteModuleStaff.Items.Insert(0, "Please Select a Staff Member");
+            }
         }
+
+        private void PopulateAddModuleList(SqlConnection connect)
+        {
+            DropDownListFilterAddStaffDept.Items.Clear();
+            connect.Open();
+            string modulesql = String.Format(@"
+SELECT moduleCode, moduleTitle 
+FROM [Module] 
+WHERE userID={0}", DropDownListFilterAddDeptStaff.SelectedIndex);
+            
+            SqlCommand modulecommand = new SqlCommand(modulesql, connect);
+            SqlDataReader modules = modulecommand.ExecuteReader();
+
+            while (modules.Read())
+            {
+                string modulecode = modules.GetString(0);
+                string modulename = modules.GetString(1);
+                string module = String.Format("{0} : {1}", modulecode, modulename);
+                DropDownListFilterAddStaffDept.Items.Add(module);
+
+            }
+            connect.Close();
+        }
+
+        private void PopulateDeleteModuleList(SqlConnection connect)
+        {
+            DropDownListFilterDeleteStaffDept.Items.Clear();
+            connect.Open();
+            string modulesql = String.Format(@"
+SELECT moduleCode, moduleTitle 
+FROM [Module] 
+WHERE userID={0}", DropDownListFilterDeleteDeptStaff.SelectedIndex);
+
+            SqlCommand modulecommand = new SqlCommand(modulesql, connect);
+            SqlDataReader modules = modulecommand.ExecuteReader();
+
+            while (modules.Read())
+            {
+                string modulecode = modules.GetString(0);
+                string modulename = modules.GetString(1);
+                string module = String.Format("{0} : {1}", modulecode, modulename);
+                DropDownListFilterDeleteStaffDept.Items.Add(module);
+
+            }
+            connect.Close();
+
+        }
+
+        private void PopulateAddStaffList(SqlConnection connect)
+        {
+            DropDownListFilterAddModuleStaff.Items.Clear();
+            connect.Open();
+            string staffsql = String.Format(@"
+
+SELECT FirstName, LastName, ModuleStaff.StaffID, ModuleStaff.ModuleCode 
+FROM Staff 
+inner join ModuleStaff on Staff.StaffID = ModuleStaff.StaffID
+WHERE ModuleStaff.userID={0}", DropDownListFilterAddDeptStaff.SelectedIndex);
+
+            SqlCommand staffcommand = new SqlCommand(staffsql, connect);
+            SqlDataReader staff = staffcommand.ExecuteReader();
+            /*
+            if (DropDownListFilterAddStaffDept.SelectedIndex > 0)
+            {
+                staffsql += "AND ModuleStaff.ModuleCode = '"+ DropDownListFilterAddModuleStaff.SelectedItem + "'";
+            }
+            */
+            while (staff.Read())
+            {
+                string firstName = staff.GetString(0);
+                string lastName = staff.GetString(1);
+                string ModuleStaff = String.Format("{0} {1}", firstName, lastName);
+                DropDownListFilterAddStaffDept.Items.Add(ModuleStaff);
+
+            }
+            connect.Close();
+
+        }
+
+        private void PopulateDeleteStaffList(SqlConnection connect)
+        {
+            DropDownListFilterDeleteModuleStaff.Items.Clear();
+            connect.Open();
+            string staffsql = String.Format(@"
+
+SELECT FirstName, LastName, ModuleStaff.StaffID, ModuleStaff.ModuleCode 
+FROM Staff 
+inner join ModuleStaff on Staff.StaffID = ModuleStaff.StaffID
+WHERE ModuleStaff.userID = {0}", DropDownListFilterDeleteDeptStaff.SelectedIndex);
+
+            SqlCommand staffcommand = new SqlCommand(staffsql, connect);
+            SqlDataReader staff = staffcommand.ExecuteReader();
+
+            if (DropDownListFilterDeleteStaffDept.SelectedIndex > 0)
+            {
+                staffsql += "AND ModuleStaff.ModuleCode = '" + DropDownListFilterDeleteStaffDept.SelectedItem + "'";
+            }
+
+            while (staff.Read())
+            {
+                string firstName = staff.GetString(0);
+                string lastName = staff.GetString(1);
+                string ModuleStaff = String.Format("{0} {1}", firstName, lastName);
+                DropDownListFilterDeleteModuleStaff.Items.Add(ModuleStaff);
+
+            }
+            connect.Close();
+
+        }
+
         protected void changeRound(object sender, EventArgs e) {
             int round = Rounds.SelectedIndex+1;
             string roundSQL = "UPDATE Rounds SET round = "+round+" WHERE 1=1";
@@ -250,6 +426,7 @@ namespace Team11
                 this.divByCentralEditRoom.Visible = true;
                 this.divByCentralRespond.Visible = true;
                 this.divByCentralRounds.Visible = true;
+                this.divByCentralModuleStaff.Visible = true;
             }
 
         }
@@ -504,6 +681,50 @@ namespace Team11
                 filterPool.Text = string.Empty;
 
             }
+
+        }
+
+        protected void DropDownListFilterDeleteDeptStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            PopulateDeleteModuleList(connect);
+        }
+
+        protected void DropDownListFilterDeleteStaffDept_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            PopulateDeleteStaffList(connect);
+        }
+
+        protected void CheckBoxListAddStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void CheckBoxListDeleteStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void DropDownListFilterAddDeptStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            PopulateAddModuleList(connect);
+        }
+
+        protected void DropDownListFilterAddStaffDept_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            PopulateAddStaffList(connect);
+        }
+
+        protected void DropDownListFilterAddModuleStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void DropDownListFilterDeleteModuleStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
 

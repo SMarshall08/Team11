@@ -119,6 +119,12 @@
 
             });
     </script>
+    <style type="text/css">
+        .auto-style2 {
+            height: 24px;
+            margin-bottom: 1px;
+        }
+    </style>
 </asp:Content>
 
 <%-- Page Title Content --%>
@@ -213,8 +219,8 @@
     <!--Add/Delete Facility-->
     <!--Add/Delete Facility-->
     <!--Add/Delete Facility-->
-    <!--
-    <div id="divByModuleStaff" runat="server" visible="false">
+    
+    <div id="divByCentralModuleStaff" runat="server" visible="false">
         
         <div class="canister">
             <div class="canistertitle">
@@ -233,19 +239,24 @@
 
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
-                        
-                        
-                        <asp:DropDownList class="form-control" ID="DropDownListFilterAddDeptStaff" runat="server" AutoPostBack="true">Please Select a Department</asp:DropDownList>
-                        <asp:DropDownList class="form-control" ID="DropDownListFilterAddStaffDept" runat="server" AutoPostBack="true">Please Select a Department</asp:DropDownList>
+                        <asp:DropDownList class="form-control" ID="DropDownListFilterAddDeptStaff" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterAddDeptStaff_SelectedIndexChanged"></asp:DropDownList>
+                        <asp:DropDownList class="form-control" ID="DropDownListFilterAddStaffDept" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterAddStaffDept_SelectedIndexChanged"></asp:DropDownList>     
+                        <asp:DropDownList class="form-control" ID="DropDownListFilterAddModuleStaff" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterAddModuleStaff_SelectedIndexChanged"></asp:DropDownList>
 
-                        <asp:CheckBoxList class="center" ID="CheckBoxListAddStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListaddFacility_SelectedIndexChanged">
+
+
+                        <asp:CheckBoxList class="center" ID="CheckBoxListAddStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListAddStaff_SelectedIndexChanged">
                             <asp:ListItem class="btn btn-primary">Add Staff</asp:ListItem>
                         </asp:CheckBoxList>
                     </div>
                     <div class="text-center center col-md-6 col-sm-6">
-                        <asp:DropDownList class="form-control" ID="DropDownList" runat="server" AutoPostBack="true></asp:DropDownList>
-                        <asp:CheckBoxList class="center" ID="CheckBoxList2" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListdeleteFacility_SelectedIndexChanged">
-                            <asp:ListItem class="btn btn-primary">Delete Facility</asp:ListItem>
+                        <asp:DropDownList class="form-control" ID="DropDownListFilterDeleteDeptStaff" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterDeleteDeptStaff_SelectedIndexChanged"></asp:DropDownList>
+                        <asp:DropDownList class="form-control" ID="DropDownListFilterDeleteStaffDept" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterDeleteStaffDept_SelectedIndexChanged"></asp:DropDownList>
+                        <asp:DropDownList class="form-control" ID="DropDownListFilterDeleteModuleStaff" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterDeleteModuleStaff_SelectedIndexChanged"></asp:DropDownList>
+
+
+                        <asp:CheckBoxList class="center" ID="CheckBoxListDeleteStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListDeleteStaff_SelectedIndexChanged" CssClass="auto-style2">
+                            <asp:ListItem class="btn btn-primary">Delete Staff</asp:ListItem>
                         </asp:CheckBoxList>
                     </div>
                 </div>
@@ -254,7 +265,7 @@
         </div>
                
     </div>
-    -->
+    
     <div id="divByCentralFacility" runat="server" visible="false">
         
         

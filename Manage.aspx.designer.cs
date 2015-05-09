@@ -67,13 +67,13 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.CheckBoxList RemovePrivate;
         
         /// <summary>
-        /// divByModuleStaff control.
+        /// divByCentralModuleStaff control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByModuleStaff;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divByCentralModuleStaff;
         
         /// <summary>
         /// DropDownListFilterAddDeptStaff control.
@@ -94,6 +94,15 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.DropDownList DropDownListFilterAddStaffDept;
         
         /// <summary>
+        /// DropDownListFilterAddModuleStaff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListFilterAddModuleStaff;
+        
+        /// <summary>
         /// CheckBoxListAddStaff control.
         /// </summary>
         /// <remarks>
@@ -103,13 +112,40 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxListAddStaff;
         
         /// <summary>
-        /// CheckBoxList2 control.
+        /// DropDownListFilterDeleteDeptStaff control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxList2;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListFilterDeleteDeptStaff;
+        
+        /// <summary>
+        /// DropDownListFilterDeleteStaffDept control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListFilterDeleteStaffDept;
+        
+        /// <summary>
+        /// DropDownListFilterDeleteModuleStaff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListFilterDeleteModuleStaff;
+        
+        /// <summary>
+        /// CheckBoxListDeleteStaff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxListDeleteStaff;
         
         /// <summary>
         /// divByCentralFacility control.
