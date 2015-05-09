@@ -157,7 +157,9 @@
         ConnectionString="<%$ ConnectionStrings:myConnectionString %>" 
         SelectCommand="SELECT [moduleTitle] FROM [Module]"></asp:SqlDataSource>
                                                                  
-    <!-- BY ROOM -->
+    <!-- BY ROOM --><!-- BY ROOM --><!-- BY ROOM -->
+    <!-- BY ROOM --><!-- BY ROOM --><!-- BY ROOM -->
+    <!-- BY ROOM --><!-- BY ROOM --><!-- BY ROOM -->
     <div id="divByRoom" runat="server" visible="false">
 
         <div class="canister">
@@ -638,7 +640,7 @@
                         </div>
                         <div class="row">
                             <div class="text-center center col-md-3 col-sm-3">
-                                <asp:DropDownList class="form-control" ID="DropDownListModuleByRoom" runat="server" DataSourceID="SqlDataSource2" DataTextField="moduleTitle" DataValueField="moduleTitle">
+                                <asp:DropDownList class="form-control" ID="DropDownListModuleByRoom" runat="server" >
                                 </asp:DropDownList>
                             </div>
                             <div class="text-center center col-md-3 col-sm-3">
@@ -921,7 +923,7 @@
                 </div>
                 <div class="row">
                     <div class="text-center center col-md-12 col-sm-12">
-                        <asp:DropDownList style="margin-top:10px;" class="form-control" ID="DropDownListModulesByDate" runat="server" DataSourceID="SqlDataSource2" DataTextField="moduleTitle" DataValueField="moduleTitle">
+                        <asp:DropDownList style="margin-top:10px;" class="form-control" ID="DropDownListModulesByDate" runat="server" >
                         </asp:DropDownList>
                     </div>
                 </div>
