@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,17 +16,32 @@ namespace Team11
     public partial class Manage : System.Web.UI.Page
     {
         int userID = 0;
-
+        
         //pageLoad
         protected void Page_Load(object sender, EventArgs e)
         {
+            roundButton.Click += new EventHandler(changeRound);
+            roundDateButton.Click += new EventHandler(changeRoundDate);
             // read the userid from the querystring
             userID = Convert.ToInt32(Session["userID"]);
-
+            string roundLabelSQL = "SELECT * FROM Rounds";
+            SqlConnection roundLabelConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            SqlCommand roundLabelCmd = new SqlCommand(roundLabelSQL, roundLabelConnection);
+            SqlDataReader roundLabelReader;
+            roundLabelConnection.Open();
+            roundLabelReader = roundLabelCmd.ExecuteReader();
+            int round = 0; string date = "";
+            while (roundLabelReader.Read()) {
+                 round = Convert.ToInt32(roundLabelReader["round"]);
+                 date = roundLabelReader["dateToAdvance"].ToString();
+            
+            }
+            roundsLabel.Text = " (Current round: " + round + " - Date to advance round: " + date+")"; 
 
             //fill dropdown box with available rooms
             if (!IsPostBack)
             {
+               
                 //Find all rooms and their ID
                 string availableRoomSQL = "SELECT  Room.roomName, Room.roomID FROM Room INNER JOIN Building ON Room.buildingID = Building.buildingID INNER JOIN [User] ON Building.deptName = [User].deptName AND [User].userID =" + userID + "AND Room.private <> 1 ORDER BY Room.roomName";
                 SqlConnection availableRoomConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
@@ -187,6 +202,31 @@ namespace Team11
 
             }
         }
+        protected void changeRound(object sender, EventArgs e) {
+            int round = Rounds.SelectedIndex+1;
+            string roundSQL = "UPDATE Rounds SET round = "+round+" WHERE 1=1";
+
+            SqlConnection roundConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            roundConnection.Open();
+            SqlCommand roundCmd = new SqlCommand(roundSQL, roundConnection);
+            roundCmd.ExecuteNonQuery();
+            roundConnection.Close();
+        
+        }
+        protected void changeRoundDate(object sender, EventArgs e) {
+            string date = CalendarRound.SelectedDate.ToShortDateString();
+            string roundSQL = "UPDATE Rounds SET dateToAdvance = '" + date + "' WHERE 1=1";
+
+            SqlConnection roundConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            roundConnection.Open();
+            SqlCommand roundCmd = new SqlCommand(roundSQL, roundConnection);
+            roundCmd.ExecuteNonQuery();
+            roundConnection.Close();
+        
+        }
+
+
+
 
         //When department or central button is pressed
         //controls which part is visible to central/departmental admin.
@@ -200,6 +240,7 @@ namespace Team11
                 this.divByCentralPoolRoom.Visible = false;
                 this.divByCentralEditRoom.Visible = false;
                 this.divByCentralRespond.Visible = false;
+                this.divByCentralRounds.Visible = false;
             }
             else
             {
@@ -208,6 +249,7 @@ namespace Team11
                 this.divByCentralPoolRoom.Visible = true;
                 this.divByCentralEditRoom.Visible = true;
                 this.divByCentralRespond.Visible = true;
+                this.divByCentralRounds.Visible = true;
             }
 
         }
