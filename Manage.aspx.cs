@@ -235,7 +235,7 @@ namespace Team11
 
                 while (getModuleData.Read())
                 {
-                    ListItem ModuleItem = new ListItem(getModuleData.GetString(0) + ":" + getModuleData.GetString(1), getModuleData.GetString(2));
+                    ListItem ModuleItem = new ListItem(getModuleData.GetString(0) + ":" + getModuleData.GetString(1), getModuleData.GetInt32(2).ToString());
                     DropDownListFilterAddStaffDept.Items.Add(ModuleItem);
                     DropDownListFilterDeleteStaffDept.Items.Add(ModuleItem);
                 }
@@ -320,27 +320,26 @@ WHERE userID={0}", DropDownListFilterDeleteDeptStaff.SelectedIndex);
         {
             DropDownListFilterAddModuleStaff.Items.Clear();
             connect.Open();
-            string staffsql = String.Format(@"
-
-SELECT FirstName, LastName, ModuleStaff.StaffID, ModuleStaff.ModuleCode 
-FROM Staff 
-inner join ModuleStaff on Staff.StaffID = ModuleStaff.StaffID
-WHERE ModuleStaff.userID={0}", DropDownListFilterAddDeptStaff.SelectedIndex);
-
+            string staffsql = String.Format(@"SELECT FirstName, LastName FROM Staff ");
+            /*, ModuleStaff.StaffID, ModuleStaff.ModuleCode 
+    inner join ModuleStaff on Staff.StaffID = ModuleStaff.StaffID
+    WHERE ModuleStaff.userID={0}", DropDownListFilterAddDeptStaff.SelectedIndex);
+                */
             SqlCommand staffcommand = new SqlCommand(staffsql, connect);
             SqlDataReader staff = staffcommand.ExecuteReader();
             /*
             if (DropDownListFilterAddStaffDept.SelectedIndex > 0)
             {
-                staffsql += "AND ModuleStaff.ModuleCode = '"+ DropDownListFilterAddModuleStaff.SelectedItem + "'";
+                staffsql += "AND ModuleStaff.ModuleCode = '"+ DropDownListFilterAddStaffDept.SelectedItem + "'";
             }
             */
             while (staff.Read())
             {
+
                 string firstName = staff.GetString(0);
                 string lastName = staff.GetString(1);
                 string ModuleStaff = String.Format("{0} {1}", firstName, lastName);
-                DropDownListFilterAddStaffDept.Items.Add(ModuleStaff);
+                DropDownListFilterAddModuleStaff.Items.Add(ModuleStaff);
 
             }
             connect.Close();
@@ -374,6 +373,27 @@ WHERE ModuleStaff.userID = {0}", DropDownListFilterDeleteDeptStaff.SelectedIndex
                 DropDownListFilterDeleteModuleStaff.Items.Add(ModuleStaff);
 
             }
+            connect.Close();
+
+        }
+
+        private void AddStaffList(SqlConnection connect)
+        {
+            
+            connect.Open();
+            string insertSQL = "INSERT INTO ModuleStaff (ModuleCode, StaffID, userID) VALUES ('" + DropDownListFilterAddStaffDept + "'," + DropDownListFilterAddModuleStaff + "," + DropDownListFilterAddStaffDept.SelectedIndex + ")";
+            
+            SqlCommand NewModuleStaff = new SqlCommand(insertSQL, connect);
+            SqlDataReader Newstaff = NewModuleStaff.ExecuteReader();
+
+            while (Newstaff.Read())
+            {
+                DropDownListFilterAddModuleStaff.Items.Clear();
+                DropDownListFilterAddStaffDept.Items.Clear();
+                DropDownListFilterAddDeptStaff.Items.Clear();
+
+            }
+            
             connect.Close();
 
         }
@@ -417,6 +437,7 @@ WHERE ModuleStaff.userID = {0}", DropDownListFilterDeleteDeptStaff.SelectedIndex
                 this.divByCentralEditRoom.Visible = false;
                 this.divByCentralRespond.Visible = false;
                 this.divByCentralRounds.Visible = false;
+                this.divByCentralModuleStaff.Visible = false;
             }
             else
             {
@@ -698,7 +719,8 @@ WHERE ModuleStaff.userID = {0}", DropDownListFilterDeleteDeptStaff.SelectedIndex
 
         protected void CheckBoxListAddStaff_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            AddStaffList(connect);
         }
 
         protected void CheckBoxListDeleteStaff_SelectedIndexChanged(object sender, EventArgs e)

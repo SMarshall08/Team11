@@ -260,16 +260,20 @@ WHERE [Request].requestID = " + requests[request];
             HtmlTable myTable = new HtmlTable();
             myTable.Border = 1;
             myTable.ID = "RequestsTable";
+
             HtmlTableRow row = new HtmlTableRow();
             HtmlTableCell cell0 = new HtmlTableCell("th");
             cell0.InnerText = "Reference #";
             row.Cells.Add(cell0);
+
             HtmlTableCell cell = new HtmlTableCell("th");
             cell.InnerText = "Module";
             row.Cells.Add(cell);
+
             HtmlTableCell cell4 = new HtmlTableCell("th");
             cell4.InnerText = "Day";
             row.Cells.Add(cell4);
+
             HtmlTableCell cell2 = new HtmlTableCell("th");
             if (prefPeriod == 1)
                 cell2.InnerText = "Period";
@@ -280,21 +284,26 @@ WHERE [Request].requestID = " + requests[request];
             HtmlTableCell cell3 = new HtmlTableCell("th");
             cell3.InnerText = "Weeks";
             row.Cells.Add(cell3);
+
             HtmlTableCell cell5 = new HtmlTableCell("th");
             cell5.InnerText = "Requested Room(s)";
             row.Cells.Add(cell5);
+
             HtmlTableCell cell6 = new HtmlTableCell("th");
             string returnedHeaderText = SetHeaderTitle(header1);
             cell6.InnerText = returnedHeaderText;
             row.Cells.Add(cell6);
+
             HtmlTableCell cell7 = new HtmlTableCell("th");
             returnedHeaderText = SetHeaderTitle(header2);
             cell7.InnerText = returnedHeaderText;
             row.Cells.Add(cell7);
+
             HtmlTableCell cell8 = new HtmlTableCell("th");
             returnedHeaderText = SetHeaderTitle(header3);
             cell8.InnerText = returnedHeaderText;
             row.Cells.Add(cell8);
+
             HtmlTableCell cell9 = new HtmlTableCell("th");
             cell9.InnerText = "Status";
             row.Cells.Add(cell9);

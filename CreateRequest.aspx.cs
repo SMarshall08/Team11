@@ -226,13 +226,28 @@ WHERE userID={0}", userID);
                 bool isNumeric = int.TryParse(TextBoxCapacity.Text, out number);
                 if (isNumeric)
                 {
-                    roomquery = "SELECT roomName FROM [Room] LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID LEFT JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Room].capacity >='" + TextBoxCapacity.Text + "' AND [Park].parkName ='" + RadioButtonListParks.Text + "'";
+                    roomquery = @"
+SELECT roomName 
+FROM [Room] 
+LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID 
+LEFT JOIN [Park] ON [Building].parkID = [Park].parkID 
+WHERE [Room].capacity >='" + TextBoxCapacity.Text + "' AND [Park].parkName ='" + RadioButtonListParks.Text + "'";
                 }
                 else
-                    roomquery = "SELECT roomName FROM [Room] LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID LEFT JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Park].parkName ='" + RadioButtonListParks.Text + "'";
+                    roomquery = @"
+SELECT roomName 
+FROM [Room] 
+LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID 
+LEFT JOIN [Park] ON [Building].parkID = [Park].parkID 
+WHERE [Park].parkName ='" + RadioButtonListParks.Text + "'";
             }
             else
-                roomquery = "SELECT roomName FROM [Room] LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID LEFT JOIN [Park] ON [Building].parkID = [Park].parkID WHERE [Park].parkName ='" + RadioButtonListParks.Text + "'";
+                roomquery = @"
+SELECT roomName 
+FROM [Room] 
+LEFT JOIN [Building] ON [Room].buildingID = [Building].buildingID 
+LEFT JOIN [Park] ON [Building].parkID = [Park].parkID 
+WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildingName = '" + DropDownListBuildings.SelectedItem + "'";
 
             // Add facilities information if any were selected
             if (facilitysql != "")
