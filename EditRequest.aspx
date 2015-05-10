@@ -332,7 +332,8 @@
                             <asp:Label ID="LabelRoom1" runat="server" Text="None"></asp:Label>
                             <!-- Book Room 1 Delete Button-->
                             <asp:Button class="btn btn-success moveleft" ID="ButtonDeleteRoom1" runat="server" Text="Delete" onclick="ButtonDeleteRoom1_Click" />
-                                   </br>                     
+                            <br/>       
+                                          
                             <!-- Book Room 2 label -->
                             <asp:Label ID="LabelRoom2" runat="server" Text="None"></asp:Label>
                             <!-- Book Room 2 Delete Button -->
@@ -340,11 +341,20 @@
                                 class="btn btn-success moveleft" onclick="ButtonDeleteRoom2_Click" 
                                 Text="Delete" />
                             <br />
+
                             <!-- Book Room 3 label -->
                             <asp:Label ID="LabelRoom3" runat="server" Text="None"></asp:Label>
                             <!-- Book Room 3 Delete Button-->
                             <asp:Button style="margin-right:24px;" ID="ButtonDeleteRoom3" runat="server" 
                                 class="btn btn-success moveleft" onclick="ButtonDeleteRoom3_Click" 
+                                Text="Delete" />
+                            <br />
+
+                            <!-- Book Room 4 label -->
+                            <asp:Label ID="LabelRoom4" runat="server" Text="None"></asp:Label>
+                            <!-- Book Room 4 Delete Button-->
+                            <asp:Button style="margin-right:24px;" ID="ButtonDeleteRoom4" runat="server" 
+                                class="btn btn-success moveleft" onclick="ButtonDeleteRoom4_Click" 
                                 Text="Delete" />
                             
                         </div>
@@ -353,19 +363,26 @@
                             <asp:Label ID="LabelRoomAlt1" runat="server" Text="None"></asp:Label>
                             <!-- Alt Room 1 Delete button -->
                             <asp:Button class="btn btn-success moveleft" ID="ButtonDeleteRoomAlt1" runat="server" Text="Delete" onclick="ButtonDeleteRoomAlt1_Click" />
-                            </br>
+                            <br/>
                             <!-- Alt Room 2 label -->
                             <asp:Label ID="LabelRoomAlt2" runat="server" Text="None"></asp:Label>
                             <!-- Alt Room 2 Delete Button -->
                             <asp:Button ID="ButtonDeleteRoomAlt2" runat="server" 
                                 class="btn btn-success moveleft" onclick="ButtonDeleteRoomAlt2_Click" 
                                 Text="Delete" />
-                            </br>
+                            <br/>
                             <!-- Alt Room 3 label -->
                             <asp:Label ID="LabelRoomAlt3" runat="server" Text="None"></asp:Label>
                             <!-- Alt Room 3 Delete Button -->
                             <asp:Button style="margin-right:24px;" ID="ButtonDeleteRoomAlt3" runat="server" 
                                 class="btn btn-success moveleft" onclick="ButtonDeleteRoomAlt3_Click" 
+                                Text="Delete" />
+                             <br/>
+                            <!-- Alt Room 4 label -->
+                            <asp:Label ID="LabelRoomAlt4" runat="server" Text="None"></asp:Label>
+                            <!-- Alt Room 4 Delete Button -->
+                            <asp:Button style="margin-right:24px;" ID="ButtonDeleteRoomAlt4" runat="server" 
+                                class="btn btn-success moveleft" onclick="ButtonDeleteRoomAlt4_Click" 
                                 Text="Delete" />
                             
                         </div>
