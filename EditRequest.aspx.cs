@@ -389,6 +389,9 @@ namespace Team11
             { roomtype = "1"; }
             else if (roomtype == "Seminar")
             { roomtype = "2"; }
+            else if (roomtype == "Both") {
+                roomtype = "1 OR facilityID = 2";
+            }
             string arrangement = RadioButtonListArrangement.Text;
             if (arrangement == "Tiered")
             { arrangement = "3"; }
