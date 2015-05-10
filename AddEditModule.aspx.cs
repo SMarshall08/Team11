@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -32,11 +32,12 @@ namespace Team11
                 if (checksum == 0)
                 {
                     conn.Open();
-                    string insertquery = "Insert into [Module] Values('" + TextBoxModuleCode.Text + "','" + TextBoxModuleName.Text + "','1')";
+                    string insertquery = "Insert into [Module] (moduleCode,moduleTitle,userID) Values('" + TextBoxModuleCode.Text + "','" + TextBoxModuleName.Text + "','" + userID + "')";
                     SqlCommand insertcommand = new SqlCommand(insertquery, conn);
                     insertcommand.ExecuteNonQuery();
                     LabelResponse.Text = "Module was sucessfully added to the Database";
                     conn.Close();
+                    Response.Redirect("AddEditModule.aspx");
                 }
                 else { LabelResponse.Text = "Please enter a different Module Code/Title"; }
             }
