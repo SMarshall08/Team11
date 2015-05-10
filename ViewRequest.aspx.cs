@@ -150,8 +150,8 @@ SELECT DISTINCT [Request].requestID,
 FROM [Request] 
 INNER JOIN [Week] on [Week].weekID = [request].weekID
 INNER JOIN [Module] ON [Module].moduleCode = [request].moduleCode 
-INNER JOIN [BookedRoom] ON [Request].requestID = [BookedRoom].requestID 
-INNER JOIN [Room] ON [BookedRoom].roomID = [Room].roomID 
+INNER JOIN [PreferredRoom] ON [Request].requestID = [PreferredRoom].requestID 
+INNER JOIN [Room] ON [PreferredRoom].roomID = [Room].roomID 
 INNER JOIN [Building] ON [Room].buildingID = [Building].buildingID 
 INNER JOIN [Park] ON [Building].parkID = [Park].parkID 
 WHERE [Module].userID = '" + Session["userID"] + "'" + codeStr;
