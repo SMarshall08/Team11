@@ -233,7 +233,7 @@
 
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
-                        <h3>Choose Staff to Add to Module</h3>
+                        <h3>Choose Staff to Add to Department</h3>
                     </div>
                 </div>
 
@@ -299,7 +299,7 @@
                         <asp:CheckBoxList class="center" ID="CheckBoxListDeleteStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListDeleteStaff_SelectedIndexChanged" CssClass="auto-style2">
                             <asp:ListItem class="btn btn-primary">Delete Staff</asp:ListItem>
                         </asp:CheckBoxList>
-                        <asp:TextBox ID="StaffError" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="StaffError" align="left" runat="server" OnTextChanged="StaffError_TextChanged"></asp:TextBox>
                     </div>
                 </div>
 

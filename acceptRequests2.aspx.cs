@@ -14,13 +14,21 @@ namespace Team11
     {
         int userID = 0;
         int numberOfRooms = 0;
+        int numberOfAltRooms = 0;
         string tempString = "";
         string room = "";
+        string AltRoom = "";
         string roomID = "";
+        string AltRoomID = "";
+
         string room1 = "", room2 = "", room3 = "", room4 = "";
         string roomID1 = "", roomID2 = "", roomID3 = "", roomID4 = "";
+        string AltRoom1 = "", AltRoom2 = "", AltRoom3 = "", AltRoom4 = "";
+        string AltRoomID1 = "", AltRoomID2 = "", AltRoomID3 = "", AltRoomID4 = "";
         List<string> roomIDs = new List<string>();
+        List<string> AltRoomIDs = new List<string>();
         List<string> roomNames = new List<string>();
+        List<string> AltRoomNames = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             userID = Convert.ToInt32(Session["userID"]);
@@ -33,7 +41,7 @@ namespace Team11
             bool userIsAdmin = (trimmedAdmin == "yes");
             if (!userIsAdmin)
             {
-                
+
                 tableDiv.InnerHtml = "You are not currently logged in as an admin. If you wish to use this page, you must be logged in as an admin.";
                 buttonDiv.InnerHtml = "";
             }
@@ -200,17 +208,21 @@ namespace Team11
 
                     while (reader4.Read())
                     {
-                        if (numberOfRooms > 1) {
-                        tempString = reader4["roomName"].ToString();
-                        roomNames.Add(tempString);
-                        
-                        }else{
-                        room = reader4["roomName"].ToString();
+                        if (numberOfRooms > 1)
+                        {
+                            tempString = reader4["roomName"].ToString();
+                            roomNames.Add(tempString);
+
                         }
+                        else
+                        {
+                            room = reader4["roomName"].ToString();
                         }
+                    }
                 }
 
-                if (numberOfRooms > 1) {
+                if (numberOfRooms > 1)
+                {
                     if (numberOfRooms == 2)
                     {
                         room1 = roomNames[0];
@@ -235,61 +247,139 @@ namespace Team11
 
                         room = room1 + ", " + room2 + " ," + room3 + " and " + room4;
                     }
-                    
-                
-                
+
+
+
                 }
+                AltRoom = "No alt rooms";
+                string AltRoomSQL = "SELECT * FROM AltRoom WHERE requestID =" + reference;
 
 
+                SqlCommand AltCmd3 = new SqlCommand(AltRoomSQL, Connection);
+                SqlDataReader AltReader3; AltReader3 = AltCmd3.ExecuteReader();
 
-                if (week1) { weeks += "1, "; }
-                if (week2) { weeks += "2, "; }
-                if (week3) { weeks += "3, "; }
-                if (week4) { weeks += "4, "; }
-                if (week5) { weeks += "5, "; }
-                if (week6) { weeks += "6, "; }
-                if (week7) { weeks += "7, "; }
-                if (week8) { weeks += "8, "; }
-                if (week9) { weeks += "9, "; }
-                if (week10) { weeks += "10, "; }
-                if (week11) { weeks += "11, "; }
-                if (week12) { weeks += "12, "; }
-                if (week13) { weeks += "13, "; }
-                if (week14) { weeks += "14, "; }
-                if (week15) { weeks += "15, "; }
-                if (weeks == "") { weeks += "None"; }
+                while (AltReader3.Read())
+                {
+                    roomID = reader3["roomID"].ToString();
+                    if (!(AltRoomID == "")) { AltRoomIDs.Add(AltRoomID); }
+
+
+                }
+                numberOfAltRooms = AltRoomIDs.Count();
+
+                AltReader3.Close();
+                string AltRoomSQL2 = "";
+                if (numberOfAltRooms > 1)
+                {
+
+                    if (numberOfAltRooms == 2) { AltRoomID1 = AltRoomIDs[0]; AltRoomID2 = AltRoomIDs[1]; AltRoomSQL2 = "SELECT * FROM AltRoom WHERE AltRoomID =" + AltRoomID1 + " OR AltRoomID=" + AltRoomID2; }
+                    if (numberOfAltRooms == 3) { AltRoomID1 = AltRoomIDs[0]; AltRoomID2 = AltRoomIDs[1]; AltRoomID3 = AltRoomIDs[2]; AltRoomSQL2 = "SELECT * FROM AltRoom WHERE AltRoomID =" + AltRoomID1 + " OR AltRoomID=" + AltRoomID2 + " OR AltRoomID=" + AltRoomID3; }
+                    if (numberOfAltRooms == 4) { AltRoomID1 = AltRoomIDs[0]; AltRoomID2 = AltRoomIDs[1]; AltRoomID3 = AltRoomIDs[2]; AltRoomID4 = AltRoomIDs[3]; AltRoomSQL2 = "SELECT * FROM AltRoom WHERE AltRoomID =" + AltRoomID1 + " OR AltRoomID=" + AltRoomID2 + " OR AltRoomID=" + AltRoomID3 + " OR AltRoomID=" + AltRoomID4; }
+
+                }
                 else
                 {
-                    weeks = weeks.Remove(weeks.Length - 2, 2);
+                    AltRoomSQL2 = "SELECT * FROM Room WHERE AltRoomID =" + AltRoomID;
+                }
+                if (!(AltRoomID == ""))
+                {
+                    SqlCommand cmd4 = new SqlCommand(AltRoomSQL2, Connection);
+                    SqlDataReader reader4; reader4 = cmd4.ExecuteReader();
+
+                    while (reader4.Read())
+                    {
+                        if (numberOfAltRooms > 1)
+                        {
+                            tempString = reader4["AltRoomName"].ToString();
+                            AltRoomNames.Add(tempString);
+
+                        }
+                        else
+                        {
+                            AltRoom = reader4["AltRoomName"].ToString();
+                        }
+                    }
                 }
 
+                if (numberOfAltRooms > 1)
+                {
+                    if (numberOfAltRooms == 2)
+                    {
+                        AltRoom1 = AltRoomNames[0];
+                        AltRoom2 = AltRoomNames[1];
+
+                        AltRoom = AltRoom1 + " and " + AltRoom2;
+                    }
+                    if (numberOfAltRooms == 3)
+                    {
+                        AltRoom1 = AltRoomNames[0];
+                        AltRoom2 = AltRoomNames[1];
+                        AltRoom3 = AltRoomNames[2];
+
+                        AltRoom = AltRoom1 + ", " + AltRoom2 + " and " + AltRoom3;
+                    }
+                    if (numberOfAltRooms == 4)
+                    {
+                        AltRoom1 = AltRoomNames[0];
+                        AltRoom2 = AltRoomNames[1];
+                        AltRoom3 = AltRoomNames[2];
+                        AltRoom4 = AltRoomNames[3];
+
+                        AltRoom = AltRoom1 + ", " + AltRoom2 + " ," + AltRoom3 + " and " + AltRoom4;
+                    }
 
 
-                tableDiv.InnerHtml = "<table style=\"border: 4px solid black;\"><tr style=\"border: 4px solid black;\">" +
-        "<td style=\"border: 4px solid black;\">Module Code</td>" +
-        "<td style=\"border: 4px solid black;\">Status</td>" +
-        "<td style=\"border: 4px solid black;\">Weeks</td>" +
-    "<td style=\"border: 4px solid black;\">Day</td>" +
-    "<td style=\"border: 4px solid black;\">Period Start</td>" +
-    "<td style=\"border: 4px solid black;\">Period End</td>" +
-    "<td style=\"border: 4px solid black;\">Semester</td>" +
-    "<td style=\"border: 4px solid black;\">Year</td>" +
-    "<td style=\"border: 4px solid black;\">Round</td>" +
-    "<td style=\"border: 4px solid black;\">Preferred Room</td>" +
-    "<tr style=\"border: 4px solid black;\">" +
-    "<td style=\"border: 4px solid black;\">" + moduleCode + "</td>" +
-    "<td style=\"border: 4px solid black;\">" + status + "</td>" +
-    "<td style=\"border: 4px solid black;\">" + weeks + "</td>" +
-    "<td style=\"border: 4px solid black;\">" + day + "</td>" +
-    "<td style=\"border: 4px solid black;\">" + periodStart + "</td>" +
-    "<td style=\"border: 4px solid black;\">" + periodEnd + "</td>" +
-    "<td style=\"border: 4px solid black;\">" + semester + "</td>" +
-    "<td style=\"border: 4px solid black;\">" + year + "</td>" +
-    "<td style=\"border: 4px solid black;\">" + round + "</td>" +
-    "<td style=\"border: 4px solid black;\">" + room + "</td>" +
-    "</tr></table>";
+
+                    if (week1) { weeks += "1, "; }
+                    if (week2) { weeks += "2, "; }
+                    if (week3) { weeks += "3, "; }
+                    if (week4) { weeks += "4, "; }
+                    if (week5) { weeks += "5, "; }
+                    if (week6) { weeks += "6, "; }
+                    if (week7) { weeks += "7, "; }
+                    if (week8) { weeks += "8, "; }
+                    if (week9) { weeks += "9, "; }
+                    if (week10) { weeks += "10, "; }
+                    if (week11) { weeks += "11, "; }
+                    if (week12) { weeks += "12, "; }
+                    if (week13) { weeks += "13, "; }
+                    if (week14) { weeks += "14, "; }
+                    if (week15) { weeks += "15, "; }
+                    if (weeks == "") { weeks += "None"; }
+                    else
+                    {
+                        weeks = weeks.Remove(weeks.Length - 2, 2);
+                    }
 
 
+
+                    tableDiv.InnerHtml = "<table style=\"border: 4px solid black;\"><tr style=\"border: 4px solid black;\">" +
+            "<td style=\"border: 4px solid black;\">Module Code</td>" +
+            "<td style=\"border: 4px solid black;\">Status</td>" +
+            "<td style=\"border: 4px solid black;\">Weeks</td>" +
+        "<td style=\"border: 4px solid black;\">Day</td>" +
+        "<td style=\"border: 4px solid black;\">Period Start</td>" +
+        "<td style=\"border: 4px solid black;\">Period End</td>" +
+        "<td style=\"border: 4px solid black;\">Semester</td>" +
+        "<td style=\"border: 4px solid black;\">Year</td>" +
+        "<td style=\"border: 4px solid black;\">Round</td>" +
+        "<td style=\"border: 4px solid black;\">Preferred Room</td>" +
+        "<tr style=\"border: 4px solid black;\">" +
+        "<td style=\"border: 4px solid black;\">" + moduleCode + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + status + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + weeks + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + day + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + periodStart + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + periodEnd + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + semester + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + year + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + round + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + room + "</td>" +
+        "<td style=\"border: 4px solid black;\">" + AltRoom + "</td>" +
+        "</tr></table>";
+
+
+                }
             }
         }
         protected void changeRequestedRoomFunction(Object sender, EventArgs e)
