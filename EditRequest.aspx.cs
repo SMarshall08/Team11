@@ -16,9 +16,23 @@ namespace Team11
     {
         int requestid = 1;
         int userID = 0;
+        int round = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string roundLabelSQL = "SELECT * FROM Rounds";
+            SqlConnection roundLabelConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            SqlCommand roundLabelCmd = new SqlCommand(roundLabelSQL, roundLabelConnection);
+            SqlDataReader roundLabelReader;
+            roundLabelConnection.Open();
+            roundLabelReader = roundLabelCmd.ExecuteReader();
+            DateTime databaseDate = DateTime.Now;
+            while (roundLabelReader.Read())
+            {
+                round = Convert.ToInt32(roundLabelReader["round"]);
+                databaseDate = Convert.ToDateTime(roundLabelReader["dateToAdvance"]);
+
+            }
             // read the userid from the querystring
             userID = Convert.ToInt32(Session["userID"]);
 
@@ -971,7 +985,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Monday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Monday'," + startTime + "," + endTime + "," + semesterText + ","+DateTime.Now.Year.ToString()+","+round+")";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
