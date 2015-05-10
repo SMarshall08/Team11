@@ -24,6 +24,26 @@ namespace Team11
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            string roundLabelSQL = "SELECT * FROM Rounds";
+            SqlConnection roundLabelConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            SqlCommand roundLabelCmd = new SqlCommand(roundLabelSQL, roundLabelConnection);
+            SqlDataReader roundLabelReader;
+            roundLabelConnection.Open();
+            roundLabelReader = roundLabelCmd.ExecuteReader();
+            int round = 0; DateTime databaseDate = DateTime.Now;
+            while (roundLabelReader.Read())
+            {
+                round = Convert.ToInt32(roundLabelReader["round"]);
+                databaseDate = Convert.ToDateTime(roundLabelReader["dateToAdvance"]);
+
+            }
+
+            DateTime theDateNow = DateTime.Now;
+            double days = (databaseDate.Subtract(theDateNow).TotalDays);
+            double daysRoundedUp = Math.Ceiling(days);
+            string roundString = "View Requests: (Current round: " + round + " - Days until next round: " + daysRoundedUp + ")";
+            countdownLabel2.Text = roundString;
+
             // read the userid from the querystring
             userID = Convert.ToInt32(Session["userID"]);
             string fillDeptName = string.Format("SELECT deptName from [User] where userID={0}", Session["userID"]);
