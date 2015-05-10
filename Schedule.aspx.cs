@@ -304,7 +304,8 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
                 }
 
                 int period = getSchedule2Data.GetInt32(getSchedule2Data.GetOrdinal("periodStart"));
-                schedule[day, period] = schedule[day, period] + buildingName + ": " + roomName + ": " + moduleCode + "<br>";
+                schedule[day, period] = schedule[day, period] + "Building: " + buildingName + "<br>Room: " + roomName + "<br>Module:" + moduleCode + "<br><hr>";
+
 
             }
 

@@ -837,6 +837,11 @@ WHERE  moduleCode = '" + mod + "' AND StaffID = " + DropDownListFilterDeleteModu
             
         }
 
+        protected void StaffError_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
 
     }

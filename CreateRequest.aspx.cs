@@ -738,7 +738,7 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                     int RoomToAdd = roomlistAlt[i];
 
                                     connection.Open();
-                                    string altroomsql = "Insert into [PreferredRoom] (requestID,AltRoom) values((SELECT MAX(requestID) FROM [Request])," + RoomToAdd + ")";
+                                    string altroomsql = "Insert into [AltRoom] (requestID,AltRoom) values((SELECT MAX(requestID) FROM [Request])," + RoomToAdd + ")";
                                     SqlCommand altroomcommand = new SqlCommand(altroomsql, connection);
                                     altroomcommand.ExecuteNonQuery();
                                     connection.Close();
