@@ -166,7 +166,7 @@ namespace Team11
                                                                     {CheckBoxT1, CheckBoxT2, CheckBoxT3, CheckBoxT4, CheckBoxT5, CheckBoxT6, CheckBoxT7, CheckBoxT8, CheckBoxT9 },
                                                                     {CheckBoxW1, CheckBoxW2, CheckBoxW3, CheckBoxW4, CheckBoxW5, CheckBoxW6, CheckBoxW7, CheckBoxW8, CheckBoxW9  },
                                                                     {CheckBoxJ1, CheckBoxJ2, CheckBoxJ3, CheckBoxJ4, CheckBoxJ5, CheckBoxJ6, CheckBoxJ7, CheckBoxJ8, CheckBoxJ9  },
-                                                                    {CheckBoxM1, CheckBoxF2, CheckBoxF3, CheckBoxF4, CheckBoxF5, CheckBoxF6, CheckBoxF7, CheckBoxF8, CheckBoxF9  }};
+                                                                    {CheckBoxF1, CheckBoxF2, CheckBoxF3, CheckBoxF4, CheckBoxF5, CheckBoxF6, CheckBoxF7, CheckBoxF8, CheckBoxF9  }};
             Button[,] labels = { { LabelM1, LabelM2, LabelM3, LabelM4, LabelM5, LabelM6, LabelM7, LabelM8, LabelM9 },
                                    {LabelT1, LabelT2, LabelT3, LabelT4, LabelT5, LabelT6, LabelT7, LabelT8, LabelT9 },
                                    {LabelW1, LabelW2, LabelW3, LabelW4, LabelW5, LabelW6, LabelW7, LabelW8, LabelW9 },
