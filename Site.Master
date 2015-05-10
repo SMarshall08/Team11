@@ -126,7 +126,7 @@ $(document).ready(function () {
     </form>
     <div class="navbar navbar-inverse narbar-fixed-bottom" role="navigation">
         <div class="container">
-            <div class="navbar-text pull-left">
+            <div class="centre">
 
                 <div id="displayRound" runat="server"></div>
             </div>
