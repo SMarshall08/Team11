@@ -238,6 +238,24 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.Button ButtonDeleteRoom3;
         
         /// <summary>
+        /// LabelRoom4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelRoom4;
+        
+        /// <summary>
+        /// ButtonDeleteRoom4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonDeleteRoom4;
+        
+        /// <summary>
         /// LabelRoomAlt1 control.
         /// </summary>
         /// <remarks>
@@ -290,6 +308,24 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonDeleteRoomAlt3;
+        
+        /// <summary>
+        /// LabelRoomAlt4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelRoomAlt4;
+        
+        /// <summary>
+        /// ButtonDeleteRoomAlt4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonDeleteRoomAlt4;
         
         /// <summary>
         /// RadioButtonListSemester control.
