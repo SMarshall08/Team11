@@ -34,7 +34,7 @@
                     </div>
                     <div class="text-center col-md-8 col-sm-8">
                         <asp:TextBox class="form-control" ID="TextBoxModuleCode" runat="server"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBoxModuleCode" ErrorMessage="Please enter a valid Module Code" ValidationExpression="^[A-Z]{2}[A-D][0-9]{3}$"></asp:RegularExpressionValidator>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBoxModuleCode" ErrorMessage="Please enter a valid Module Code (3 capital letters followed by 3 numbers)" ValidationExpression="^[A-Z]{3}[0-9]{3}$"></asp:RegularExpressionValidator>
                     </div>
                 </div>
                 <div class="row">
@@ -81,7 +81,7 @@
         Width="95%" style="padding-left:20px">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         <Columns>
-            <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+            <asp:CommandField ShowDeleteButton="True" />
             <asp:BoundField DataField="moduleCode" HeaderText="moduleCode" 
                 SortExpression="moduleCode" />
             <asp:BoundField DataField="moduleTitle" HeaderText="moduleTitle" 

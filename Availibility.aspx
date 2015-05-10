@@ -134,11 +134,11 @@
 <%-- Body Content --%>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     
-    <div class="canister none">
+    <div class="canister none" runat="server" visible="false">
         <div class="canistertitle none">
             <h2>Ad-Hoc by Room / Date</h2>
         </div>
-        <div class="canistercontainer none">
+        <div class="canistercontainer none" >
             <div class="row">
                 <div class="text-center col-md-12 col-sm-12 none">
                     <asp:RadioButtonList class="center none" ID="RadioButtonListView" runat="server" AutoPostBack="true" onselectedindexchanged="RadioButtonListView_SelectedIndexChanged" RepeatDirection="Horizontal">
@@ -160,7 +160,7 @@
     <!-- BY ROOM --><!-- BY ROOM --><!-- BY ROOM -->
     <!-- BY ROOM --><!-- BY ROOM --><!-- BY ROOM -->
     <!-- BY ROOM --><!-- BY ROOM --><!-- BY ROOM -->
-    <div id="divByRoom" runat="server" visible="false">
+    <div id="divByRoom" runat="server" visible="true">
 
         <div class="canister">
             <div class="canistertitle">

@@ -146,7 +146,10 @@
                     <asp:RadioButtonList class="center none" ID="RadioButtonListView" runat="server" AutoPostBack="true" onselectedindexchanged="RadioButtonListView_SelectedIndexChanged" RepeatDirection="Horizontal">
                         <asp:ListItem class="none btn btn-primary">Department</asp:ListItem>
                         <asp:ListItem class="none btn btn-primary">Central</asp:ListItem>
+                        
                     </asp:RadioButtonList>
+                    <br />
+                        <asp:Label id="isUserAdminLabel" runat="server"></asp:Label>
                 </div>
             </div>
         </div><!-- ./row -->

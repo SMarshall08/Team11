@@ -389,6 +389,9 @@ namespace Team11
             { roomtype = "1"; }
             else if (roomtype == "Seminar")
             { roomtype = "2"; }
+            else if (roomtype == "Both") {
+                roomtype = "1 OR facilityID = 2";
+            }
             string arrangement = RadioButtonListArrangement.Text;
             if (arrangement == "Tiered")
             { arrangement = "3"; }
@@ -484,7 +487,7 @@ namespace Team11
             {
                 if (Convert.ToInt32(TextBoxCapacity.Text) > 0)
                 {
-                    if (!((LabelRoom3.Text == "None") && (LabelRoom2.Text == "None") && (LabelRoom1.Text == "None")))
+                    if (!((LabelRoom4.Text == "None") && (LabelRoom3.Text == "None") && (LabelRoom2.Text == "None") && (LabelRoom1.Text == "None")))
                     {
                         if (!((Week1.Checked == false) && (Week2.Checked == false) && (Week3.Checked == false) && (Week4.Checked == false) && (Week5.Checked == false) && (Week6.Checked == false) && (Week7.Checked == false) && (Week8.Checked == false) && (Week9.Checked == false) && (Week10.Checked == false) && (Week11.Checked == false) && (Week12.Checked == false) && (Week13.Checked == false) && (Week14.Checked == false) && (Week15.Checked == false)))
                         {
@@ -748,30 +751,38 @@ namespace Team11
                                 bool l1 = LabelRoom1.Text.Equals(label);
                                 bool l2 = LabelRoom2.Text.Equals(label);
                                 bool l3 = LabelRoom3.Text.Equals(label);
+                                bool l4 = LabelRoom4.Text.Equals(label);
                                 if (!l1) { numberOfRooms++; }
                                 if (!l2) { numberOfRooms++; }
                                 if (!l3) { numberOfRooms++; }
+                                if (!l4) { numberOfRooms++; }
                                 string roomname = LabelRoom1.Text;
                                 string roomname2 = LabelRoom2.Text;
                                 string roomname3 = LabelRoom3.Text;
+                                string roomname4 = LabelRoom4.Text;
 
                                 bool l1alt = LabelRoomAlt1.Text.Equals(label);
                                 bool l2alt = LabelRoomAlt2.Text.Equals(label);
                                 bool l3alt = LabelRoomAlt3.Text.Equals(label);
+                                bool l4alt = LabelRoomAlt4.Text.Equals(label);
                                 if (!l1alt) { numberAltRooms++; }
                                 if (!l2alt) { numberAltRooms++; }
                                 if (!l3alt) { numberAltRooms++; }
+                                if (!l4alt) { numberAltRooms++; }
                                 string roomnamealt = LabelRoomAlt1.Text;
                                 string roomname2alt = LabelRoomAlt2.Text;
                                 string roomname3alt = LabelRoomAlt3.Text;
+                                string roomname4alt = LabelRoomAlt4.Text;
                                 int roomid1Alt;
                                 int roomid2Alt;
                                 int roomid3Alt;
+                                int roomid4Alt;
                                 List<int> roomlistAlt = new List<int>();
 
                                 int roomid;
                                 int roomid2;
                                 int roomid3;
+                                int roomid4;
 
                                 List<int> roomlist = new List<int>();
                                 if (numberOfRooms == 1)
@@ -841,6 +852,49 @@ namespace Team11
                                         roomid3 = Convert.ToInt32(getroomidsql3.ExecuteScalar().ToString());
                                         connection73.Close();
                                         roomlist.Add(roomid3);
+                                    }
+                                }
+                                else if (numberOfRooms == 4)
+                                {
+                                    if (roomname != "")
+                                    {
+                                        string getroomid = "SELECT roomID FROM [Room] WHERE roomName='" + roomname + "'";
+                                        SqlConnection connection7 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                        connection7.Open();
+                                        SqlCommand getroomidsql = new SqlCommand(getroomid, connection7);
+                                        roomid = Convert.ToInt32(getroomidsql.ExecuteScalar().ToString());
+                                        connection7.Close();
+                                        roomlist.Add(roomid);
+                                    }
+                                    if (roomname2 != "")
+                                    {
+                                        string getroomid2 = "SELECT roomID FROM [Room] WHERE roomName='" + roomname2 + "'";
+                                        SqlConnection connection72 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                        connection72.Open();
+                                        SqlCommand getroomidsql2 = new SqlCommand(getroomid2, connection72);
+                                        roomid2 = Convert.ToInt32(getroomidsql2.ExecuteScalar().ToString());
+                                        connection72.Close();
+                                        roomlist.Add(roomid2);
+                                    }
+                                    if (roomname3 != "")
+                                    {
+                                        string getroomid3 = "SELECT roomID FROM [Room] WHERE roomName='" + roomname3 + "'";
+                                        SqlConnection connection73 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                        connection73.Open();
+                                        SqlCommand getroomidsql3 = new SqlCommand(getroomid3, connection73);
+                                        roomid3 = Convert.ToInt32(getroomidsql3.ExecuteScalar().ToString());
+                                        connection73.Close();
+                                        roomlist.Add(roomid3);
+                                    }
+                                    if (roomname4 != "")
+                                    {
+                                        string getroomid4 = "SELECT roomID FROM [Room] WHERE roomName='" + roomname4 + "'";
+                                        SqlConnection connection74 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                        connection74.Open();
+                                        SqlCommand getroomidsql4 = new SqlCommand(getroomid4, connection74);
+                                        roomid4 = Convert.ToInt32(getroomidsql4.ExecuteScalar().ToString());
+                                        connection74.Close();
+                                        roomlist.Add(roomid4);
                                     }
                                 }
                                 /*Makes a list of all the facilityIDs selected*/
@@ -1291,6 +1345,49 @@ namespace Team11
                                         roomid3Alt = Convert.ToInt32(getroomidsql3.ExecuteScalar().ToString());
                                         connection73.Close();
                                         roomlistAlt.Add(roomid3Alt);
+                                    }
+                                }
+                                else if (numberAltRooms == 4)
+                                {
+                                    if (roomnamealt != "")
+                                    {
+                                        string getroomid = "SELECT roomID FROM [Room] WHERE roomName='" + roomnamealt + "'";
+                                        SqlConnection connection7 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                        connection7.Open();
+                                        SqlCommand getroomidsql = new SqlCommand(getroomid, connection7);
+                                        roomid1Alt = Convert.ToInt32(getroomidsql.ExecuteScalar().ToString());
+                                        connection7.Close();
+                                        roomlistAlt.Add(roomid1Alt);
+                                    }
+                                    if (roomname2alt != "")
+                                    {
+                                        string getroomid2 = "SELECT roomID FROM [Room] WHERE roomName='" + roomname2alt + "'";
+                                        SqlConnection connection72 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                        connection72.Open();
+                                        SqlCommand getroomidsql2 = new SqlCommand(getroomid2, connection72);
+                                        roomid2Alt = Convert.ToInt32(getroomidsql2.ExecuteScalar().ToString());
+                                        connection72.Close();
+                                        roomlistAlt.Add(roomid2Alt);
+                                    }
+                                    if (roomname3alt != "")
+                                    {
+                                        string getroomid3 = "SELECT roomID FROM [Room] WHERE roomName='" + roomname3alt + "'";
+                                        SqlConnection connection73 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                        connection73.Open();
+                                        SqlCommand getroomidsql3 = new SqlCommand(getroomid3, connection73);
+                                        roomid3Alt = Convert.ToInt32(getroomidsql3.ExecuteScalar().ToString());
+                                        connection73.Close();
+                                        roomlistAlt.Add(roomid3Alt);
+                                    }
+                                    if (roomname4alt != "")
+                                    {
+                                        string getroomid4 = "SELECT roomID FROM [Room] WHERE roomName='" + roomname4alt + "'";
+                                        SqlConnection connection74 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+                                        connection74.Open();
+                                        SqlCommand getroomidsql4 = new SqlCommand(getroomid4, connection74);
+                                        roomid4Alt = Convert.ToInt32(getroomidsql4.ExecuteScalar().ToString());
+                                        connection74.Close();
+                                        roomlistAlt.Add(roomid4Alt);
                                     }
                                 }
 
@@ -1904,10 +2001,12 @@ namespace Team11
             string label1 = LabelRoom1.Text;
             string label2 = LabelRoom2.Text;
             string label3 = LabelRoom3.Text;
+            string label4 = LabelRoom4.Text;
             string selectedroom = DropDownListRooms.SelectedValue;
             bool l1 = label1.Equals(label);
             bool l2 = label2.Equals(label);
             bool l3 = label3.Equals(label);
+            bool l4 = label4.Equals(label);
 
             if (l1)
             {
@@ -1921,6 +2020,10 @@ namespace Team11
             {
                 LabelRoom3.Text = selectedroom;
             }
+            else if (l4)
+            {
+                LabelRoom4.Text = selectedroom;
+            }
             DropDownListRooms.Items.Remove(selectedroom);
             DropDownListRoomsAlt.Items.Remove(selectedroom);
         }
@@ -1931,10 +2034,12 @@ namespace Team11
             string label1 = LabelRoomAlt1.Text;
             string label2 = LabelRoomAlt2.Text;
             string label3 = LabelRoomAlt3.Text;
+            string label4 = LabelRoomAlt4.Text;
             string selectedroom = DropDownListRoomsAlt.SelectedValue;
             bool l1 = label1.Equals(label);
             bool l2 = label2.Equals(label);
             bool l3 = label3.Equals(label);
+            bool l4 = label4.Equals(label);
 
             if (l1)
             {
@@ -1947,6 +2052,10 @@ namespace Team11
             else if (l3)
             {
                 LabelRoomAlt3.Text = selectedroom;
+            }
+            else if (l4)
+            {
+                LabelRoomAlt4.Text = selectedroom;
             }
             DropDownListRoomsAlt.Items.Remove(selectedroom);
         }
@@ -1990,6 +2099,19 @@ namespace Team11
             }
         }
 
+        protected void ButtonDeleteRoom4_Click(object sender, EventArgs e)
+        {
+            string label = "None";
+            string roomname = LabelRoom4.Text;
+            bool l1 = LabelRoom4.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRooms.Items.Add(roomname);
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoom4.Text = "None";
+            }
+        }
+
         protected void ButtonDeleteRoomAlt1_Click(object sender, EventArgs e)
         {
             string label = "None";
@@ -2023,6 +2145,18 @@ namespace Team11
             {
                 DropDownListRoomsAlt.Items.Add(roomname);
                 LabelRoomAlt3.Text = "None";
+            }
+        }
+
+        protected void ButtonDeleteRoomAlt4_Click(object sender, EventArgs e)
+        {
+            string label = "None";
+            string roomname = LabelRoomAlt4.Text;
+            bool l1 = LabelRoomAlt4.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoomAlt4.Text = "None";
             }
         }
 
@@ -2091,27 +2225,42 @@ namespace Team11
                 DropDownListRoomsAlt.Items.Add(roomname3);
                 LabelRoom3.Text = "None";
             }
+            string roomname4 = LabelRoom4.Text;
+            bool l4 = LabelRoom4.Text.Equals(label);
+            if (!l4)
+            {
+                DropDownListRooms.Items.Add(roomname4);
+                DropDownListRoomsAlt.Items.Add(roomname4);
+                LabelRoom4.Text = "None";
+            }
 
             string roomnameAlt = LabelRoomAlt1.Text;
-            bool l4 = LabelRoomAlt1.Text.Equals(label);
-            if (!l4)
+            bool l5 = LabelRoomAlt1.Text.Equals(label);
+            if (!l5)
             {
                 DropDownListRoomsAlt.Items.Add(roomnameAlt);
                 LabelRoomAlt1.Text = "None";
             }
             string roomnameAlt2 = LabelRoomAlt2.Text;
-            bool l5 = LabelRoomAlt2.Text.Equals(label);
-            if (!l5)
+            bool l6 = LabelRoomAlt2.Text.Equals(label);
+            if (!l6)
             {
                 DropDownListRoomsAlt.Items.Add(roomnameAlt2);
                 LabelRoomAlt2.Text = "None";
             }
             string roomnameAlt3 = LabelRoomAlt3.Text;
-            bool l6 = LabelRoomAlt1.Text.Equals(label);
-            if (!l6)
+            bool l7 = LabelRoomAlt1.Text.Equals(label);
+            if (!l7)
             {
                 DropDownListRoomsAlt.Items.Add(roomnameAlt3);
                 LabelRoomAlt3.Text = "None";
+            }
+            string roomnameAlt4 = LabelRoomAlt4.Text;
+            bool l8 = LabelRoomAlt1.Text.Equals(label);
+            if (!l8)
+            {
+                DropDownListRoomsAlt.Items.Add(roomnameAlt4);
+                LabelRoomAlt4.Text = "None";
             }
         }
         protected void ButtonClearAll_Click(object sender, EventArgs e)

@@ -192,6 +192,7 @@
                             <asp:RadioButtonList ID="RadioButtonListRoomType" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListRoomType_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moveright">Lecture</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">Seminar</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Both</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
 
@@ -199,6 +200,7 @@
                             <asp:RadioButtonList ID="RadioButtonListArrangement" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListArrangement_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange">Tiered</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">Flat</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Both</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
 
@@ -206,6 +208,7 @@
                             <asp:RadioButtonList ID="RadioButtonListWheelchair" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListWheelchair_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange">Yes</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">No</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Both</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                     </div><!-- ./row -->
@@ -235,12 +238,14 @@
                             <asp:RadioButtonList ID="RadioButtonListProjector" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListProjector_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary">Data Projector</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">Double Projector</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                         <div class="text-center col-md-4 col-sm-4">
                             <asp:RadioButtonList ID="RadioButtonListVisualiser" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListVisualiser_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange" Selected="True">Yes</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">No</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                     </div><!-- ./row -->
@@ -263,6 +268,7 @@
                             <asp:RadioButtonList ID="RadioButtonListComputer" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListComputer_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange" Selected="True">Yes</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">No</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                         <div class="text-center col-md-8 col-sm-8">
@@ -332,7 +338,8 @@
                             <asp:Label ID="LabelRoom1" runat="server" Text="None"></asp:Label>
                             <!-- Book Room 1 Delete Button-->
                             <asp:Button class="btn btn-success moveleft" ID="ButtonDeleteRoom1" runat="server" Text="Delete" onclick="ButtonDeleteRoom1_Click" />
-                                   </br>                     
+                            <br/>       
+                                          
                             <!-- Book Room 2 label -->
                             <asp:Label ID="LabelRoom2" runat="server" Text="None"></asp:Label>
                             <!-- Book Room 2 Delete Button -->
@@ -340,11 +347,20 @@
                                 class="btn btn-success moveleft" onclick="ButtonDeleteRoom2_Click" 
                                 Text="Delete" />
                             <br />
+
                             <!-- Book Room 3 label -->
                             <asp:Label ID="LabelRoom3" runat="server" Text="None"></asp:Label>
                             <!-- Book Room 3 Delete Button-->
                             <asp:Button style="margin-right:24px;" ID="ButtonDeleteRoom3" runat="server" 
                                 class="btn btn-success moveleft" onclick="ButtonDeleteRoom3_Click" 
+                                Text="Delete" />
+                            <br />
+
+                            <!-- Book Room 4 label -->
+                            <asp:Label ID="LabelRoom4" runat="server" Text="None"></asp:Label>
+                            <!-- Book Room 4 Delete Button-->
+                            <asp:Button style="margin-right:24px;" ID="ButtonDeleteRoom4" runat="server" 
+                                class="btn btn-success moveleft" onclick="ButtonDeleteRoom4_Click" 
                                 Text="Delete" />
                             
                         </div>
@@ -353,19 +369,26 @@
                             <asp:Label ID="LabelRoomAlt1" runat="server" Text="None"></asp:Label>
                             <!-- Alt Room 1 Delete button -->
                             <asp:Button class="btn btn-success moveleft" ID="ButtonDeleteRoomAlt1" runat="server" Text="Delete" onclick="ButtonDeleteRoomAlt1_Click" />
-                            </br>
+                            <br/>
                             <!-- Alt Room 2 label -->
                             <asp:Label ID="LabelRoomAlt2" runat="server" Text="None"></asp:Label>
                             <!-- Alt Room 2 Delete Button -->
                             <asp:Button ID="ButtonDeleteRoomAlt2" runat="server" 
                                 class="btn btn-success moveleft" onclick="ButtonDeleteRoomAlt2_Click" 
                                 Text="Delete" />
-                            </br>
+                            <br/>
                             <!-- Alt Room 3 label -->
                             <asp:Label ID="LabelRoomAlt3" runat="server" Text="None"></asp:Label>
                             <!-- Alt Room 3 Delete Button -->
                             <asp:Button style="margin-right:24px;" ID="ButtonDeleteRoomAlt3" runat="server" 
                                 class="btn btn-success moveleft" onclick="ButtonDeleteRoomAlt3_Click" 
+                                Text="Delete" />
+                             <br/>
+                            <!-- Alt Room 4 label -->
+                            <asp:Label ID="LabelRoomAlt4" runat="server" Text="None"></asp:Label>
+                            <!-- Alt Room 4 Delete Button -->
+                            <asp:Button style="margin-right:24px;" ID="ButtonDeleteRoomAlt4" runat="server" 
+                                class="btn btn-success moveleft" onclick="ButtonDeleteRoomAlt4_Click" 
                                 Text="Delete" />
                             
                         </div>
