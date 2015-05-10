@@ -1399,6 +1399,14 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TextBoxCapacity_TextChanged(object sender, EventArgs e)
         {
+            ButtonDeleteRoom1Function();
+            ButtonDeleteRoom2Function();
+            ButtonDeleteRoom3Function();
+            ButtonDeleteRoom4Function();
+            ButtonDeleteRoomAlt1Function();
+            ButtonDeleteRoomAlt2Function();
+            ButtonDeleteRoomAlt3Function();
+            ButtonDeleteRoomAlt4Function();
             RebuildListOfRooms();
         }
 
@@ -1585,7 +1593,33 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
             }
         }
 
+        protected void ButtonDeleteRoom1Function()
+        {
+            string label = "None";
+            string roomname = LabelRoom1.Text;
+            bool l1 = LabelRoom1.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRooms.Items.Add(roomname);
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoom1.Text = "None";
+            }
+        }
+
         protected void ButtonDeleteRoom2_Click(object sender, EventArgs e)
+        {
+            string label = "None";
+            string roomname = LabelRoom2.Text;
+            bool l1 = LabelRoom2.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRooms.Items.Add(roomname);
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoom2.Text = "None";
+            }
+        }
+
+        protected void ButtonDeleteRoom2Function()
         {
             string label = "None";
             string roomname = LabelRoom2.Text;
@@ -1611,7 +1645,35 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
             }
         }
 
+
+        protected void ButtonDeleteRoom3Function()
+        {
+            string label = "None";
+            string roomname = LabelRoom3.Text;
+            bool l1 = LabelRoom3.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRooms.Items.Add(roomname);
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoom3.Text = "None";
+            }
+        }
+
+
         protected void ButtonDeleteRoom4_Click(object sender, EventArgs e)
+        {
+            string label = "None";
+            string roomname = LabelRoom4.Text;
+            bool l1 = LabelRoom4.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRooms.Items.Add(roomname);
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoom4.Text = "None";
+            }
+        }
+
+        protected void ButtonDeleteRoom4Function()
         {
             string label = "None";
             string roomname = LabelRoom4.Text;
@@ -1636,7 +1698,31 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
             }
         }
 
+        protected void ButtonDeleteRoomAlt1Function()
+        {
+            string label = "None";
+            string roomname = LabelRoomAlt1.Text;
+            bool l1 = LabelRoomAlt1.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoomAlt1.Text = "None";
+            }
+        }
+
         protected void ButtonDeleteRoomAlt2_Click(object sender, EventArgs e)
+        {
+            string label = "None";
+            string roomname = LabelRoomAlt2.Text;
+            bool l1 = LabelRoomAlt2.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoomAlt2.Text = "None";
+            }
+        }
+
+        protected void ButtonDeleteRoomAlt2Function()
         {
             string label = "None";
             string roomname = LabelRoomAlt2.Text;
@@ -1659,7 +1745,32 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                 LabelRoomAlt3.Text = "None";
             }
         }
+
+        protected void ButtonDeleteRoomAlt3Function()
+        {
+            string label = "None";
+            string roomname = LabelRoomAlt3.Text;
+            bool l1 = LabelRoomAlt3.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoomAlt3.Text = "None";
+            }
+        }
+
         protected void ButtonDeleteRoomAlt4_Click(object sender, EventArgs e)
+        {
+            string label = "None";
+            string roomname = LabelRoomAlt4.Text;
+            bool l1 = LabelRoomAlt4.Text.Equals(label);
+            if (!l1)
+            {
+                DropDownListRoomsAlt.Items.Add(roomname);
+                LabelRoomAlt4.Text = "None";
+            }
+        }
+
+        protected void ButtonDeleteRoomAlt4Function()
         {
             string label = "None";
             string roomname = LabelRoomAlt4.Text;

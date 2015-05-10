@@ -245,12 +245,12 @@ INNER JOIN [Request] ON [BookedRoom].requestID = [Request].requestID
 WHERE [Request].requestID = " + requests[request];
                 SqlCommand bookroomsql = new SqlCommand(bookroom, conn);
                 SqlDataReader getbookroom = bookroomsql.ExecuteReader();
-                if (!(getbookroom.HasRows))
+              /*  if (!(getbookroom.HasRows))
                 {
                     bookedRoomsList += "";
                     totalcapacity += 0;
                     buildingsList += "";
-                }
+                }*/
                 while (getbookroom.Read())
                 {
                     bookedRoomsList += getbookroom.GetString(getbookroom.GetOrdinal("roomName")) + ", ";
