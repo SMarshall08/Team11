@@ -186,7 +186,7 @@ inner join Week on week.weekID = request.weekID
                 }
 
                 int period = getScheduleData.GetInt32(getScheduleData.GetOrdinal("periodStart"));
-                schedule[day, period] = schedule[day, period] + "Building Name: " + buildingName + " Room Name: " + roomName + " Module Code: " + moduleCode + "\r\n";
+                schedule[day, period] = schedule[day, period] + "Building: " + buildingName + "<br>Room: " + roomName + "<br>Module:" + moduleCode + "<br><hr>";
 
             }
 
@@ -215,7 +215,7 @@ inner join Week on week.weekID = request.weekID
                 for (int period = 1; period <= 9; period++)
                 {
                     cell = new HtmlTableCell("td");
-                    cell.InnerText = schedule[day, period];
+                    cell.InnerHtml = schedule[day, period];
                     row.Cells.Add(cell);
                 }
                 myTable.Rows.Add(row);
@@ -304,7 +304,7 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
                 }
 
                 int period = getSchedule2Data.GetInt32(getSchedule2Data.GetOrdinal("periodStart"));
-                schedule[day, period] = schedule[day, period] + buildingName + ": " + roomName + ": " + moduleCode + "\r";
+                schedule[day, period] = schedule[day, period] + buildingName + ": " + roomName + ": " + moduleCode + "<br>";
 
             }
 
@@ -318,7 +318,7 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
             for (int period = 1; period <= 9; period++)
             {
                 cell = new HtmlTableCell("th");
-                cell.InnerText = period.ToString();
+                cell.InnerHtml = period.ToString();
                 row.Cells.Add(cell);
             }
             myTable.Rows.Add(row);

@@ -75,7 +75,7 @@ namespace Team11
                             listOfRooms3.Items.Add(newItem);
                             listOfRooms4.Items.Add(newItem);
                         }
-                        allReader.Close();
+                        allRoomsConnection.Close();
                     }
                 }
                 catch (Exception err)

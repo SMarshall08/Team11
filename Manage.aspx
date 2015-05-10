@@ -223,6 +223,44 @@
     <!--Add/Delete Facility-->
     <!--Add/Delete Facility-->
     
+       <div id="divByAddLecturer" runat="server" visible="false">
+        
+        <div class="canister">
+            <div class="canistertitle">
+                <h2>Add Staff</h2>
+            </div>
+            <div class="canistercontainer">
+
+                <div class="row">
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>Choose Staff to Add to Module</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="text-center center col-md-6 col-sm-6">
+
+                        <asp:DropDownList class="form-control" ID="DropDownListChooseStaffDept" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListChooseStaffDept_SelectedIndexChanged"></asp:DropDownList>
+                        <!--<asp:DropDownList class="form-control" ID="DropDownListChooseStaffModule" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListChooseStaffModule_SelectedIndexChanged"></asp:DropDownList>-->
+                        <asp:TextBox class="form-control" ID="TextBoxFirstName" runat="server" AutoPostBack="True" Text="" placeholder="Enter First Name..." OnTextChanged="TextBoxFirstName_TextChanged"></asp:TextBox>
+                        <asp:TextBox class="form-control" ID="TextBoxLastName" runat="server" AutoPostBack="True" Text="" placeholder="Enter First Name..." OnTextChanged="TextBoxLastName_TextChanged"></asp:TextBox>
+
+
+
+                        <asp:CheckBoxList class="center" ID="CheckBoxListAddNewStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListAddNewStaff_SelectedIndexChanged">
+                            <asp:ListItem class="btn btn-primary">Add Staff</asp:ListItem>
+                        </asp:CheckBoxList>
+
+                        
+                    </div>
+                 </div>
+
+            </div>
+        </div>
+               
+    </div>
+
+
     <div id="divByCentralModuleStaff" runat="server" visible="false">
         
         <div class="canister">
@@ -261,6 +299,7 @@
                         <asp:CheckBoxList class="center" ID="CheckBoxListDeleteStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListDeleteStaff_SelectedIndexChanged" CssClass="auto-style2">
                             <asp:ListItem class="btn btn-primary">Delete Staff</asp:ListItem>
                         </asp:CheckBoxList>
+                        <asp:TextBox ID="StaffError" runat="server"></asp:TextBox>
                     </div>
                 </div>
 
@@ -290,7 +329,7 @@
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
                         
-                        <%--<asp:TextBox id="facilityText" runat="server" />--%>
+                        <%-- Page Title Content --%>
                         <asp:TextBox class="form-control" ID="facilityText" runat="server" AutoPostBack="True" Text="" placeholder="Enter Facility..."></asp:TextBox>
                         <asp:CheckBoxList class="center" ID="addFacility" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListaddFacility_SelectedIndexChanged">
                             <asp:ListItem class="btn btn-primary">Add Facility</asp:ListItem>
@@ -468,7 +507,7 @@
     </div><!-- ./ByCentralPoolRoom -->
 
     <div id="scriptDiv" runat="server"> 
-        <%--This div is where script tags will be placed. --%>
+        <%-- Body Content --%>
     </div>
    
 

@@ -29,7 +29,7 @@ namespace Team11
             }
             string roundString = " (Current round: " + round + " - Date to advance round: " + date + ")"; 
             displayRound.InnerHtml = roundString;
-
+            roundLabelConnection.Close();
         }
     }
 }
