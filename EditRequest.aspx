@@ -192,6 +192,7 @@
                             <asp:RadioButtonList ID="RadioButtonListRoomType" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListRoomType_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moveright">Lecture</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">Seminar</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Both</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
 
@@ -199,6 +200,7 @@
                             <asp:RadioButtonList ID="RadioButtonListArrangement" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListArrangement_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange">Tiered</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">Flat</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Both</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
 
@@ -206,6 +208,7 @@
                             <asp:RadioButtonList ID="RadioButtonListWheelchair" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListWheelchair_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange">Yes</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">No</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Both</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                     </div><!-- ./row -->
@@ -235,12 +238,14 @@
                             <asp:RadioButtonList ID="RadioButtonListProjector" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListProjector_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary">Data Projector</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">Double Projector</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                         <div class="text-center col-md-4 col-sm-4">
                             <asp:RadioButtonList ID="RadioButtonListVisualiser" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListVisualiser_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange" Selected="True">Yes</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">No</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                     </div><!-- ./row -->
@@ -263,6 +268,7 @@
                             <asp:RadioButtonList ID="RadioButtonListComputer" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListComputer_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange" Selected="True">Yes</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">No</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                         <div class="text-center col-md-8 col-sm-8">
