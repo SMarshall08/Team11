@@ -389,23 +389,42 @@ namespace Team11
             { roomtype = "1"; }
             else if (roomtype == "Seminar")
             { roomtype = "2"; }
-            else if (roomtype == "Both") {
-                roomtype = "1 OR facilityID = 2";
+            else if (roomtype == "Either") {
+                //roomtype = "1 OR facilityID = 2";
+                roomtype = "";
             }
+
             string arrangement = RadioButtonListArrangement.Text;
             if (arrangement == "Tiered")
             { arrangement = "3"; }
             else if (arrangement == "Flat")
             { arrangement = "4"; }
+            else if (arrangement == "Either")
+            {
+                //arrangement = "3 OR facilityID = 4";
+                arrangement = "";
+            }
+
             string projector = RadioButtonListProjector.Text;
             if (projector == "Data Projector")
             { projector = "5"; }
             else if (projector == "Double Projector")
             { projector = "6"; }
+            else if (projector == "Either")
+            {
+                //projector = "5 OR (facilityID = 6)";
+                projector = "";
+            }
+
+
             if (CheckBoxCB.Checked == true)
             { board = "7"; }
+            else board = "";
+
             if (CheckBoxWB.Checked == true)
             { boardtwo = "8"; }
+            else boardtwo = "";
+            
             int wheeli = RadioButtonListWheelchair.SelectedIndex;
             int visualiseri = RadioButtonListVisualiser.SelectedIndex;
             int computeri = RadioButtonListComputer.SelectedIndex;
@@ -416,10 +435,12 @@ namespace Team11
                 wheel = "9";
             else
                 wheel = "";
+
             if (visualiseri == 0)
                 visualiser = "10";
             else
                 visualiser = "";
+
             if (computeri == 0)
                 computer = "11";
             else
@@ -1958,6 +1979,10 @@ namespace Team11
         }
 
         protected void RadioButtonListWheelchair_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SearchRooms();
+        }
+        protected void RadioButtonListBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
             SearchRooms();
         }
