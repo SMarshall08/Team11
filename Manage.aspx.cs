@@ -464,6 +464,7 @@ WHERE  moduleCode = '" + mod + "' AND StaffID = " + DropDownListFilterDeleteModu
                 this.divByCentralRounds.Visible = false;
                 this.divByCentralModuleStaff.Visible = false;
                 this.divByAddLecturer.Visible = false;
+                isUserAdminLabel.Text = "";
             }
             else
             {
