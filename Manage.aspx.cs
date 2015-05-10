@@ -504,7 +504,7 @@ WHERE  moduleCode = '" + mod + "' AND StaffID = " + DropDownListFilterDeleteModu
             }
 
         }
-            }
+            
 
         
 
