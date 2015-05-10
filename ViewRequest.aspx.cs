@@ -45,6 +45,27 @@ namespace Team11
         List<string> status = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            string roundLabelSQL = "SELECT * FROM Rounds";
+            SqlConnection roundLabelConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+            SqlCommand roundLabelCmd = new SqlCommand(roundLabelSQL, roundLabelConnection);
+            SqlDataReader roundLabelReader;
+            roundLabelConnection.Open();
+            roundLabelReader = roundLabelCmd.ExecuteReader();
+            int round = 0; DateTime databaseDate = DateTime.Now;
+            while (roundLabelReader.Read())
+            {
+                round = Convert.ToInt32(roundLabelReader["round"]);
+                databaseDate = Convert.ToDateTime(roundLabelReader["dateToAdvance"]);
+
+            }
+            
+            DateTime theDateNow = DateTime.Now;
+            double days = (databaseDate.Subtract(theDateNow).TotalDays);            
+            double daysRoundedUp = Math.Ceiling(days);
+            string roundString = "View Requests: (Current round: " + round + " - Days until next round: " + daysRoundedUp + ")";
+            countdownLabel.Text = roundString;
+
+
             DropDownListFilterModule.Items.Add("Please Select a Module To filter By");
             string getModule = "SELECT moduleCode, moduleTitle FROM [Module] WHERE userID=" + Session["userID"]; //Session["userID"] is intialised upon login.
             SqlConnection connect11 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
@@ -286,7 +307,7 @@ WHERE [Request].requestID = " + requests[request];
             row.Cells.Add(cell3);
 
             HtmlTableCell cell5 = new HtmlTableCell("th");
-            cell5.InnerText = "Requested Room(s)";
+            cell5.InnerText = "Booked Room";
             row.Cells.Add(cell5);
 
             HtmlTableCell cell6 = new HtmlTableCell("th");
@@ -365,7 +386,7 @@ WHERE [Request].requestID = " + requests[request];
                     returnedHeaderTitle = "Park";
                     return returnedHeaderTitle; 
                 case "altrooms":
-                    returnedHeaderTitle = "Alt Rooms";
+                    returnedHeaderTitle = "Preferred Room";
                     return returnedHeaderTitle; 
                 case "building":
                     returnedHeaderTitle = "Building";

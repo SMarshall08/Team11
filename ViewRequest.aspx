@@ -36,7 +36,7 @@
 
 <%-- Page Title Content --%>
 <asp:Content ID="TitlesContent" runat="server" ContentPlaceHolderID="TitleContent">
-    <h1>View Requests</h1>
+    <h1><asp:Label runat="server" ID="countdownLabel"></asp:Label></h1>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
