@@ -7,83 +7,87 @@
         $(document).ready(function ()
         {   // for each radio and checkbox determine if it is checked and if it is then add the "btn" and "btn-danger" classes to the parent
             $.each(["#MainContent_RadioButtonListRoomType_0",
-                    "#MainContent_RadioButtonListRoomType_1",
-                    "#MainContent_RadioButtonListArrangement_0",
-                    "#MainContent_RadioButtonListArrangement_1",
-                    "#MainContent_RadioButtonListWheelchair_0",
-                    "#MainContent_RadioButtonListWheelchair_1",
-                    "#MainContent_CheckBoxWB",
-                    "#MainContent_CheckBoxCB",
-                    "#MainContent_RadioButtonListProjector_0",
-                    "#MainContent_RadioButtonListProjector_1",
-                    "#MainContent_RadioButtonListVisualiser_0",
-                    "#MainContent_RadioButtonListVisualiser_1",
-                    "#MainContent_RadioButtonListComputer_0",
-                    "#MainContent_RadioButtonListComputer_1",
-                    "#MainContent_Week1",
-                    "#MainContent_Week2",
-                    "#MainContent_Week3",
-                    "#MainContent_Week4",
-                    "#MainContent_Week5",
-                    "#MainContent_Week6",
-                    "#MainContent_Week7",
-                    "#MainContent_Week8",
-                    "#MainContent_Week9",
-                    "#MainContent_Week10",
-                    "#MainContent_Week11",
-                    "#MainContent_Week12",
-                    "#MainContent_Week13",
-                    "#MainContent_Week14",
-                    "#MainContent_Week15",
-                    "#MainContent_CheckBoxM1",
-                    "#MainContent_CheckBoxM2",
-                    "#MainContent_CheckBoxM3",
-                    "#MainContent_CheckBoxM4",
-                    "#MainContent_CheckBoxM5",
-                    "#MainContent_CheckBoxM6",
-                    "#MainContent_CheckBoxM7",
-                    "#MainContent_CheckBoxM8",
-                    "#MainContent_CheckBoxM9",
-                    "#MainContent_CheckBoxT1",
-                    "#MainContent_CheckBoxT2",
-                    "#MainContent_CheckBoxT3",
-                    "#MainContent_CheckBoxT4",
-                    "#MainContent_CheckBoxT5",
-                    "#MainContent_CheckBoxT6",
-                    "#MainContent_CheckBoxT7",
-                    "#MainContent_CheckBoxT8",
-                    "#MainContent_CheckBoxT9",
-                    "#MainContent_CheckBoxW1",
-                    "#MainContent_CheckBoxW2",
-                    "#MainContent_CheckBoxW3",
-                    "#MainContent_CheckBoxW4",
-                    "#MainContent_CheckBoxW5",
-                    "#MainContent_CheckBoxW6",
-                    "#MainContent_CheckBoxW7",
-                    "#MainContent_CheckBoxW8",
-                    "#MainContent_CheckBoxW9",
-                    "#MainContent_CheckBoxJ1",
-                    "#MainContent_CheckBoxJ2",
-                    "#MainContent_CheckBoxJ3",
-                    "#MainContent_CheckBoxJ4",
-                    "#MainContent_CheckBoxJ5",
-                    "#MainContent_CheckBoxJ6",
-                    "#MainContent_CheckBoxJ7",
-                    "#MainContent_CheckBoxJ8",
-                    "#MainContent_CheckBoxJ9",
-                    "#MainContent_CheckBoxF1",
-                    "#MainContent_CheckBoxF2",
-                    "#MainContent_CheckBoxF3",
-                    "#MainContent_CheckBoxF4",
-                    "#MainContent_CheckBoxF5",
-                    "#MainContent_CheckBoxF6",
-                    "#MainContent_CheckBoxF7",
-                    "#MainContent_CheckBoxF8",
-                    "#MainContent_CheckBoxF9",
-                    "#MainContent_RadioButtonListParks_0",
-                    "#MainContent_RadioButtonListParks_1",
-                    "#MainContent_RadioButtonListParks_2",
-                    "#MainContent_RadioButtonListSemester_1",
+                   "#MainContent_RadioButtonListRoomType_1",
+                   "#MainContent_RadioButtonListRoomType_2",
+                   "#MainContent_RadioButtonListArrangement_0",
+                   "#MainContent_RadioButtonListArrangement_1",
+                   "#MainContent_RadioButtonListArrangement_2",
+                   "#MainContent_RadioButtonListWheelchair_0",
+                   "#MainContent_RadioButtonListWheelchair_1",
+                   "#MainContent_CheckBoxWB",
+                   "#MainContent_CheckBoxCB",
+                   "#MainContent_RadioButtonListProjector_0",
+                   "#MainContent_RadioButtonListProjector_1",
+                   "#MainContent_RadioButtonListProjector_2",
+                   "#MainContent_RadioButtonListVisualiser_0",
+                   "#MainContent_RadioButtonListVisualiser_1",
+                   "#MainContent_RadioButtonListComputer_0",
+                   "#MainContent_RadioButtonListComputer_1",
+                   "#MainContent_Week1",
+                   "#MainContent_Week2",
+                   "#MainContent_Week3",
+                   "#MainContent_Week4",
+                   "#MainContent_Week5",
+                   "#MainContent_Week6",
+                   "#MainContent_Week7",
+                   "#MainContent_Week8",
+                   "#MainContent_Week9",
+                   "#MainContent_Week10",
+                   "#MainContent_Week11",
+                   "#MainContent_Week12",
+                   "#MainContent_Week13",
+                   "#MainContent_Week14",
+                   "#MainContent_Week15",
+                   "#MainContent_CheckBoxM1",
+                   "#MainContent_CheckBoxM2",
+                   "#MainContent_CheckBoxM3",
+                   "#MainContent_CheckBoxM4",
+                   "#MainContent_CheckBoxM5",
+                   "#MainContent_CheckBoxM6",
+                   "#MainContent_CheckBoxM7",
+                   "#MainContent_CheckBoxM8",
+                   "#MainContent_CheckBoxM9",
+                   "#MainContent_CheckBoxT1",
+                   "#MainContent_CheckBoxT2",
+                   "#MainContent_CheckBoxT3",
+                   "#MainContent_CheckBoxT4",
+                   "#MainContent_CheckBoxT5",
+                   "#MainContent_CheckBoxT6",
+                   "#MainContent_CheckBoxT7",
+                   "#MainContent_CheckBoxT8",
+                   "#MainContent_CheckBoxT9",
+                   "#MainContent_CheckBoxW1",
+                   "#MainContent_CheckBoxW2",
+                   "#MainContent_CheckBoxW3",
+                   "#MainContent_CheckBoxW4",
+                   "#MainContent_CheckBoxW5",
+                   "#MainContent_CheckBoxW6",
+                   "#MainContent_CheckBoxW7",
+                   "#MainContent_CheckBoxW8",
+                   "#MainContent_CheckBoxW9",
+                   "#MainContent_CheckBoxJ1",
+                   "#MainContent_CheckBoxJ2",
+                   "#MainContent_CheckBoxJ3",
+                   "#MainContent_CheckBoxJ4",
+                   "#MainContent_CheckBoxJ5",
+                   "#MainContent_CheckBoxJ6",
+                   "#MainContent_CheckBoxJ7",
+                   "#MainContent_CheckBoxJ8",
+                   "#MainContent_CheckBoxJ9",
+                   "#MainContent_CheckBoxF1",
+                   "#MainContent_CheckBoxF2",
+                   "#MainContent_CheckBoxF3",
+                   "#MainContent_CheckBoxF4",
+                   "#MainContent_CheckBoxF5",
+                   "#MainContent_CheckBoxF6",
+                   "#MainContent_CheckBoxF7",
+                   "#MainContent_CheckBoxF8",
+                   "#MainContent_CheckBoxF9",
+                   "#MainContent_RadioButtonList1_0",
+                   "#MainContent_RadioButtonList1_1",
+                   "#MainContent_RadioButtonList1_2",
+                   "#MainContent_RadioButtonListSemester_1",
+                   "#MainContent_RadioButtonListSemester_1",
                                 ],
                 function(index, controlRef)
                 {
@@ -188,6 +192,7 @@
                             <asp:RadioButtonList ID="RadioButtonListRoomType" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListRoomType_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moveright">Lecture</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">Seminar</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg" Selected="True">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
 
@@ -195,13 +200,14 @@
                             <asp:RadioButtonList ID="RadioButtonListArrangement" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListArrangement_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange">Tiered</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">Flat</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg" Selected="True">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
 
                         <div class="text-center col-md-4 col-sm-4">
                             <asp:RadioButtonList ID="RadioButtonListWheelchair" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListWheelchair_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary moverightarrange">Yes</asp:ListItem>
-                                <asp:ListItem class="btn btn-primary leftmarg">No</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg" Selected="True">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                     </div><!-- ./row -->
@@ -222,21 +228,22 @@
 
                     <div class="clearfix"></div>
 
-                    <div class="row">
+                     <div class="row">
                         <div class="text-center col-md-4 col-sm-4">
-                            <asp:CheckBox class="btn btn-primary" ID="CheckBoxWB" runat="server" Text="White Board" Checked="True" autopostback="true"/>
+                            <asp:CheckBox class="btn btn-primary" ID="CheckBoxWB" runat="server" Text="White Board"   autopostback="true"/>
                             <asp:CheckBox class="btn btn-primary leftmarg" ID="CheckBoxCB" runat="server" Text="Chalk Board" autopostback="true" />
                         </div>
                         <div class="text-center col-md-4 col-sm-4">
                             <asp:RadioButtonList ID="RadioButtonListProjector" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListProjector_SelectedIndexChanged" RepeatDirection="Horizontal">
                                 <asp:ListItem class="btn btn-primary">Data Projector</asp:ListItem>
                                 <asp:ListItem class="btn btn-primary leftmarg">Double Projector</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg" Selected="True">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                         <div class="text-center col-md-4 col-sm-4">
                             <asp:RadioButtonList ID="RadioButtonListVisualiser" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListVisualiser_SelectedIndexChanged" RepeatDirection="Horizontal">
-                                <asp:ListItem class="btn btn-primary moverightarrange" Selected="True">Yes</asp:ListItem>
-                                <asp:ListItem class="btn btn-primary leftmarg">No</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary moverightarrange">Yes</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg" Selected="True">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                     </div><!-- ./row -->
@@ -254,11 +261,11 @@
 
                     <div class="clearfix"></div>
 
-                    <div class="row">
+                   <div class="row">
                         <div class="text-center col-md-4 col-sm-4">
                             <asp:RadioButtonList ID="RadioButtonListComputer" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListComputer_SelectedIndexChanged" RepeatDirection="Horizontal">
-                                <asp:ListItem class="btn btn-primary moverightarrange" Selected="True">Yes</asp:ListItem>
-                                <asp:ListItem class="btn btn-primary leftmarg">No</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary moverightarrange">Yes</asp:ListItem>
+                                <asp:ListItem class="btn btn-primary leftmarg" Selected="True">Either</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                         <div class="text-center col-md-8 col-sm-8">

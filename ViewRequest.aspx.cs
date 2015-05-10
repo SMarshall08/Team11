@@ -64,6 +64,7 @@ namespace Team11
             double daysRoundedUp = Math.Ceiling(days);
             string roundString = "View Requests: (Current round: " + round + " - Days until next round: " + daysRoundedUp + ")";
             countdownLabel.Text = roundString;
+            roundLabelConnection.Close();
 
 
             DropDownListFilterModule.Items.Add("Please Select a Module To filter By");
@@ -244,6 +245,12 @@ INNER JOIN [Request] ON [BookedRoom].requestID = [Request].requestID
 WHERE [Request].requestID = " + requests[request];
                 SqlCommand bookroomsql = new SqlCommand(bookroom, conn);
                 SqlDataReader getbookroom = bookroomsql.ExecuteReader();
+                if (!(getbookroom.HasRows))
+                {
+                    bookedRoomsList += "";
+                    totalcapacity += 0;
+                    buildingsList += "";
+                }
                 while (getbookroom.Read())
                 {
                     bookedRoomsList += getbookroom.GetString(getbookroom.GetOrdinal("roomName")) + ", ";

@@ -15,7 +15,7 @@ namespace Team11
     public partial class CreateRequest : System.Web.UI.Page
     {
 
-        int userID = 0;
+        int userID = 0; int round = 0;
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -30,7 +30,7 @@ namespace Team11
             SqlDataReader roundLabelReader;
             roundLabelConnection.Open();
             roundLabelReader = roundLabelCmd.ExecuteReader();
-            int round = 0; DateTime databaseDate = DateTime.Now;
+            DateTime databaseDate = DateTime.Now;
             while (roundLabelReader.Read())
             {
                 round = Convert.ToInt32(roundLabelReader["round"]);
@@ -193,29 +193,69 @@ WHERE userID={0}", userID);
                 buildingID = Convert.ToInt32(buildingcommand.ExecuteScalar());
             }
 
-            string roomtype = "";
-            if (RadioButtonListRoomType.Text == "Lecture") 
-                roomtype = "1";
-            else if (RadioButtonListRoomType.Text == "Seminar") 
-                roomtype = "2";
+            string roomtype = RadioButtonListRoomType.Text;
+            if (roomtype == "Lecture")
+            { roomtype = "1"; }
+            else if (roomtype == "Seminar")
+            { roomtype = "2"; }
+            else if (roomtype == "Either")
+            {
+                //roomtype = "1 OR facilityID = 2";
+                roomtype = "";
+            }
 
-            string arrangement = "";
-            if (RadioButtonListArrangement.Text == "Tiered")
-                arrangement = "3";
-            else if (RadioButtonListArrangement.Text == "Flat") 
-                arrangement ="4";
+            string arrangement = RadioButtonListArrangement.Text;
+            if (arrangement == "Tiered")
+            { arrangement = "3"; }
+            else if (arrangement == "Flat")
+            { arrangement = "4"; }
+            else if (arrangement == "Either")
+            {
+                //arrangement = "3 OR facilityID = 4";
+                arrangement = "";
+            }
 
-            string projector = "";
-            if (RadioButtonListProjector.Text == "Data Projector")
-                projector = "5";
-            else if (RadioButtonListProjector.Text == "Double Projector")
-                projector = "6";
+            string projector = RadioButtonListProjector.Text;
+            if (projector == "Data Projector")
+            { projector = "5"; }
+            else if (projector == "Double Projector")
+            { projector = "6"; }
+            else if (projector == "Either")
+            {
+                //projector = "5 OR (facilityID = 6)";
+                projector = "";
+            }
+            string board = "";
+            string boardtwo = "";
+            string wheel = "";
+            string visualiser = "";
+            string computer = "";
+            if (CheckBoxCB.Checked == true)
+            { board = "7"; }
+            else board = "";
 
-            string board        = (CheckBoxCB.Checked == true) ? "7" : "";
-            string boardtwo     = (CheckBoxWB.Checked == true) ? "8" : "";
-            string wheel        = (RadioButtonListWheelchair.SelectedIndex == 0) ? "9" : "";
-            string visualiser   = (RadioButtonListVisualiser.SelectedIndex == 0) ? "10" : "";
-            string computer     = (RadioButtonListComputer.SelectedIndex == 0) ? "11" : "";
+            if (CheckBoxWB.Checked == true)
+            { boardtwo = "8"; }
+            else boardtwo = "";
+
+            int wheeli = RadioButtonListWheelchair.SelectedIndex;
+            int visualiseri = RadioButtonListVisualiser.SelectedIndex;
+            int computeri = RadioButtonListComputer.SelectedIndex;
+            
+            if (wheeli == 0)
+                wheel = "9";
+            else
+                wheel = "";
+
+            if (visualiseri == 0)
+                visualiser = "10";
+            else
+                visualiser = "";
+
+            if (computeri == 0)
+                computer = "11";
+            else
+                computer = "";
 
             // Make SQL addition for if any facilities have been selected
             string facilitysql = "";
@@ -571,7 +611,7 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                                         status = "Accepted";
                                                     else
                                                         status = "Pending";
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','" + status + "'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','" + status + "'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + "," + semesterText + ","+DateTime.Now.Year.ToString()+","+round+")";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);

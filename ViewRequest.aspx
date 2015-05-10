@@ -219,7 +219,7 @@
                         <h3>Booked Rooms</h3>
                     </div>
                     <div class="center col-md-4 col-sm-4">
-                        <h3>Alt Rooms</h3>
+                        <h3>Preferred Room</h3>
                     </div>
                     <div class="center col-md-4 col-sm-4">
                         <h3>Facilities Requested</h3>

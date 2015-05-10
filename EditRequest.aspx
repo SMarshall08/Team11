@@ -107,7 +107,7 @@
 
 <%-- Page Title Content --%>
 <asp:Content ID="TitlesContent" runat="server" ContentPlaceHolderID="TitleContent">
-    <h1>Create Request - Round: 3 (Ad-Hoc Only)</h1>
+    <h1>Create Request</h1>
 </asp:Content>
 
 <%-- MAIN BODY CONTENT --%>
