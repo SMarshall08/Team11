@@ -665,6 +665,7 @@ WHERE [Request].requestID = " + requests[request];
                 preferredcommand.ExecuteNonQuery();
                 requestcommand.ExecuteNonQuery();
                 connect.Close();
+                Response.Redirect("ViewRequest.aspx");
             }
         }
 

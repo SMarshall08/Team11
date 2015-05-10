@@ -673,7 +673,7 @@
                             </table>
                         </div><!-- ./col -->
                     </div><!-- ./row -->
-
+                    
                     <div class="clearfix"></div>
                     </br>
                     <div class="row">
@@ -684,6 +684,6 @@
                     </div><!-- ./row -->
                 </div><!-- ./canistercontainer -->
             </div><!-- ./canister -->
-
+    <div id="createRequestScriptDiv" runat="server"></div>
 
 </asp:Content>

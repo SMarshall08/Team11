@@ -743,6 +743,7 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                     altroomcommand.ExecuteNonQuery();
                                     connection.Close();
                                 }
+                                createRequestScriptDiv.InnerHtml = "<script>alert(\"Request successfully made\");</script>";
                                 //Messagebox
 
 
@@ -1575,16 +1576,16 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
 
             TextBoxCapacity.Text = "";
             TextBox2.Text = "";
-            RadioButtonListComputer.SelectedIndex = -1;
-            RadioButtonListVisualiser.SelectedIndex = -1;
-            RadioButtonListWheelchair.SelectedIndex = -1;
+            RadioButtonListComputer.SelectedIndex = 1;
+            RadioButtonListVisualiser.SelectedIndex = 1;
+            RadioButtonListWheelchair.SelectedIndex = 1;
             CheckBoxWB.Checked = false;
             CheckBoxCB.Checked = false;
-            RadioButtonListProjector.SelectedIndex = -1;
-            RadioButtonListArrangement.SelectedIndex = -1;
-            RadioButtonListRoomType.SelectedIndex = -1;
+            RadioButtonListProjector.SelectedIndex = 2;
+            RadioButtonListArrangement.SelectedIndex = 2;
+            RadioButtonListRoomType.SelectedIndex = 2;
             DropDownListModules.SelectedIndex = 0;
-            RadioButtonListParks.SelectedIndex = -1;
+            RadioButtonListParks.SelectedIndex = 0;
             DropDownListBuildings.Items.Clear();
 
             string label = "None";
