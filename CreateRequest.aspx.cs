@@ -564,7 +564,7 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                                         conn2.Open();
                                                         for (int y = 0; y < roomlist.Count; y++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
+                                                            booked = "INSERT INTO [PreferredRoom] (requestID,roomID) VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn2);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -577,7 +577,7 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                                         conn4.Open();
                                                         for (int x = 0; x < numberOfRooms; x++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
+                                                            booked = "INSERT INTO [PreferredRoom] (requestID,roomID) VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn4);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -678,7 +678,7 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                     int RoomToAdd = roomlistAlt[i];
 
                                     connection.Open();
-                                    string altroomsql = "Insert into [PreferredRoom] values((SELECT MAX(requestID) FROM [Request])," + RoomToAdd + ")";
+                                    string altroomsql = "Insert into [PreferredRoom] (requestID,AltRoom) values((SELECT MAX(requestID) FROM [Request])," + RoomToAdd + ")";
                                     SqlCommand altroomcommand = new SqlCommand(altroomsql, connection);
                                     altroomcommand.ExecuteNonQuery();
                                     connection.Close();
