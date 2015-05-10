@@ -467,17 +467,46 @@ WHERE  moduleCode = '" + mod + "' AND StaffID = " + DropDownListFilterDeleteModu
             }
             else
             {
-                this.divByDepartment.Visible = false;
-                this.divByCentralFacility.Visible = true;
-                this.divByCentralPoolRoom.Visible = true;
-                this.divByCentralEditRoom.Visible = true;
-                this.divByCentralRespond.Visible = true;
-                this.divByCentralRounds.Visible = true;
-                this.divByCentralModuleStaff.Visible = true;
-                this.divByAddLecturer.Visible = true;
+                
+                SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                connect.Open();  
+                string adminString = "Select administrator from [User] where userID = " + userID;
+                SqlCommand adminCommand = new SqlCommand(adminString, connect);
+                string administratorYesNo = adminCommand.ExecuteScalar().ToString();
+                string trimmedAdmin = administratorYesNo.Trim();
+                bool userIsAdmin = (trimmedAdmin == "yes");
+                if (userIsAdmin)
+                {
+
+                    this.divByDepartment.Visible = false;
+                    this.divByCentralFacility.Visible = true;
+                    this.divByCentralPoolRoom.Visible = true;
+                    this.divByCentralEditRoom.Visible = true;
+                    this.divByCentralRespond.Visible = true;
+                    this.divByCentralRounds.Visible = true;
+                    this.divByCentralModuleStaff.Visible = false;
+                    this.divByAddLecturer.Visible = true;
+                    isUserAdminLabel.Text = "";
+                }
+
+                else
+                {
+                    this.divByDepartment.Visible = false;
+                    this.divByCentralFacility.Visible = false;
+                    this.divByCentralPoolRoom.Visible = false;
+                    this.divByCentralEditRoom.Visible = false;
+                    this.divByCentralRespond.Visible = false;
+                    this.divByCentralRounds.Visible = false;
+                    this.divByCentralModuleStaff.Visible = false;
+                    this.divByAddLecturer.Visible = false;
+                    isUserAdminLabel.Text = "You can only access this page if you are logged in as a central admin.";
+                }
             }
 
         }
+            }
+
+        
 
         //when the 'Make Room Private' button is clicked
         protected void CheckBoxListMakePrivate_SelectedIndexChanged(object sender, EventArgs e)
