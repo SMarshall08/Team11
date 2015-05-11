@@ -60,6 +60,7 @@ namespace Team11
                     {
                         html.Append("<tr>");
                         bool reference = true;
+                        bool one = false; bool two = false; bool three = false;
                         foreach (DataColumn column in dt.Columns)
                         {
                             //  string compare = row[column.ColumnName].ToString();
@@ -70,15 +71,37 @@ namespace Team11
                                 html.Append("<td>");
                                 html.Append("<a href=\"acceptRequests2.aspx?requestReference=" + columnName + "\">" + row[column.ColumnName] + "</a>");
                                 html.Append("</td>");
-                                reference = false;
+                                reference = false; one = true;
 
                             }
+                            
+                           
                             else
                             {
-                                html.Append("<td>");
-                                html.Append(row[column.ColumnName]);
-                                html.Append("</td>");
+                                string checkPriority = row[column.ColumnName].ToString();
+                                if (column.ColumnName == "priority") { 
+                                if (checkPriority == "1")
+                                {
+                                    html.Append("<td bgcolor=\"#FF0000\">");
+                                    html.Append(row[column.ColumnName]);
+                                    html.Append("</td>");
 
+                                }
+                                else
+                                {
+                                    html.Append("<td>");
+
+                                    html.Append(row[column.ColumnName]);
+                                    html.Append("</td>");
+                                }
+                                }
+                                else
+                                {
+                                    html.Append("<td>");
+
+                                    html.Append(row[column.ColumnName]);
+                                    html.Append("</td>");
+                                }
                             }
                         }
                         html.Append("</tr>");
@@ -104,7 +127,7 @@ namespace Team11
             string constr = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT requestID, moduleCode, status, weekID , day, periodStart, periodEnd, semester, year, round FROM Request WHERE status='Pending'"))
+                using (SqlCommand cmd = new SqlCommand("SELECT requestID, moduleCode, status, weekID , day, periodStart, periodEnd, semester, year, round, priority FROM Request WHERE status='Pending'"))
                 {
                     using (SqlDataAdapter sda = new SqlDataAdapter())
                     {
