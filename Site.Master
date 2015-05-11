@@ -127,8 +127,12 @@ $(document).ready(function () {
     <div class="navbar navbar-inverse narbar-fixed-bottom" role="navigation">
         <div class="container">
             <div class="centre">
-                <input id="coloursButton" type="button" onclick="invertColours();" value="Invert Colours"/>
-                <div id="displayRound" runat="server"></div>
+                
+                
+                <div id="displayRound" runat="server">
+
+                    
+                </div><input style="background-color: #330066;" id="coloursButton" type="button" onclick="invertColours();" value="Invert Colours"/>
             </div>
             
         </div>
