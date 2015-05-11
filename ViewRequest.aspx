@@ -86,7 +86,7 @@
                     <h3>Park</h3>
                 </div>
                 <div class="text-center col-md-3 col-sm-3">
-                    <h3>Building</h3>
+                    <h3>Booked Building</h3>
                 </div>
                 <div class="text-center col-md-3 col-sm-3">
                     <h3>Room</h3>
@@ -117,6 +117,7 @@
                         <asp:ListItem>Please Select a Year To Filter By</asp:ListItem>
                         <asp:ListItem>12/13</asp:ListItem>
                         <asp:ListItem>13/14</asp:ListItem>
+                       <asp:ListItem>14/15</asp:ListItem>
                     </asp:DropDownList>
                     <asp:Button ID="ButtonRefreshSearch" runat="server" onclick="ButtonRefreshSearch_Click" Text="Search" Visible="False" />
                 </div>

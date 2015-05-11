@@ -78,8 +78,8 @@
                     <asp:DropDownList class="form-control" ID="header1" runat="server" >
                         <asp:ListItem Value="facilities">Facilities</asp:ListItem>
                         <asp:ListItem Value="park">Park</asp:ListItem>
-                        <asp:ListItem Value="altrooms">Alt Rooms</asp:ListItem>
-                        <asp:ListItem Value="building">Building</asp:ListItem>
+                        <asp:ListItem Value="altrooms">Preferred Room</asp:ListItem>
+                        <asp:ListItem Value="building">Booked Building</asp:ListItem>
                         <asp:ListItem Value="semester">Semester</asp:ListItem>
                         <asp:ListItem Value="year">Year</asp:ListItem>
                         
@@ -94,8 +94,8 @@
                     <asp:DropDownList class="form-control" ID="header2" runat="server" >
                         <asp:ListItem Value="facilities">Facilities</asp:ListItem>
                         <asp:ListItem Value="park">Park</asp:ListItem>
-                        <asp:ListItem Value="altrooms">Alt Rooms</asp:ListItem>
-                        <asp:ListItem Value="building">Building</asp:ListItem>
+                        <asp:ListItem Value="altrooms">Preferred Room</asp:ListItem>
+                        <asp:ListItem Value="building">Booked Building</asp:ListItem>
                         <asp:ListItem Value="semester">Semester</asp:ListItem>
                         <asp:ListItem Value="year">Year</asp:ListItem>
                         
@@ -110,8 +110,8 @@
                     <asp:DropDownList class="form-control" ID="header3" runat="server" >
                         <asp:ListItem Value="facilities">Facilities</asp:ListItem>
                         <asp:ListItem Value="park">Park</asp:ListItem>
-                        <asp:ListItem Value="altrooms">Alt Rooms</asp:ListItem>
-                        <asp:ListItem Value="building">Building</asp:ListItem>
+                        <asp:ListItem Value="altrooms">Preferred Room</asp:ListItem>
+                        <asp:ListItem Value="building">Booked Building</asp:ListItem>
                         <asp:ListItem Value="semester">Semester</asp:ListItem>
                         <asp:ListItem Value="year">Year</asp:ListItem>
                         
