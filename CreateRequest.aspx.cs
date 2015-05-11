@@ -15,8 +15,9 @@ namespace Team11
     public partial class CreateRequest : System.Web.UI.Page
     {
         int priority = 0;
-        int userID = 0; int round = 0;
-
+        int userID = 0; 
+        int round = 0;
+        int semester = 0;
         /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
@@ -46,6 +47,19 @@ namespace Team11
 
             // read the userid from the querystring
             userID = Convert.ToInt32(Session["userID"]);
+            int month = DateTime.Now.Month;
+            if (month < 2 || month > 8) { semester = 1; } else { semester = 2; } //If the month is from September to January, it's semester one. Else it's semester two.
+            if (semester == 1)
+            {
+                semester1btn.Enabled = true;
+                semester2btn.Enabled = false;
+            }
+            else if (semester == 2)
+            {
+                semester1btn.Enabled = false;
+                semester2btn.Enabled = true;
+            }
+
             string fillDeptName = string.Format("SELECT deptName from [User] where userID={0}", Session["userID"]);
             SqlConnection connect2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             connect2.Open();
@@ -363,7 +377,7 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                 }
 
 
-                                int semesterText = 2;
+                                //int semesterText = 2;
 
                                 /*Initialise week variables*/
                                 int week1 = (Week1.Checked == true) ? 1 : 0;
@@ -645,12 +659,14 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                 string computer = RadioButtonListComputer.SelectedValue;
                                 string reqfac = "";
                                 List<int> list = new List<int>();
-                                if (roomtype != -1)
+                                if (roomtype != 2)
                                     list.Add(roomtype + 1);
-                                if (arrangement != -1)
+                                if (arrangement != 2)
                                     list.Add(arrangement + 3);
-                                if (projector != -1)
-                                    list.Add(projector + 5);
+                                if (projector == 0)
+                                    list.Add(5);
+                                if (projector == 1)
+                                    list.Add(6);
                                 if (wheel == "Yes")
                                     list.Add(9);
                                 if (visualiser == "Yes")
@@ -710,7 +726,7 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                        ",'" + dayName[day] + 
                                        "'," + startTime + 
                                        ","  + endTime + 
-                                       ","  + semesterText +
+                                       ","  + semester +
                                        ","  + DateTime.Now.Year.ToString() +
                                        ","  + round + 
                                        ","  + priority + ")";
