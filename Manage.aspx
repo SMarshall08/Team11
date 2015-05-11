@@ -315,8 +315,7 @@
                         <asp:CheckBoxList class="center" ID="CheckBoxListDeleteStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListDeleteStaff_SelectedIndexChanged" CssClass="auto-style2">
                             <asp:ListItem class="btn btn-primary">Delete Staff</asp:ListItem>
                         </asp:CheckBoxList>
-                        <asp:TextBox ID="StaffError" align="left" runat="server" OnTextChanged="StaffError_TextChanged"></asp:TextBox>
-
+                        <asp:Label ID="StaffError" align="left" runat="server" Text=""></asp:Label>
                         <div id="StaffDeletedDiv" runat="server"></div>
 
                     </div>

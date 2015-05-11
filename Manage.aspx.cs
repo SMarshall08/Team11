@@ -371,14 +371,18 @@ VALUES ('" + mod + "'," + DropDownListFilterAddModuleStaff.SelectedItem.Value + 
             SqlCommand NewModuleStaff = new SqlCommand(insertSQL, connect);
             try
             {
+                StaffError.Text = "";
                 NewModuleStaff.ExecuteNonQuery();
             }
             catch (Exception e)
             {
+                
                 StaffError.Text = "Cannot add this staff member as it is already assigned";
             }
           
             connect.Close();
+           // StaffAddedModuleDiv.InnerHtml = "<script>alert(\"Staff Added to Module\");</script>";
+
 
         }
 
@@ -394,8 +398,9 @@ VALUES ('" + TextBoxFirstName.Text + "','" + TextBoxLastName.Text + "'," + DropD
             NewStaff.ExecuteNonQuery();
 
             connect.Close();
-            TextBoxLastName.Text = "";
-            TextBoxFirstName.Text = "";
+            TextBoxLastName.Text = string.Empty;
+            TextBoxFirstName.Text = string.Empty;
+            NewStaffAddedDiv.InnerHtml = "<script>alert(\"New Staff Added\");</script>";
         }
 
         private void DeleteStaffModule(SqlConnection connect)
@@ -413,6 +418,8 @@ WHERE  moduleCode = '" + mod + "' AND StaffID = " + DropDownListFilterDeleteModu
 
             connect.Close();
             PopulateDeleteStaffList(connect);
+            StaffDeletedDiv.InnerHtml = "<script>alert(\"Staff Deleted from Module\");</script>";
+
             
 
         }
@@ -429,10 +436,12 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
             NewUser.ExecuteNonQuery();
 
             connect.Close();
-            TextBoxNewUserName.Text = "";
-            TextBoxNewUserCode.Text = "";
-            TextBoxNewUserPassword.Text = "";
-            TextBoxNewUserHint.Text = "";
+            NewUserAddedDiv.InnerHtml = "<script>alert(\"New User Added\");</script>";
+
+            TextBoxNewUserName.Text = string.Empty;
+            TextBoxNewUserCode.Text = string.Empty;
+            TextBoxNewUserPassword.Text = string.Empty;
+            TextBoxNewUserHint.Text = string.Empty;
 
             
         }
@@ -797,14 +806,12 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             AddStaffList(connect);
-            StaffAddedModuleDiv.InnerHtml = "<script>alert(\"Staff Added to Module\");</script>";
         }
 
         protected void CheckBoxListDeleteStaff_SelectedIndexChanged(object sender, EventArgs e)
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             DeleteStaffModule(connect);
-            StaffDeletedDiv.InnerHtml = "<script>alert(\"Staff Deleted from Module\");</script>";
         }
 
         protected void DropDownListFilterAddDeptStaff_SelectedIndexChanged(object sender, EventArgs e)
@@ -853,7 +860,7 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             AddStaffNew(connect);
-            NewStaffAddedDiv.InnerHtml = "<script>alert(\"New Staff Added\");</script>";
+            
         }
 
         protected void StaffError_TextChanged(object sender, EventArgs e)
@@ -866,7 +873,6 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             AddNewUser(connect);
-            NewUserAddedDiv.InnerHtml = "<script>alert(\"New User Added\");</script>";
         }
 
         
