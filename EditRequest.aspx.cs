@@ -947,12 +947,14 @@ namespace Team11
                                 string computer = RadioButtonListComputer.SelectedValue;
                                 string reqfac = "";
                                 List<int> list = new List<int>();
-                                if (roomtype != -1)
+                                if (roomtype != 2)
                                     list.Add(roomtype + 1);
-                                if (arrangement != -1)
+                                if (arrangement != 2)
                                     list.Add(arrangement + 3);
-                                if (projector != -1)
-                                    list.Add(projector + 5);
+                                if (projector == 0)
+                                    list.Add(5);
+                                if (projector == 1)
+                                    list.Add(6);
                                 if (wheel == "Yes")
                                     list.Add(9);
                                 if (visualiser == "Yes")
@@ -985,7 +987,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Monday'," + startTime + "," + endTime + "," + semesterText + ","+DateTime.Now.Year.ToString()+","+round+")";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Monday'," + startTime + "," + endTime + "," + semesterText + ","+DateTime.Now.Year.ToString()+","+round+",0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
@@ -1123,7 +1125,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Wednesday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Wednesday'," + startTime + "," + endTime + "," + semesterText + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
@@ -1192,7 +1194,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Thursday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Thursday'," + startTime + "," + endTime + "," + semesterText + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
@@ -1261,7 +1263,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Friday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Friday'," + startTime + "," + endTime + "," + semesterText + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
@@ -1304,6 +1306,7 @@ namespace Team11
                                                             reqfacsql.ExecuteNonQuery();
                                                         }
                                                         conn.Close();
+                                                        
                                                     }
                                                     ended = false;
                                                     break;
@@ -1311,7 +1314,7 @@ namespace Team11
                                         }
                                     }
                                 }
-
+                                editRequestScriptDiv.InnerHtml = "<script>alert(\"Request successfully edited.\")</script>";
 
                                 if (numberAltRooms == 1)
                                 {

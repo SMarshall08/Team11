@@ -170,7 +170,7 @@
             <div class="canister">
                 
                 <div class="canistertitle">
-                    <h2>Facility Options</h2>
+                    <h2>Facility Filtering Options</h2>
                 </div>
 
                 <div class="canistercontainer">
@@ -233,8 +233,8 @@
 
                     <div class="row">
                         <div class="text-center col-md-4 col-sm-4">
-                            <asp:CheckBox class="btn btn-primary" ID="CheckBoxWB" runat="server" Text="White Board"   autopostback="true"/>
-                            <asp:CheckBox class="btn btn-primary leftmarg" ID="CheckBoxCB" runat="server" Text="Chalk Board" autopostback="true" />
+                            <asp:CheckBox class="btn btn-primary" ID="CheckBoxWB" runat="server" Text="White Board"   autopostback="true" OnCheckedChanged="DropDownListBuildings_SelectedIndexChanged"/>
+                            <asp:CheckBox class="btn btn-primary leftmarg" ID="CheckBoxCB" runat="server" Text="Chalk Board" autopostback="true" OnCheckedChanged="DropDownListBuildings_SelectedIndexChanged" />
                         </div>
                         <div class="text-center col-md-4 col-sm-4">
                             <asp:RadioButtonList ID="RadioButtonListProjector" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonListProjector_SelectedIndexChanged" RepeatDirection="Horizontal">
@@ -705,5 +705,5 @@
                 </div><!-- ./canistercontainer -->
             </div><!-- ./canister -->
 
-
+    <div id="editRequestScriptDiv" runat="server" ></div>
 </asp:Content>
