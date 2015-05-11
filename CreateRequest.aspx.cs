@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,7 +14,7 @@ namespace Team11
 {
     public partial class CreateRequest : System.Web.UI.Page
     {
-
+        int priority = 0;
         int userID = 0; int round = 0;
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Team11
             DateTime theDateNow = DateTime.Now;
             double days = (databaseDate.Subtract(theDateNow).TotalDays);
             double daysRoundedUp = Math.Ceiling(days);
-            string roundString = "View Requests: (Current round: " + round + " - Days until next round: " + daysRoundedUp + ")";
+            string roundString = "Create Requests: (Current round: " + round + " - Days until next round: " + daysRoundedUp + ")";
             countdownLabel2.Text = roundString;
 
             // read the userid from the querystring
@@ -192,6 +192,11 @@ WHERE userID={0}", userID);
                 SqlCommand buildingcommand = new SqlCommand(buildingidquery, conn);
                 buildingID = Convert.ToInt32(buildingcommand.ExecuteScalar());
             }
+
+            priority = 0;
+
+            if (CheckboxP1.Checked == true)
+            { priority = 1; }   
 
             string roomtype = RadioButtonListRoomType.Text;
             if (roomtype == "Lecture")
@@ -662,7 +667,7 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                                         status = "Accepted";
                                                     else
                                                         status = "Pending";
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','" + status + "'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + "," + semesterText + ","+DateTime.Now.Year.ToString()+","+round+")";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','" + status + "'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + "," + semesterText + ","+DateTime.Now.Year.ToString()+","+round+","+priority+")";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
