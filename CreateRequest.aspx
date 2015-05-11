@@ -385,6 +385,7 @@
                             <asp:Button style="margin-right:24px;" ID="ButtonDeleteRoomAlt3" runat="server" 
                                 class="btn btn-success moveleft" onclick="ButtonDeleteRoomAlt3_Click" 
                                 Text="Delete" />
+                            <br />
                              <!-- Alt Room 4 label -->
                             <asp:Label ID="LabelRoomAlt4" runat="server" Text="None"></asp:Label>
                             <!-- Alt Room 4 Delete Button -->
@@ -408,8 +409,8 @@
                         <div class="text-center col-md-12 col-sm-12">
                             <div class="text-center col-md-12 col-sm-12">
                             <asp:RadioButtonList CssClass="center" ID="RadioButtonListSemester" runat="server" RepeatDirection="Horizontal">
-                                <asp:ListItem class="btn btn-primary " Enabled="False">Semester 1</asp:ListItem>
-                                <asp:ListItem class="btn btn-primary leftmarg" Selected="True">Semester 2</asp:ListItem>
+                                <asp:ListItem ID="semester1btn" runat="server" class="btn btn-primary " Enabled="False">Semester 1</asp:ListItem>
+                                <asp:ListItem ID="semester2btn" runat="server" class="btn btn-primary leftmarg" Selected="True">Semester 2</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                         </div>
