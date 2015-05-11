@@ -1054,7 +1054,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Tuesday'," + startTime + "," + endTime + "," + semesterText + ",2014,1)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Tuesday'," + startTime + "," + endTime + "," + semesterText + "," + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
