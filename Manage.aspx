@@ -235,23 +235,37 @@
                     <div class="text-center center col-md-6 col-sm-6">
                         <h3>Choose Staff to Add to Department</h3>
                     </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <h3>Add New User to System</h3>
+                    </div>
                 </div>
 
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
 
                         <asp:DropDownList class="form-control" ID="DropDownListChooseStaffDept" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListChooseStaffDept_SelectedIndexChanged"></asp:DropDownList>
-                        <!--<asp:DropDownList class="form-control" ID="DropDownListChooseStaffModule" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListChooseStaffModule_SelectedIndexChanged"></asp:DropDownList>-->
                         <asp:TextBox class="form-control" ID="TextBoxFirstName" runat="server" AutoPostBack="True" Text="" placeholder="Enter First Name..." OnTextChanged="TextBoxFirstName_TextChanged"></asp:TextBox>
-                        <asp:TextBox class="form-control" ID="TextBoxLastName" runat="server" AutoPostBack="True" Text="" placeholder="Enter First Name..." OnTextChanged="TextBoxLastName_TextChanged"></asp:TextBox>
+                        <asp:TextBox class="form-control" ID="TextBoxLastName" runat="server" AutoPostBack="True" Text="" placeholder="Enter Last Name..." OnTextChanged="TextBoxLastName_TextChanged"></asp:TextBox>
 
 
 
                         <asp:CheckBoxList class="center" ID="CheckBoxListAddNewStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListAddNewStaff_SelectedIndexChanged">
                             <asp:ListItem class="btn btn-primary">Add Staff</asp:ListItem>
                         </asp:CheckBoxList>
-
+                        <div id="NewStaffAddedDiv" runat="server"></div>
                         
+                    </div>
+                    <div class="text-center center col-md-6 col-sm-6">
+                        <asp:TextBox class="form-control" ID="TextBoxNewUserCode" runat="server" AutoPostBack="True" Text="" placeholder="Enter New Department Code...(e.g CO)" ></asp:TextBox>
+                        <asp:TextBox class="form-control" ID="TextBoxNewUserName" runat="server" AutoPostBack="True" Text="" placeholder="Enter New Department Name..." ></asp:TextBox>
+                        <asp:TextBox class="form-control" ID="TextBoxNewUserPassword" runat="server" AutoPostBack="True" Text="" placeholder="Enter New Password..." ></asp:TextBox>
+                        <asp:TextBox class="form-control" ID="TextBoxNewUserHint" runat="server" AutoPostBack="True" Text="" placeholder="Enter New Hint..." ></asp:TextBox>
+                        
+                        <asp:CheckBoxList class="center" ID="CheckBoxListAddNewUser" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListAddNewUser_SelectedIndexChanged">
+                            <asp:ListItem class="btn btn-primary">Add User</asp:ListItem>
+                        </asp:CheckBoxList>
+
+                        <div id="NewUserAddedDiv" runat="server"></div>
                     </div>
                  </div>
 
@@ -289,6 +303,8 @@
                         <asp:CheckBoxList class="center" ID="CheckBoxListAddStaff" runat="server" AutoPostBack="true" RepeatDirection="Horizontal" onselectedindexchanged="CheckBoxListAddStaff_SelectedIndexChanged">
                             <asp:ListItem class="btn btn-primary">Add Staff</asp:ListItem>
                         </asp:CheckBoxList>
+
+                      <div id="StaffAddedModuleDiv" runat="server"></div>
                     </div>
                     <div class="text-center center col-md-6 col-sm-6">
                         <asp:DropDownList class="form-control" ID="DropDownListFilterDeleteDeptStaff" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownListFilterDeleteDeptStaff_SelectedIndexChanged"></asp:DropDownList>
@@ -300,6 +316,9 @@
                             <asp:ListItem class="btn btn-primary">Delete Staff</asp:ListItem>
                         </asp:CheckBoxList>
                         <asp:TextBox ID="StaffError" align="left" runat="server" OnTextChanged="StaffError_TextChanged"></asp:TextBox>
+
+                        <div id="StaffDeletedDiv" runat="server"></div>
+
                     </div>
                 </div>
 

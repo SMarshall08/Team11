@@ -94,15 +94,6 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.DropDownList DropDownListChooseStaffDept;
         
         /// <summary>
-        /// DropDownListChooseStaffModule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListChooseStaffModule;
-        
-        /// <summary>
         /// TextBoxFirstName control.
         /// </summary>
         /// <remarks>
@@ -128,6 +119,69 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxListAddNewStaff;
+        
+        /// <summary>
+        /// NewStaffAddedDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NewStaffAddedDiv;
+        
+        /// <summary>
+        /// TextBoxNewUserCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxNewUserCode;
+        
+        /// <summary>
+        /// TextBoxNewUserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxNewUserName;
+        
+        /// <summary>
+        /// TextBoxNewUserPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxNewUserPassword;
+        
+        /// <summary>
+        /// TextBoxNewUserHint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxNewUserHint;
+        
+        /// <summary>
+        /// CheckBoxListAddNewUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxListAddNewUser;
+        
+        /// <summary>
+        /// NewUserAddedDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NewUserAddedDiv;
         
         /// <summary>
         /// divByCentralModuleStaff control.
@@ -175,6 +229,15 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxListAddStaff;
         
         /// <summary>
+        /// StaffAddedModuleDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl StaffAddedModuleDiv;
+        
+        /// <summary>
         /// DropDownListFilterDeleteDeptStaff control.
         /// </summary>
         /// <remarks>
@@ -218,6 +281,15 @@ namespace Team11 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox StaffError;
+        
+        /// <summary>
+        /// StaffDeletedDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl StaffDeletedDiv;
         
         /// <summary>
         /// divByCentralFacility control.

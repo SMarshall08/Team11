@@ -55,6 +55,7 @@ namespace Team11
                     DropDownListFilterModule.Items.Add(moduleItem);
                 }
                 connect.Close();
+
                 DropDownListFilterStaff.Items.Insert(0, "Please Select a Staff Member to Filter By:");
 
                 string getStaff = @"
@@ -195,7 +196,7 @@ inner join Week on week.weekID = request.weekID
             myTable.ID = "ScheduleTable";
             HtmlTableRow row = new HtmlTableRow();
             HtmlTableCell cell = new HtmlTableCell("th");
-            cell.InnerText = "Day";
+            cell.InnerText = "Day/Period";
             row.Cells.Add(cell);
             for (int period = 1; period <= 9; period++)
             {
@@ -314,12 +315,12 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
             myTable.ID = "ScheduleTable";
             HtmlTableRow row = new HtmlTableRow();
             HtmlTableCell cell = new HtmlTableCell("th");
-            cell.InnerText = "Day";
+            cell.InnerText = "Day/Period";
             row.Cells.Add(cell);
             for (int period = 1; period <= 9; period++)
             {
                 cell = new HtmlTableCell("th");
-                cell.InnerHtml = period.ToString();
+                cell.InnerText = period.ToString();
                 row.Cells.Add(cell);
             }
             myTable.Rows.Add(row);
@@ -334,7 +335,7 @@ inner join moduleStaff on moduleStaff.ModuleCode = request.moduleCode
                 for (int period = 1; period <= 9; period++)
                 {
                     cell = new HtmlTableCell("td");
-                    cell.InnerText = schedule[day, period];
+                    cell.InnerHtml = schedule[day, period];
                     row.Cells.Add(cell);
                 }
                 myTable.Rows.Add(row);

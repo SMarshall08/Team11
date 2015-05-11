@@ -420,8 +420,26 @@ WHERE  moduleCode = '" + mod + "' AND StaffID = " + DropDownListFilterDeleteModu
             
 
         }
-        
-     
+
+        private void AddNewUser(SqlConnection connect)
+        {
+            connect.Open();
+
+            string insertNewUserSql = @"
+INSERT INTO [User] (deptCode, deptName, password, hint)
+VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" + TextBoxNewUserPassword.Text + "','" + TextBoxNewUserHint.Text + "')";
+
+            SqlCommand NewUser = new SqlCommand(insertNewUserSql, connect);
+            NewUser.ExecuteNonQuery();
+
+            connect.Close();
+            TextBoxNewUserName.Text = "";
+            TextBoxNewUserCode.Text = "";
+            TextBoxNewUserPassword.Text = "";
+            TextBoxNewUserHint.Text = "";
+
+            
+        }
 
         protected void changeRound(object sender, EventArgs e) {
             int round = Rounds.SelectedIndex+1;
@@ -778,24 +796,28 @@ WHERE  moduleCode = '" + mod + "' AND StaffID = " + DropDownListFilterDeleteModu
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             AddStaffList(connect);
+            StaffAddedModuleDiv.InnerHtml = "<script>alert(\"Staff Added to Module\");</script>";
         }
 
         protected void CheckBoxListDeleteStaff_SelectedIndexChanged(object sender, EventArgs e)
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             DeleteStaffModule(connect);
+            StaffDeletedDiv.InnerHtml = "<script>alert(\"Staff Deleted from Module\");</script>";
         }
 
         protected void DropDownListFilterAddDeptStaff_SelectedIndexChanged(object sender, EventArgs e)
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             PopulateAddModuleList(connect);
+            
         }
 
         protected void DropDownListFilterAddStaffDept_SelectedIndexChanged(object sender, EventArgs e)
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             PopulateAddStaffList(connect);
+            
         }
 
         protected void DropDownListFilterAddModuleStaff_SelectedIndexChanged(object sender, EventArgs e)
@@ -810,14 +832,10 @@ WHERE  moduleCode = '" + mod + "' AND StaffID = " + DropDownListFilterDeleteModu
 
         protected void DropDownListChooseStaffDept_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-            PopulateDeptList(connect);*/
         }
 
         protected void DropDownListChooseStaffModule_SelectedIndexChanged(object sender, EventArgs e)
         {
-           /* SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
-            PopulateModuleList(connect);*/
         }
 
         protected void TextBoxLastName_TextChanged(object sender, EventArgs e)
@@ -834,13 +852,22 @@ WHERE  moduleCode = '" + mod + "' AND StaffID = " + DropDownListFilterDeleteModu
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             AddStaffNew(connect);
-            
+            NewStaffAddedDiv.InnerHtml = "<script>alert(\"New Staff Added\");</script>";
         }
 
         protected void StaffError_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+        protected void CheckBoxListAddNewUser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
+            AddNewUser(connect);
+            NewUserAddedDiv.InnerHtml = "<script>alert(\"New User Added\");</script>";
+        }
+
+        
 
 
 
