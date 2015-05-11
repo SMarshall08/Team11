@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateRequest.aspx.cs" Inherits="Team11.CreateRequest" MaintainScrollPositionOnPostback = "true"%>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateRequest.aspx.cs" Inherits="Team11.CreateRequest" MaintainScrollPositionOnPostback = "true"%>
 
 <%-- Create Request Header Content --%>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
@@ -6,7 +6,8 @@
     <script type="text/javascript" language="javascript">
         $(document).ready(function ()
         {   // for each radio and checkbox determine if it is checked and if it is then add the "btn" and "btn-danger" classes to the parent
-            $.each(["#MainContent_RadioButtonListRoomType_0",
+            $.each(["#MainContent_CheckBoxP1",
+                   "#MainContent_RadioButtonListRoomType_0",
                    "#MainContent_RadioButtonListRoomType_1",
                    "#MainContent_RadioButtonListRoomType_2",
                    "#MainContent_RadioButtonListArrangement_0",
@@ -134,6 +135,9 @@
                     <div class="text-center col-md-3 col-sm-3 capacity">
                         <h3 style="margin-top:-0px;">Capacity</h3>
                     </div>
+                    <div class="text-right col-md-24 col-sm-24 priority">
+                        <h3 style="margin-top:-0px;">Priority</h3>
+                    </div>
                 </div><!-- ./row -->
 
                 <div class="row modulerow">
@@ -156,6 +160,10 @@
                     
                     <div class="text-center col-md-3 col-sm-3 capacity">
                         <asp:TextBox class="form-control" ID="TextBoxCapacity" runat="server" AutoPostBack="True" ontextchanged="TextBoxCapacity_TextChanged" ></asp:TextBox>
+                    </div>
+
+                    <div class="text-right col-md-24 col-sm-24 priority">
+                        <asp:CheckBox class="btn btn-primary" ID="CheckboxP1" text="Yes" runat="server" AutoPostBack="true" />
                     </div>
                 </div><!-- ./row -->
             
