@@ -127,13 +127,85 @@ $(document).ready(function () {
     <div class="navbar navbar-inverse narbar-fixed-bottom" role="navigation">
         <div class="container">
             <div class="centre">
-
+                <input id="coloursButton" type="button" onclick="invertColours();" value="Invert Colours"/>
                 <div id="displayRound" runat="server"></div>
             </div>
             
         </div>
 
+        <script>
 
+            var invertedColours = false;
+            function invertColours() {
+
+    if (invertedColours) {
+        negativar2();
+        invertedColours = false;
+        document.getElementById("coloursButton").value = "Invert Colours";
+    }
+    else {
+        negativar();
+        invertedColours = true;
+        document.getElementById("coloursButton").value = "Revert Colours";
+    }
+            }
+
+            function negativar() {
+                var percent = '100%';
+
+                var head = document.getElementsByTagName('head')[0];
+                var style = document.createElement('style');
+
+                var css = 'html {-webkit-filter: invert(' + percent + ');' +
+                    '-moz-filter: invert(' + percent + ');' +
+                    '-o-filter: invert(' + percent + ');' +
+                    '-ms-filter: invert(' + percent + '); ' +
+                    'filter: invert(' + percent + '); ';
+
+
+                style.type = 'text/css';
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
+
+                head.appendChild(style);
+            }
+
+            function navegador() {
+                var N = navigator.appName, ua = navigator.userAgent, tem;
+                var M = ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+                if (M && (tem = ua.match(/version\/([\.\d]+)/i)) != null) M[2] = tem[1];
+                M = M ? [M[1], M[2]] : [N, navigator.appVersion, '-?'];
+                return M;
+            }
+
+            function negativar2() {
+                var percent = '0%';
+
+                var head = document.getElementsByTagName('head')[0];
+                var style = document.createElement('style');
+
+                var css = 'html {-webkit-filter: invert(' + percent + ');' +
+                    '-moz-filter: invert(' + percent + ');' +
+                    '-o-filter: invert(' + percent + ');' +
+                    '-ms-filter: invert(' + percent + '); ' +
+                    'filter: invert(' + percent + '); ';
+
+
+                style.type = 'text/css';
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
+
+                head.appendChild(style);
+            }
+
+
+        </script>
     </div>
 </body>
 </html>

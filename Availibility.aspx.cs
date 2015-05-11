@@ -27,7 +27,7 @@ namespace Team11
                 connect.Open();
 
                 //Find all rooms
-                string findrooms = "Select roomName from [Room]";
+                string findrooms = "Select roomName from [Room] WHERE Room.private <> 1";
                 SqlCommand roomscommand = new SqlCommand(findrooms, connect);
                 SqlDataReader rooms = roomscommand.ExecuteReader();
                 DropDownListRooms.Items.Clear();

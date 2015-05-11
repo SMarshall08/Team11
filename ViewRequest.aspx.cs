@@ -200,11 +200,13 @@ WHERE [Module].userID = '" + Session["userID"] + "'" + codeStr;
                 {
                     weekval = reqs.GetInt32(n);
                     if (weekval == 1)
-                        weekcol += (n + 1) + ", ";
+                        weekcol += (n -8) + ", ";
                 }
                 if (weekcol.Length != 0)
                     weekcol = weekcol.Substring(0, weekcol.Length - 2);
-
+                /*int weekcolint = Convert.ToInt32(weekcol);
+                weekcolint = weekcolint - 9;
+                weekcol = weekcolint.ToString();*/
                 weeks.Add(weekcol);
             }
             conn.Close();
@@ -604,6 +606,8 @@ WHERE [Request].requestID = " + requests[request];
                 dayLabel.Text = day;
                 if (weeks.Length != 0)
                     weeks = weeks.Substring(0, weeks.Length - 2);
+
+                ////string [] weekArray = weeks.Split(", ");
                 weeksLabel.Text = weeks;
                 statusLabel.Text = status;
                 if (periodStart == periodEnd)

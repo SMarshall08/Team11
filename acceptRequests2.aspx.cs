@@ -218,9 +218,9 @@ namespace Team11
                         {
                             room = reader4["roomName"].ToString();
                         }
-                    }
+                    } reader4.Close();
                 }
-
+                
                 if (numberOfRooms > 1)
                 {
                     if (numberOfRooms == 2)
@@ -260,7 +260,7 @@ namespace Team11
 
                 while (AltReader3.Read())
                 {
-                    roomID = reader3["roomID"].ToString();
+                    AltRoomID = AltReader3["AltRoom"].ToString();
                     if (!(AltRoomID == "")) { AltRoomIDs.Add(AltRoomID); }
 
 
@@ -272,31 +272,31 @@ namespace Team11
                 if (numberOfAltRooms > 1)
                 {
 
-                    if (numberOfAltRooms == 2) { AltRoomID1 = AltRoomIDs[0]; AltRoomID2 = AltRoomIDs[1]; AltRoomSQL2 = "SELECT * FROM AltRoom WHERE AltRoomID =" + AltRoomID1 + " OR AltRoomID=" + AltRoomID2; }
-                    if (numberOfAltRooms == 3) { AltRoomID1 = AltRoomIDs[0]; AltRoomID2 = AltRoomIDs[1]; AltRoomID3 = AltRoomIDs[2]; AltRoomSQL2 = "SELECT * FROM AltRoom WHERE AltRoomID =" + AltRoomID1 + " OR AltRoomID=" + AltRoomID2 + " OR AltRoomID=" + AltRoomID3; }
-                    if (numberOfAltRooms == 4) { AltRoomID1 = AltRoomIDs[0]; AltRoomID2 = AltRoomIDs[1]; AltRoomID3 = AltRoomIDs[2]; AltRoomID4 = AltRoomIDs[3]; AltRoomSQL2 = "SELECT * FROM AltRoom WHERE AltRoomID =" + AltRoomID1 + " OR AltRoomID=" + AltRoomID2 + " OR AltRoomID=" + AltRoomID3 + " OR AltRoomID=" + AltRoomID4; }
+                    if (numberOfAltRooms == 2) { AltRoomID1 = AltRoomIDs[0]; AltRoomID2 = AltRoomIDs[1]; AltRoomSQL2 = "SELECT * FROM Room WHERE roomID =" + AltRoomID1 + " OR roomID=" + AltRoomID2; }
+                    if (numberOfAltRooms == 3) { AltRoomID1 = AltRoomIDs[0]; AltRoomID2 = AltRoomIDs[1]; AltRoomID3 = AltRoomIDs[2]; AltRoomSQL2 = "SELECT * FROM Room WHERE roomID =" + AltRoomID1 + " OR roomID=" + AltRoomID2 + " OR roomID=" + AltRoomID3; }
+                    if (numberOfAltRooms == 4) { AltRoomID1 = AltRoomIDs[0]; AltRoomID2 = AltRoomIDs[1]; AltRoomID3 = AltRoomIDs[2]; AltRoomID4 = AltRoomIDs[3]; AltRoomSQL2 = "SELECT * FROM Room WHERE roomID =" + AltRoomID1 + " OR roomID=" + AltRoomID2 + " OR roomID=" + AltRoomID3 + " OR roomID=" + AltRoomID4; }
 
                 }
                 else
                 {
-                    AltRoomSQL2 = "SELECT * FROM Room WHERE AltRoomID =" + AltRoomID;
+                    AltRoomSQL2 = "SELECT * FROM Room WHERE roomID =" + AltRoomID;
                 }
                 if (!(AltRoomID == ""))
                 {
-                    SqlCommand cmd4 = new SqlCommand(AltRoomSQL2, Connection);
-                    SqlDataReader reader4; reader4 = cmd4.ExecuteReader();
+                    SqlCommand AltCmd4 = new SqlCommand(AltRoomSQL2, Connection);
+                    SqlDataReader AltReader4; AltReader4 = AltCmd4.ExecuteReader();
 
-                    while (reader4.Read())
+                    while (AltReader4.Read())
                     {
                         if (numberOfAltRooms > 1)
                         {
-                            tempString = reader4["AltRoomName"].ToString();
+                            tempString = AltReader4["roomName"].ToString();
                             AltRoomNames.Add(tempString);
 
                         }
                         else
                         {
-                            AltRoom = reader4["AltRoomName"].ToString();
+                            AltRoom = AltReader4["roomName"].ToString();
                         }
                     }
                 }
@@ -327,7 +327,7 @@ namespace Team11
 
                         AltRoom = AltRoom1 + ", " + AltRoom2 + " ," + AltRoom3 + " and " + AltRoom4;
                     }
-
+                }
 
 
                     if (week1) { weeks += "1, "; }
@@ -364,6 +364,7 @@ namespace Team11
         "<td style=\"border: 4px solid black;\">Year</td>" +
         "<td style=\"border: 4px solid black;\">Round</td>" +
         "<td style=\"border: 4px solid black;\">Preferred Room</td>" +
+     "<td style=\"border: 4px solid black;\">Alt Rooms</td>" +
         "<tr style=\"border: 4px solid black;\">" +
         "<td style=\"border: 4px solid black;\">" + moduleCode + "</td>" +
         "<td style=\"border: 4px solid black;\">" + status + "</td>" +
@@ -375,11 +376,11 @@ namespace Team11
         "<td style=\"border: 4px solid black;\">" + year + "</td>" +
         "<td style=\"border: 4px solid black;\">" + round + "</td>" +
         "<td style=\"border: 4px solid black;\">" + room + "</td>" +
-        "<td style=\"border: 4px solid black;\">" + AltRoom + "</td>" +
+      "<td style=\"border: 4px solid black;\">" + AltRoom + "</td>" +
         "</tr></table>";
 
 
-                }
+                
             }
         }
         protected void changeRequestedRoomFunction(Object sender, EventArgs e)

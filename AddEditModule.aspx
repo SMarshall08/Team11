@@ -41,9 +41,7 @@
                     <div class="text-center col-md-4 col-sm-4 col-md-offset-2 col-sm-offset-2">
                         <asp:Button class="btn btn-success btn-block full" ID="Button1" runat="server" onclick="Button1_Click" Text="Add" Width="96px" />
                     </div>
-                    <div class="text-center col-md-4 col-sm-4">
-                        <button class="btn btn-success btn-block">Clear All</button> <br />
-                    </div>
+                    
                     <div class="text-center col-md-6 col-sm-4">
                     <asp:Label ID="LabelResponse" runat="server" Text=""></asp:Label>
                     </div>
