@@ -159,9 +159,10 @@ WHERE userID={0}", userID);
 
             while (modules.Read())
             {
-                ListItem moduleItem = new ListItem(modules.GetString(0) + "  " + modules.GetString(1), modules.GetInt32(2).ToString());
-         
-                DropDownListModules.Items.Add(moduleItem);
+                string modulecode = modules.GetString(0);
+                string modulename = modules.GetString(1);
+                string module = String.Format("{0} : {1}", modulecode, modulename);
+                DropDownListModules.Items.Add(module);
 
             }
             connect.Close();
