@@ -17,7 +17,7 @@ namespace Team11
         int requestid = 1;
         int userID = 0;
         int round = 0;
-
+        int semester = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             string roundLabelSQL = "SELECT * FROM Rounds";
@@ -35,7 +35,16 @@ namespace Team11
             }
             // read the userid from the querystring
             userID = Convert.ToInt32(Session["userID"]);
-
+            int month = DateTime.Now.Month; 
+            if(month<2 || month > 8){semester=1;}else{semester=2;} //If the month is from September to January, it's semester one. Else it's semester two.
+            if (semester == 1){
+                semester1btn.Enabled = true;
+                semester2btn.Enabled = false;
+            }
+            else if (semester == 2){
+                semester1btn.Enabled = false;
+                semester2btn.Enabled = true;
+            }
             //Gets the department name for the label
             using (SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["myConnectionString"].ToString()))
             {
@@ -561,7 +570,7 @@ namespace Team11
                                     deleterequestsql.ExecuteNonQuery();
                                 }
 
-                                int semesterText = 2;
+                                //int semesterText = 2;
 
                                 /*Initialise week variables*/
                                 int week1;
@@ -987,7 +996,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Monday'," + startTime + "," + endTime + "," + semesterText + ","+DateTime.Now.Year.ToString()+","+round+",0)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Monday'," + startTime + "," + endTime + "," + semester + ","+DateTime.Now.Year.ToString()+","+round+",0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
@@ -1056,7 +1065,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Tuesday'," + startTime + "," + endTime + "," + semesterText + "," + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Tuesday'," + startTime + "," + endTime + "," + semester + "," + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
@@ -1125,7 +1134,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Wednesday'," + startTime + "," + endTime + "," + semesterText + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Wednesday'," + startTime + "," + endTime + "," + semester + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
@@ -1194,7 +1203,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Thursday'," + startTime + "," + endTime + "," + semesterText + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Thursday'," + startTime + "," + endTime + "," + semester + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);
@@ -1263,7 +1272,7 @@ namespace Team11
                                                     break;
                                                 case false:
                                                     int endTime = startTime + duration;
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Friday'," + startTime + "," + endTime + "," + semesterText + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
+                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','Pending'," + weekIDText + ",'Friday'," + startTime + "," + endTime + "," + semester + DateTime.Now.Year.ToString() + "," + round + "," + "0)";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);

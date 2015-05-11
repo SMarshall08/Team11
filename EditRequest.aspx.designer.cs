@@ -346,6 +346,24 @@ namespace Team11 {
         protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListSemester;
         
         /// <summary>
+        /// semester1btn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem semester1btn;
+        
+        /// <summary>
+        /// semester2btn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem semester2btn;
+        
+        /// <summary>
         /// UpdatePanel3 control.
         /// </summary>
         /// <remarks>
