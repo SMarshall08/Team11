@@ -2,11 +2,11 @@
 ----------------------------------------------------------*/
 body   
 {
-    background: #b6b7bc;
+    background: black;
     font-size: .80em;
     margin: 0px;
     padding: 0px;
-    color: #696969;
+    color: white;
 }
 .center 
 {
@@ -48,6 +48,7 @@ h1
     text-align:center;
     border-top-left-radius:3px;
     border-top-right-radius:3px;
+    color:white !important;
 }
 .header h1 
 {
@@ -87,6 +88,7 @@ div.navbar
     padding:0;
     text-align:center;
     color:white;
+    font-size: x-large;
 }
 div.navbar ul 
 {
@@ -325,4 +327,8 @@ span.btn > label {
 }
 .navbar-custom {
     height: 60px !important;
+}
+
+div.displayRound {
+    font-size: 20px;
 }
