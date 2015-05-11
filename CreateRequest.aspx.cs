@@ -145,7 +145,7 @@ namespace Team11
             DropDownListModules.Items.Clear();
             connect.Open();
             string modulesql = String.Format(@"
-SELECT moduleCode, moduleTitle 
+SELECT moduleCode, moduleTitle , moduleID
 FROM [Module] 
 WHERE userID={0}", userID);
             if (DropDownListPart.SelectedIndex > 0)
@@ -159,10 +159,9 @@ WHERE userID={0}", userID);
 
             while (modules.Read())
             {
-                string modulecode = modules.GetString(0);
-                string modulename = modules.GetString(1);
-                string module = String.Format("{0} : {1}", modulecode, modulename);
-                DropDownListModules.Items.Add(module);
+                ListItem moduleItem = new ListItem(modules.GetString(0) + "  " + modules.GetString(1), modules.GetInt32(2).ToString());
+         
+                DropDownListModules.Items.Add(moduleItem);
 
             }
             connect.Close();
@@ -412,7 +411,24 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                 /* If there is a corresponding weekID in database, select it */
                                 if (testtwo != 0)
                                 {
-                                    string weekquery2 = "SELECT weekID FROM [Week] WHERE week1= " + week1 + " AND week2= " + week2 + " AND week3= " + week3 + " AND week4= " + week4 + " AND week5= " + week5 + " AND week6= " + week6 + " AND week7= " + week7 + " AND week8= " + week8 + " AND week9= " + week9 + " AND week10= " + week10 + " AND week11= " + week11 + " AND week12= " + week12 + " AND week13= " + week13 + " AND week14= " + week14 + " AND week15= " + week15;
+                                    string weekquery2 = @"
+                        SELECT weekID 
+                        FROM [Week] 
+                        WHERE week1= " + week1 + 
+                       " AND week2= " + week2 +
+                       " AND week3= " + week3 + 
+                       " AND week4= " + week4 + 
+                       " AND week5= " + week5 +
+                       " AND week6= " + week6 +
+                       " AND week7= " + week7 + 
+                       " AND week8= " + week8 + 
+                       " AND week9= " + week9 + 
+                       " AND week10= " + week10 + 
+                       " AND week11= " + week11 + 
+                       " AND week12= " + week12 + 
+                       " AND week13= " + week13 + 
+                       " AND week14= " + week14 + 
+                       " AND week15= " + week15;
                                     SqlConnection connection2 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                     connection2.Open();
                                     SqlCommand weeksql2 = new SqlCommand(weekquery2, connection2);
@@ -422,7 +438,23 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                 /* If there is no corresponding weekID, make a new one and use that */
                                 else
                                 {
-                                    string insweekquery = "INSERT INTO [Week] VALUES(" + week1 + "," + week2 + "," + week3 + "," + week4 + "," + week5 + "," + week6 + "," + week7 + "," + week8 + "," + week9 + "," + week10 + "," + week11 + "," + week12 + "," + week13 + "," + week14 + "," + week15 + ")";
+                                    string insweekquery = @"
+                        INSERT INTO [Week] 
+                        VALUES(" + week1 + ","
+                                 + week2 + "," 
+                                 + week3 + "," 
+                                 + week4 + "," 
+                                 + week5 + "," 
+                                 + week6 + "," 
+                                 + week7 + "," 
+                                 + week8 + "," 
+                                 + week9 + "," 
+                                 + week10 + "," 
+                                 + week11 + "," 
+                                 + week12 + ","     
+                                 + week13 + "," 
+                                 + week14 + "," 
+                                 + week15 + ")";
                                     SqlConnection conne = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                     conne.Open();
                                     SqlCommand insweeksql = new SqlCommand(insweekquery, conne);
@@ -669,7 +701,18 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                                     if (CheckBoxP1.Checked == true)
                                                     { priority = 1; }
                                                     else { priority = 0; } 
-                                                    string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','" + status + "'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + "," + semesterText + ","+DateTime.Now.Year.ToString()+","+round+","+priority+")";
+                                                    string insreq = @"
+                            INSERT INTO [Request] 
+                            VALUES ('" + moduleCodeText +
+                                       "','" + status + 
+                                       "'," + weekIDText + 
+                                       ",'" + dayName[day] + 
+                                       "'," + startTime + 
+                                       ","  + endTime + 
+                                       ","  + semesterText +
+                                       ","  + DateTime.Now.Year.ToString() +
+                                       ","  + round + 
+                                       ","  + priority + ")";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();
                                                     SqlCommand insreqsql = new SqlCommand(insreq, connection6);

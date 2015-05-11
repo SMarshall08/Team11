@@ -480,6 +480,7 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
                 this.divByCentralRounds.Visible = false;
                 this.divByCentralModuleStaff.Visible = false;
                 this.divByAddLecturer.Visible = false;
+                
                 isUserAdminLabel.Text = "";
             }
             else
@@ -501,8 +502,9 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
                     this.divByCentralEditRoom.Visible = true;
                     this.divByCentralRespond.Visible = true;
                     this.divByCentralRounds.Visible = true;
-                    this.divByCentralModuleStaff.Visible = false;
+                    this.divByCentralModuleStaff.Visible = true;
                     this.divByAddLecturer.Visible = true;
+                    
                     isUserAdminLabel.Text = "";
                 }
 

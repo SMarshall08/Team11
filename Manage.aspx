@@ -233,7 +233,7 @@
 
                 <div class="row">
                     <div class="text-center center col-md-6 col-sm-6">
-                        <h3>Choose Staff to Add to Department</h3>
+                        <h3>Add New Staff to Department</h3>
                     </div>
                     <div class="text-center center col-md-6 col-sm-6">
                         <h3>Add New User to System</h3>
