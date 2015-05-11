@@ -113,6 +113,11 @@ namespace Team11
             else if (time.Checked)
                 periodval = 0;
 
+            if (header1.SelectedValue == header2.SelectedValue || header1.SelectedValue == header3.SelectedValue || header2.SelectedValue == header3.SelectedValue) {
+                ErrorLabel.Text = "Please select three different headers.";
+            
+            }
+            else{
             SqlConnection conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
             string preferencesExistsSql = String.Format("SELECT COUNT(*) FROM Preferences WHERE userID={0}", userID);
             SqlCommand preferencessqlCmd = new SqlCommand(preferencesExistsSql, conn);
@@ -161,6 +166,7 @@ values ({0}, {1}, '{2}', '{3}', '{4}', '{5}', '{6}', {7})",
             preferencessql.ExecuteNonQuery();
             conn.Close();
             ErrorLabel.Text = "Your preferences have been updated.";
+        }
         }
 
         protected void ButtonChangePass_Click(object sender, EventArgs e)
