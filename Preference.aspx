@@ -82,7 +82,7 @@
                         <asp:ListItem Value="building">Building</asp:ListItem>
                         <asp:ListItem Value="semester">Semester</asp:ListItem>
                         <asp:ListItem Value="year">Year</asp:ListItem>
-                        <asp:ListItem Value="numberstudents">No. Students</asp:ListItem>
+                        
                     </asp:DropDownList>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                         <asp:ListItem Value="building">Building</asp:ListItem>
                         <asp:ListItem Value="semester">Semester</asp:ListItem>
                         <asp:ListItem Value="year">Year</asp:ListItem>
-                        <asp:ListItem Value="numberstudents">No. Students</asp:ListItem>
+                        
                     </asp:DropDownList>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                         <asp:ListItem Value="building">Building</asp:ListItem>
                         <asp:ListItem Value="semester">Semester</asp:ListItem>
                         <asp:ListItem Value="year">Year</asp:ListItem>
-                        <asp:ListItem Value="numberstudents">No. Students</asp:ListItem>
+                        
                     </asp:DropDownList>
                 </div>
             </div>
