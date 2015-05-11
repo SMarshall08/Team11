@@ -117,7 +117,7 @@ namespace Team11
             roomavailibility();
         }
 
-        //funtion 
+        //funtion to filter the rooms according to the building you have chosen
         public void findrooms()
         {
 
@@ -162,7 +162,7 @@ namespace Team11
         }
 
 
-
+        //function to show what days and periods a particular room has been booked for
         public void roomavailibility()
         {
             // Initialise the two button arrays
@@ -235,6 +235,7 @@ where [Room].roomName='{0}' and [Week].week1={1}", selectedroom, selectedweek);
 
             connect.Close();
         }
+
 
         protected void DropDownListRooms_SelectedIndexChanged(object sender, EventArgs e)
         {

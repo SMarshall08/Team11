@@ -467,6 +467,7 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
 
         //When department or central button is pressed
         //controls which part is visible to central/departmental admin.
+        //also check if the user is central admin and if not, disables elements that departments should not have access to.
         protected void RadioButtonListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Search preference by Room or Date, hide the unselected one
@@ -860,6 +861,7 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
 
         }
 
+        //alert the user when a new user has been added to the system
         protected void CheckBoxListAddNewUser_SelectedIndexChanged(object sender, EventArgs e)
         {
             SqlConnection connect = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
