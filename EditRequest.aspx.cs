@@ -98,7 +98,7 @@ namespace Team11
                 connect.Close();
                 connect.Open();
                 //find park
-                string parkquery = "SELECT [Park].parkID FROM [Park] INNER JOIN [Building] ON [Park].parkID = [Building].buildingID INNER JOIN [Room] ON [Building].buildingID = [Room].buildingID INNER JOIN [BookedRoom] ON [Room].roomID = [BookedRoom].roomID WHERE [BookedRoom].requestID=" + requestid;
+                string parkquery = "SELECT [Park].parkID FROM [Park] INNER JOIN [Building] ON [Park].parkID = [Building].buildingID INNER JOIN [Room] ON [Building].buildingID = [Room].buildingID INNER JOIN [PreferredRoom] ON [Room].roomID = [PreferredRoom].roomID WHERE [PreferredRoom].requestID=" + requestid;
                 SqlCommand parksql = new SqlCommand(parkquery, connect);
                 SqlDataReader parkreader = parksql.ExecuteReader();
                 if (parkreader.Read())
@@ -998,7 +998,7 @@ namespace Team11
                                                         conn2.Open();
                                                         for (int y = 0; y < roomlist.Count; y++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn2);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -1011,7 +1011,7 @@ namespace Team11
                                                         conn4.Open();
                                                         for (int x = 0; x < numberOfRooms; x++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn4);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -1067,7 +1067,7 @@ namespace Team11
                                                         conn2.Open();
                                                         for (int y = 0; y < roomlist.Count; y++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn2);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -1080,7 +1080,7 @@ namespace Team11
                                                         conn4.Open();
                                                         for (int x = 0; x < numberOfRooms; x++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn4);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -1136,7 +1136,7 @@ namespace Team11
                                                         conn2.Open();
                                                         for (int y = 0; y < roomlist.Count; y++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn2);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -1149,7 +1149,7 @@ namespace Team11
                                                         conn4.Open();
                                                         for (int x = 0; x < numberOfRooms; x++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn4);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -1205,7 +1205,7 @@ namespace Team11
                                                         conn2.Open();
                                                         for (int y = 0; y < roomlist.Count; y++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn2);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -1218,7 +1218,7 @@ namespace Team11
                                                         conn4.Open();
                                                         for (int x = 0; x < numberOfRooms; x++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn4);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -1274,7 +1274,7 @@ namespace Team11
                                                         conn2.Open();
                                                         for (int y = 0; y < roomlist.Count; y++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request])," + roomlist[y] + ")";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn2);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
@@ -1287,7 +1287,7 @@ namespace Team11
                                                         conn4.Open();
                                                         for (int x = 0; x < numberOfRooms; x++)
                                                         {
-                                                            booked = "INSERT INTO [BookedRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
+                                                            booked = "INSERT INTO [PreferredRoom] VALUES ((SELECT MAX(requestID) FROM [Request]),(SELECT roomID FROM [Room] WHERE roomName='" + DropDownListRooms.Items[x].Value + "'))";
                                                             SqlCommand bookedsql = new SqlCommand(booked, conn4);
                                                             bookedsql.ExecuteNonQuery();
                                                         }
