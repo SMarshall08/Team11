@@ -73,6 +73,7 @@ namespace Team11
                 connect3.Close();
             }
         }
+        //When byroom or bydate button is pressed
         protected void RadioButtonListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Search preference by Room or Date, hide the unselected one
@@ -108,12 +109,15 @@ namespace Team11
             findrooms();
             roomavailibility();
         }
+
+        //refresh the dropdown with roomnames and the days and period selector
         protected void DropDownListBuilding_SelectedIndexChanged(object sender, EventArgs e)
         {
             findrooms();
             roomavailibility();
         }
 
+        //funtion 
         public void findrooms()
         {
 

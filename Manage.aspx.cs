@@ -23,7 +23,7 @@ namespace Team11
         {
             roundButton.Click += new EventHandler(changeRound);
             roundDateButton.Click += new EventHandler(changeRoundDate);
-            // read the userid from the querystring
+            // read the userid from the session
             userID = Convert.ToInt32(Session["userID"]);
             string roundLabelSQL = "SELECT * FROM Rounds";
             SqlConnection roundLabelConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
@@ -157,10 +157,6 @@ namespace Team11
                 poolDropDownList.Items.Clear();
 
                 ListItem newItem2 = new ListItem();
-                /*newItem2.Text = "Choose a pool room";
-                newItem2.Value = "test";
-                poolDropDownList.Items.Add(newItem2);
-                */
                 poolConnection.Open();
                 poolReader = poolCmd.ExecuteReader();
                 while (poolReader.Read())
@@ -441,6 +437,7 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
             
         }
 
+        //function to change the round
         protected void changeRound(object sender, EventArgs e) {
             int round = Rounds.SelectedIndex+1;
             string roundSQL = "UPDATE Rounds SET round = "+round+" WHERE 1=1";
@@ -452,6 +449,7 @@ VALUES ('" + TextBoxNewUserCode.Text + "','" + TextBoxNewUserName.Text + "','" +
             roundConnection.Close();
         
         }
+
         protected void changeRoundDate(object sender, EventArgs e) {
             string date = CalendarRound.SelectedDate.ToShortDateString();
             string roundSQL = "UPDATE Rounds SET dateToAdvance = '" + date + "' WHERE 1=1";
