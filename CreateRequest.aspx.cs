@@ -193,10 +193,7 @@ WHERE userID={0}", userID);
                 buildingID = Convert.ToInt32(buildingcommand.ExecuteScalar());
             }
 
-            priority = 0;
-
-            if (CheckboxP1.Checked == true)
-            { priority = 1; }   
+            
 
             string roomtype = RadioButtonListRoomType.Text;
             if (roomtype == "Lecture")
@@ -667,6 +664,11 @@ WHERE [Park].parkName ='" + RadioButtonListParks.Text + "' AND [Building].buildi
                                                         status = "Accepted";
                                                     else
                                                         status = "Pending";
+
+
+                                                    if (CheckBoxP1.Checked == true)
+                                                    { priority = 1; }
+                                                    else { priority = 0; } 
                                                     string insreq = "INSERT INTO [Request] VALUES ('" + moduleCodeText + "','" + status + "'," + weekIDText + ",'" + dayName[day] + "'," + startTime + "," + endTime + "," + semesterText + ","+DateTime.Now.Year.ToString()+","+round+","+priority+")";
                                                     SqlConnection connection6 = new SqlConnection(WebConfigurationManager.ConnectionStrings["ParkConnectionString"].ToString());
                                                     connection6.Open();

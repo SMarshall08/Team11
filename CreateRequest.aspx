@@ -163,7 +163,7 @@
                     </div>
 
                     <div class="text-right col-md-24 col-sm-24 priority">
-                        <asp:CheckBox class="btn btn-primary" ID="CheckboxP1" text="Yes" runat="server" AutoPostBack="true" />
+                        <asp:CheckBox class="btn btn-primary" ID="CheckBoxP1" text="Yes" runat="server" AutoPostBack="true" />
                     </div>
                 </div><!-- ./row -->
             
