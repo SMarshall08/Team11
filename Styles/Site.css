@@ -328,3 +328,7 @@ span.btn > label {
 .navbar-custom {
     height: 60px !important;
 }
+
+admin {
+    font-weight: bold !important;
+}

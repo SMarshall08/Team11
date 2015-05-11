@@ -21,7 +21,30 @@ namespace Team11
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (!IsPostBack)
+            {
+
+                //Find all users and their ID
+                string userNameSQL = "SELECT [deptName], [userId] FROM [User] order by [deptName]";
+                SqlConnection userNameConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["AdminConnectionString"].ToString());
+                SqlCommand userNameCmd = new SqlCommand(userNameSQL, userNameConnection);
+                SqlDataReader userNameReader;
+
+                DropDownListDept.Items.Clear();
+                ListItem newItem2 = new ListItem();
+
+                userNameConnection.Open();
+                userNameReader = userNameCmd.ExecuteReader();
+                while (userNameReader.Read())
+                {
+                    newItem2 = new ListItem();
+                    newItem2.Text = userNameReader["deptName"].ToString();
+                    newItem2.Value = userNameReader["userId"].ToString();
+                    DropDownListDept.Items.Add(newItem2);
+                }
+                userNameReader.Close();
+                DropDownListDept.Items.FindByText("Central Administrator").Attributes.Add("style", "font-weight:bold !important");
+            }
         }
 
         /// <summary>
@@ -32,7 +55,11 @@ namespace Team11
         protected void DropDownChange(object sender, EventArgs e)
         {
             LabelHint.Text = "";
+            DropDownListDept.Items.FindByText("Central Administrator").Attributes.Add("style", "font-weight:bold !important");
         }
+
+
+
         protected void ButtonLogin_Click(object sender, EventArgs e)
         {
             // Connect to database - put it in a using so that it gets cleaned up properly
